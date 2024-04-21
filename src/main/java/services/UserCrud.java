@@ -1,6 +1,7 @@
 package services;
 
 import entities.User;
+import javafx.scene.Node;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -41,4 +42,9 @@ public interface UserCrud<T> {
     boolean isEmailUsed(String email);
 
     User getUserByEmail(String email);
+
+
+
+
+
 }

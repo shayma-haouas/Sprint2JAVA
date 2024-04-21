@@ -27,28 +27,40 @@ public class LoginController {
         String email = Emailfield.getText();
         String password = Passwordfield.getText();
 
-
         if (email.isEmpty() || password.isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Error", "Fields Empty", "Please fill in both email and password fields.");
-            return;}
-        if (!isValidEmail(email)) {
+            return;
+        }
 
+        if (!isValidEmail(email)) {
             showAlert(Alert.AlertType.ERROR, "Error", "Invalid Email", "Please enter a valid email address.");
             return;
         }
+
         UserService userService = new UserService();
         boolean loginSuccessful = userService.login(email, password);
         if (loginSuccessful) {
-            showAlert(Alert.AlertType.INFORMATION, "Success", "Login Successful", "You have successfully logged in.");
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserInterface/profile.fxml"));
+                Parent root = loader.load();
+                ProfileController profileController = loader.getController();
+                profileController.setAuthenticatedEmail(email);
+                Stage stage = (Stage) Emailfield.getScene().getWindow();
+                stage.setScene(new Scene(root));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else {
             showAlert(Alert.AlertType.ERROR, "Error", "Login Failed", "Invalid email or password. Please try again.");
         }
     }
+
     private boolean isValidEmail(String email) {
         // Utiliser une expression régulière pour vérifier le format de l'email
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         return email.matches(emailRegex);
     }
+
     private void showAlert(Alert.AlertType alertType, String title, String header, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -56,7 +68,6 @@ public class LoginController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
 
     @FXML
     public void ClickedSign(MouseEvent mouseEvent) {
@@ -68,7 +79,6 @@ public class LoginController {
             e.printStackTrace();
         }
     }
-
 
 
 }

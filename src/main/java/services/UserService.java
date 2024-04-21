@@ -4,6 +4,7 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import entities.User;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -17,16 +18,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class UserService implements  UserCrud<User>{
+public class UserService implements  UserCrud<User> {
     Connection connection;
+
     public UserService() {
         connection = MyDatabase.getInstance().getConnection();
 
 
-
     }
-        @Override
-        public void add(User user) throws SQLException {
+
+    @Override
+    public void add(User user) throws SQLException {
         String query = "INSERT INTO user (name, lastname, roles, email,password, image, number, is_verified, datenaissance) " +
             "VALUES (?, ?, ?, ?, ?,?, ?, ?,?)";
 
@@ -56,7 +58,7 @@ public class UserService implements  UserCrud<User>{
     }
 
 
-        @Override
+    @Override
     public void update(User user) {
         String query = "UPDATE user SET name=?, lastname=?, roles=?, email=?, image=?, number=?, is_verified=?,datenaissance=? WHERE id=?";
 
@@ -138,7 +140,9 @@ public class UserService implements  UserCrud<User>{
             }
         } else {
             System.out.println("Email is already used.");
-        }}
+        }
+    }
+
     @Override
     public boolean login(String email, String password) {
         String query = "SELECT * FROM user WHERE email = ?";
@@ -167,7 +171,6 @@ public class UserService implements  UserCrud<User>{
     }
 
 
-
     private void loadProfileFXML() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../UserInterface/Profile.fxml"));
@@ -191,6 +194,7 @@ public class UserService implements  UserCrud<User>{
             e.printStackTrace();
         }
     }
+
     @Override
     public User getUserByEmail(String email) {
         User user = null;
@@ -202,7 +206,7 @@ public class UserService implements  UserCrud<User>{
                 user = new User();
                 user.setName(resultSet.getString("name"));
                 user.setLastname(resultSet.getString("lastname"));
-                user.setRoles(resultSet.getString("role"));
+                user.setRoles(resultSet.getString("roles"));
                 /*user.setDatenaissance(resultSet.getString("date_naissance"));*/
                 /*user.setNumber(resultSet.getString("phone_number"));*/
                 user.setEmail(resultSet.getString("email"));
@@ -213,31 +217,6 @@ public class UserService implements  UserCrud<User>{
         return user;
     }
 
-
-   /* public boolean login(String email, String password) {
-        String query = "SELECT * FROM user WHERE email = ?";
-
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, email);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()) {
-                // L'utilisateur avec l'email donné existe dans la base de données
-                // Maintenant, vérifions si le mot de passe correspond
-                String hashedPasswordFromDB = resultSet.getString("password");
-                if (BCrypt.checkpw(password, hashedPasswordFromDB)) {
-                    // Le mot de passe est correct
-                    return true; // Connexion réussie
-                }
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        // L'utilisateur n'existe pas ou le mot de passe est incorrect
-        return false; // Connexion échouée
-    }
-*/
 
     @Override
     public void updateEmail(int userId, String newEmail) {
@@ -253,7 +232,8 @@ public class UserService implements  UserCrud<User>{
             System.out.println("Error: " + e.getMessage());
         }
     }
- @Override
+
+    @Override
     public void updateName(User user) {
         String requete = "UPDATE user SET name=? WHERE id=?";
 
@@ -266,7 +246,8 @@ public class UserService implements  UserCrud<User>{
             Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-@Override
+
+    @Override
     public void updateLastName(User user) {
         String requete = "UPDATE user SET lastname=? WHERE id=?";
 
@@ -280,36 +261,37 @@ public class UserService implements  UserCrud<User>{
         }
     }
 
-@Override
-public List<User> sortByEmail() {
-    List<User> userList = new ArrayList<>();
-    String query = "SELECT * FROM user ORDER BY email";
+    @Override
+    public List<User> sortByEmail() {
+        List<User> userList = new ArrayList<>();
+        String query = "SELECT * FROM user ORDER BY email";
 
-    try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-        ResultSet resultSet = preparedStatement.executeQuery();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-        while (resultSet.next()) {
-            User user = new User(resultSet.getInt("id"),
-                resultSet.getString("name"),
-                resultSet.getString("lastname" ),
-                resultSet.getString("password"),
-                resultSet.getString("email"),
-                resultSet.getString("roles"),
-                resultSet.getString("image"),
-                resultSet.getInt("Number"),
-                resultSet.getBoolean("is_verified"),
-                resultSet.getDate("datenaissance")
+            while (resultSet.next()) {
+                User user = new User(resultSet.getInt("id"),
+                    resultSet.getString("name"),
+                    resultSet.getString("lastname"),
+                    resultSet.getString("password"),
+                    resultSet.getString("email"),
+                    resultSet.getString("roles"),
+                    resultSet.getString("image"),
+                    resultSet.getInt("Number"),
+                    resultSet.getBoolean("is_verified"),
+                    resultSet.getDate("datenaissance")
 
-            );
-            userList.add(user);
+                );
+                userList.add(user);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
         }
-    } catch (SQLException ex) {
-        Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
+
+        return userList;
     }
 
-    return userList;
-}
-@Override
+    @Override
     public List<User> sortByName() {
         List<User> userList = new ArrayList<>();
         String query = "SELECT * FROM user ORDER BY name";
@@ -369,7 +351,7 @@ public List<User> sortByEmail() {
         return userList;
     }
 
-@Override
+    @Override
     public List<User> searchByName(String name) {
         List<User> userList = new ArrayList<>();
         String query = "SELECT * FROM user WHERE nom LIKE ?";
@@ -433,6 +415,7 @@ public List<User> sortByEmail() {
         return user;
 
     }
+
     @Override
     public List<User> searchByDateOfBirth(Date dateOfBirth) {
         List<User> userList = new ArrayList<>();
@@ -464,20 +447,20 @@ public List<User> sortByEmail() {
         return userList;
     }
 
-     @Override
-     public boolean isEmailUsed(String email) {
-         List<User> userList = getUsersFromDatabase();
-         for (User user : userList) {
-             if (user.getEmail().equals(email)) {
-                 return true;
-             }
-         }
-         return false;
-     }
-     private List<User> getUsersFromDatabase() {
-        return new ArrayList<>();
+    @Override
+    public boolean isEmailUsed(String email) {
+        List<User> userList = getUsersFromDatabase();
+        for (User user : userList) {
+            if (user.getEmail().equals(email)) {
+                return true;
+            }
+        }
+        return false;
     }
 
+    private List<User> getUsersFromDatabase() {
+        return new ArrayList<>();
+    }
 
 
 }

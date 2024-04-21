@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="700.0" prefWidth="1100.0" stylesheets="@../css/Home.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.UserController.HomeController">
+   <children>
+      <HBox prefHeight="126.0" prefWidth="1100.0" styleClass="hbox-style">
+         <children>
+            <Text fill="#eeecec" strokeType="OUTSIDE" strokeWidth="0.0" text="Home">
+               <HBox.margin>
+                  <Insets left="360.0" right="20.0" top="80.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="High Tower Text" size="33.0" />
+               </font>
+            </Text>
+            <Text fill="#eeecec" layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="About">
+               <HBox.margin>
+                  <Insets right="20.0" top="80.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="High Tower Text" size="33.0" />
+               </font>
+            </Text>
+            <Text fill="#eeecec" layoutX="40.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Products">
+               <HBox.margin>
+                  <Insets right="20.0" top="80.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="High Tower Text" size="33.0" />
+               </font>
+            </Text>
+            <Text fill="#eeecec" layoutX="70.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Events">
+               <HBox.margin>
+                  <Insets right="20.0" top="80.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="High Tower Text" size="33.0" />
+               </font>
+            </Text>
+            <Text fill="#eeecec" layoutX="100.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact">
+               <HBox.margin>
+                  <Insets right="20.0" top="80.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="High Tower Text" size="33.0" />
+               </font>
+            </Text>
+            <Text fill="#eeecec" layoutX="130.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile">
+               <HBox.margin>
+                  <Insets right="10.0" top="72.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="High Tower Text" size="33.0" />
+               </font>
+            </Text>
+         </children>
+      </HBox>
+      <AnchorPane layoutY="126.0" prefHeight="576.0" prefWidth="1100.0">
+         <children>
+             <ImageView fitHeight="586.0" fitWidth="1100.0" layoutY="-9.0" styleClass="circular-image">
+                 <image>
+                     <Image url="@../img/carousel-2.jpg" />
+                 </image>
+             </ImageView>
+         </children></AnchorPane>
+   </children>
+</AnchorPane>
