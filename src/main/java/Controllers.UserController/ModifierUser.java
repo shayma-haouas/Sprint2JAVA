@@ -42,7 +42,7 @@ public class ModifierUser {
         this.email = userEmail; // Méthode pour définir l'email de l'utilisateur à modifier
     }
 
-    public void ModifierUser(ActionEvent actionEvent) {
+    /*public void ModifierUser(ActionEvent actionEvent) {
         // Afficher une boîte de dialogue de confirmation avant de modifier l'utilisateur
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation de modification");
@@ -67,7 +67,7 @@ public class ModifierUser {
                 showAlert(Alert.AlertType.ERROR, "Utilisateur non trouvé", "L'utilisateur avec cet email n'existe pas");
             }
         }
-    }
+    }*/
 
     private void showAlert(Alert.AlertType alertType, String title, String header) {
         Alert alert = new Alert(alertType);

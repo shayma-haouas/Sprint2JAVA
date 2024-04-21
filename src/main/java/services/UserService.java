@@ -3,8 +3,13 @@ package services;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import entities.User;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import utils.MyDatabase;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -144,7 +149,14 @@ public class UserService implements  UserCrud<User>{
             if (resultSet.next()) {
                 String hashedPasswordFromDB = resultSet.getString("password");
                 if (BCrypt.verifyer().verify(password.toCharArray(), hashedPasswordFromDB).verified) {
-                    return true;
+                    String role = resultSet.getString("roles");
+                    if (role.contains("ROLE_CLIENT")) {
+                        loadProfileFXML();
+                        return true;
+                    } else {
+                        loadSidebarFXML();
+                        return true;
+                    }
                 }
             }
         } catch (SQLException ex) {
@@ -153,6 +165,54 @@ public class UserService implements  UserCrud<User>{
 
         return false;
     }
+
+
+
+    private void loadProfileFXML() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../UserInterface/Profile.fxml"));
+            Parent root = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadSidebarFXML() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../UserInterface/SideBar.fxml"));
+            Parent root = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
+    public User getUserByEmail(String email) {
+        User user = null;
+        String query = "SELECT * FROM user WHERE email = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, email);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                user = new User();
+                user.setName(resultSet.getString("name"));
+                user.setLastname(resultSet.getString("lastname"));
+                user.setRoles(resultSet.getString("role"));
+                /*user.setDatenaissance(resultSet.getString("date_naissance"));*/
+                /*user.setNumber(resultSet.getString("phone_number"));*/
+                user.setEmail(resultSet.getString("email"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return user;
+    }
+
 
    /* public boolean login(String email, String password) {
         String query = "SELECT * FROM user WHERE email = ?";
@@ -418,35 +478,7 @@ public List<User> sortByEmail() {
         return new ArrayList<>();
     }
 
-    @Override
-    public User getUserByEmail(String email) {
-        String query = "SELECT * FROM user WHERE email = ?";
-        User user = null;
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, email);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()) {
-                user = new User(
-                    resultSet.getInt("id"),
-                    resultSet.getString("name"),
-                    resultSet.getString("lastname"),
-                    resultSet.getString("password"),
-                    resultSet.getString("email"),
-                    resultSet.getString("roles"),
-                    resultSet.getString("image"),
-                    resultSet.getInt("Number"),
-                    resultSet.getBoolean("is_verified"),
-                    resultSet.getDate("datenaissance")
-                );
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return user;
-    }
 
 }
 
