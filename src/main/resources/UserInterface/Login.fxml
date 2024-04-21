@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<?import javafx.scene.control.PasswordField?>
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@../css/Login.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.UserController.LoginController">
+    <children>
+        <ImageView fitHeight="601.0" fitWidth="1000.0" layoutY="99.0">
+            <image>
+                <Image url="@../img/back.jpg" />
+            </image>
+        </ImageView>
+        <VBox layoutX="500.0" layoutY="129.0" prefHeight="425.0" prefWidth="395.0" spacing="20.0" styleClass="vbox-style" AnchorPane.rightAnchor="105.0">
+            <children>
+                <Text fill="#111111" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="connect-text" text="Let's Connect">
+                    <VBox.margin>
+                        <Insets left="70.0" top="10.0" />
+                    </VBox.margin>
+                    <font>
+                        <Font size="34.0" />
+                    </font></Text>
+                <Text fill="#fcf9f9" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="count-text" text="To Your Count">
+                    <VBox.margin>
+                        <Insets left="70.0" />
+                    </VBox.margin>
+                    <font>
+                        <Font size="37.0" />
+                    </font>
+                </Text>
+                <TextField fx:id="Emailfield" promptText="Email">
+                    <VBox.margin>
+                        <Insets left="30.0" right="30.0" top="30.0" />
+                    </VBox.margin></TextField>
+
+                <PasswordField fx:id="Passwordfield" promptText="password">
+                    <VBox.margin>
+                        <Insets left="30.0" right="30.0" />
+                    </VBox.margin></PasswordField>
+                <HBox prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <Text fill="#f8f6f6" strokeType="OUTSIDE" strokeWidth="0.0" text="You don't Have A Count ?" styleClass="text-field">
+                            <font>
+                                <Font name="Arial Rounded MT Bold" size="16.0" />
+                            </font>
+                            <HBox.margin>
+                                <Insets top="1.0" />
+                            </HBox.margin>
+                        </Text>
+                        <Text fill="#2f611f" onMouseClicked="#ClickedSign" strokeType="OUTSIDE" strokeWidth="0.0" text="Click Here " underline="true"  styleClass="click-text" >
+                            <HBox.margin>
+                                <Insets left="20.0" />
+                            </HBox.margin>
+                        </Text>
+
+                    </children>
+                    <VBox.margin>
+                        <Insets left="30.0" />
+                    </VBox.margin>
+                </HBox>
+                <Button mnemonicParsing="false" onAction="#loginclicked" text="Login" >
+                    <VBox.margin>
+                        <Insets left="130.0" top="30.0" />
+                    </VBox.margin>
+                    <font>
+                        <Font size="22.0" />
+                    </font></Button>
+            </children>
+            <VBox.margin>
+                <Insets left="20.0" />
+            </VBox.margin>
+
+        </VBox>
+        <HBox prefHeight="100.0" prefWidth="1000.0" styleClass="hbox-style" />
+
+        <HBox style="     -fx-background-color: linear-gradient(to right, rgba(136, 180, 78, 0.7), rgba(255, 255, 255, 0.7)); ">
+            <!-- Vos éléments à l'intérieur de la HBox -->
+        </HBox>
+
+        <ImageView fitHeight="192.0" fitWidth="172.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../img/logo.png" />
+            </image>
+            <HBox.margin>
+                <Insets />
+            </HBox.margin>
+        </ImageView>
+
+    </children>
+</AnchorPane>
