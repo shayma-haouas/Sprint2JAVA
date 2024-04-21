@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
@@ -14,6 +15,7 @@ import services.UserService;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ProfileController {
@@ -83,10 +85,39 @@ public class ProfileController {
 
     @FXML
     void logoutclicked(MouseEvent mouseEvent) {
-        // Implémentez ici la déconnexion de l'utilisateur
+        // Afficher une boîte de dialogue de confirmation avant de se déconnecter
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Déconnexion");
+        alert.setHeaderText(null);
+        alert.setContentText("Êtes-vous sûr de vouloir vous déconnecter ?");
 
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            // L'utilisateur a confirmé la déconnexion
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserInterface/login.fxml"));
+                Parent root = loader.load();
+
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Login");
+                stage.show();
+
+                // Fermer la fenêtre actuelle
+                Stage currentStage = (Stage) nameField.getScene().getWindow();
+                currentStage.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+                showAlert(Alert.AlertType.ERROR, "Erreur", "Déconnexion échouée", "Impossible d'ouvrir la fenêtre de connexion.");
+            }
+        }
     }
 
-    private void showAlert(Alert.AlertType alertType, String error, String logoutFailed, String s) {
+    private void showAlert(Alert.AlertType alertType, String title, String header, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
