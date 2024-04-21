@@ -19,7 +19,7 @@ public class SideBarController {
         Parent addArticleParent = loader.load();
 
         // Récupération du contrôleur de la vue d'ajout d'article
-    //    AjouterUser addArticleController = loader.getController();
+        AjouterUser addArticleController = loader.getController();
 
         // Remplacer le contenu actuel par la vue d'ajout d'article
         content_area.getChildren().clear();
