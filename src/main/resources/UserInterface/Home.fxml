@@ -5,6 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -14,6 +15,7 @@
          <children>
             <Text fill="#eeecec" strokeType="OUTSIDE" strokeWidth="0.0" text="Home">
                <HBox.margin>
+
                   <Insets left="360.0" right="20.0" top="80.0" />
                </HBox.margin>
                <font>
@@ -54,12 +56,13 @@
             </Text>
             <Text fill="#eeecec" layoutX="130.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile">
                <HBox.margin>
-                  <Insets right="10.0" top="72.0" />
+                  <Insets right="10.0" top="80.0" />
                </HBox.margin>
                <font>
                   <Font name="High Tower Text" size="33.0" />
                </font>
             </Text>
+
          </children>
       </HBox>
       <AnchorPane layoutY="126.0" prefHeight="576.0" prefWidth="1100.0">
@@ -69,6 +72,40 @@
                      <Image url="@../img/carousel-2.jpg" />
                  </image>
              </ImageView>
-         </children></AnchorPane>
+            <VBox prefHeight="577.0" prefWidth="1100.0" styleClass="vbox-style">
+               <children>
+                  <Text fill="#f8f8f8" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome To ">
+                     <font>
+                        <Font name="Arial Nova Cond Light" size="62.0" />
+                     </font>
+                     <VBox.margin >
+                        <Insets left="300.0" right="20.0" top="170.0" />
+                     </VBox.margin>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Floreo">
+                     <font>
+                        <Font name="Arial Nova Cond Light" size="62.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="600.0" top="-75.0" />
+                     </VBox.margin>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Organic &amp; Quality Floreo" textAlignment="CENTER" wrappingWidth="598.0">
+                     <font>
+                        <Font name="Baskerville Old Face" size="96.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="230.0" />
+                     </VBox.margin>
+                  </Text>
+               </children>
+            </VBox>
+         </children>
+         </AnchorPane>
+       <ImageView fx:id="imagefield" fitHeight="229.0" fitWidth="227.0" styleClass="circular-image">
+           <image>
+               <Image url="@../img/logo.png" />
+           </image>
+       </ImageView>
    </children>
 </AnchorPane>

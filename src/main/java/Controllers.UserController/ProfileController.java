@@ -85,6 +85,12 @@ public class ProfileController {
 
     @FXML
     void logoutclicked(MouseEvent mouseEvent) {
+        // Vérifier si l'utilisateur est connecté
+        if (authenticatedEmail == null) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Déconnexion échouée", "Vous n'êtes pas connecté.");
+            return; // Arrêter l'exécution de la méthode si l'utilisateur n'est pas connecté
+        }
+
         // Afficher une boîte de dialogue de confirmation avant de se déconnecter
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Déconnexion");

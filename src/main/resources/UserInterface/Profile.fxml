@@ -38,9 +38,9 @@
                         <Image url="@../img/logout.png" />
                     </image>
                 </ImageView>
-                <BorderPane layoutX="423.0" layoutY="107.0" prefHeight="200.0" prefWidth="200.0" translateX="160.0" translateY="-170.0">
+                <BorderPane layoutX="423.0" layoutY="107.0" prefHeight="200.0" prefWidth="200.0" translateX="160.0" translateY="-170.0" styleClass="circular-image">
                     <top>
-                        <ImageView fx:id="imagefield" fitHeight="208.0" fitWidth="182.0" styleClass="circular-image" BorderPane.alignment="CENTER">
+                        <ImageView fx:id="imagefield" fitHeight="208.0" fitWidth="182.0"  BorderPane.alignment="CENTER">
                             <image>
                                 <Image url="@../img/OIP.jpg" />
                             </image>
