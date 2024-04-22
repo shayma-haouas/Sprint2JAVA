@@ -173,7 +173,7 @@ public class UserService implements  UserCrud<User> {
 
     private void loadProfileFXML() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../UserInterface/Profile.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../UserInterface/Home.fxml"));
             Parent root = fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));

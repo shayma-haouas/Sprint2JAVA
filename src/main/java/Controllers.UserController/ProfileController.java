@@ -110,7 +110,7 @@ public class ProfileController {
                 stage.show();
 
                 // Fermer la fenêtre actuelle
-                Stage currentStage = (Stage) nameField.getScene().getWindow();
+                Stage currentStage = (Stage) emailfield.getScene().getWindow();
                 currentStage.close();
             } catch (IOException e) {
                 e.printStackTrace();

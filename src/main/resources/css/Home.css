@@ -6,3 +6,13 @@
 
   -fx-effect: blur(5px); /* Effet de flou */
 }
+/* Home.css */
+
+.root {
+  -fx-background-color: #f0f0f0;
+}
+
+#mainPane {
+  -fx-effect: innershadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 2, 2);
+}
+

@@ -54,7 +54,7 @@
                   <Font name="High Tower Text" size="33.0" />
                </font>
             </Text>
-            <Text fill="#eeecec" layoutX="130.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile">
+            <Text fill="#eeecec" layoutX="130.0" layoutY="28.0" onMouseClicked="#Profileclicked" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile">
                <HBox.margin>
                   <Insets right="10.0" top="80.0" />
                </HBox.margin>
@@ -72,13 +72,13 @@
                      <Image url="@../img/carousel-2.jpg" />
                  </image>
              </ImageView>
-            <VBox prefHeight="577.0" prefWidth="1100.0" styleClass="vbox-style">
+            <VBox layoutY="-9.0" prefHeight="586.0" prefWidth="1100.0" styleClass="vbox-style">
                <children>
                   <Text fill="#f8f8f8" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome To ">
                      <font>
                         <Font name="Arial Nova Cond Light" size="62.0" />
                      </font>
-                     <VBox.margin >
+                     <VBox.margin>
                         <Insets left="300.0" right="20.0" top="170.0" />
                      </VBox.margin>
                   </Text>
@@ -107,5 +107,6 @@
                <Image url="@../img/logo.png" />
            </image>
        </ImageView>
+       <Text fx:id="emailfield" />
    </children>
 </AnchorPane>

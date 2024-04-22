@@ -41,10 +41,10 @@ public class LoginController {
         boolean loginSuccessful = userService.login(email, password);
         if (loginSuccessful) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserInterface/profile.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserInterface/home.fxml"));
                 Parent root = loader.load();
-                ProfileController profileController = loader.getController();
-                profileController.setAuthenticatedEmail(email);
+                HomeController homeController = loader.getController();
+                homeController.setAuthenticatedEmail(email); // Passing authenticated email to HomeController
                 Stage stage = (Stage) Emailfield.getScene().getWindow();
                 stage.setScene(new Scene(root));
             } catch (IOException e) {
@@ -79,6 +79,4 @@ public class LoginController {
             e.printStackTrace();
         }
     }
-
-
 }
