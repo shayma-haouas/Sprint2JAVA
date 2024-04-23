@@ -13,7 +13,7 @@
 
 <AnchorPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@../css/Profile.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.UserController.ProfileController">
     <children>
-        <HBox prefHeight="100.0" prefWidth="1000.0" styleClass="hbox-style">
+        <HBox prefHeight="122.0" prefWidth="1100.0" styleClass="hbox-style">
             <children>
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-field" text="Profile">
                     <HBox.margin>
@@ -26,7 +26,7 @@
             </children>
         </HBox>
 
-        <Pane layoutY="122.0" prefHeight="579.0" prefWidth="1000.0" styleClass="background-pane">
+        <Pane layoutY="122.0" prefHeight="700.0" prefWidth="1100.0" styleClass="background-pane">
             <children>
                 <ImageView fitHeight="208.0" fitWidth="182.0" styleClass="circular-image" translateX="10.0" translateY="-120.0">
                     <image>
@@ -38,9 +38,9 @@
                         <Image url="@../img/logout.png" />
                     </image>
                 </ImageView>
-                <BorderPane layoutX="423.0" layoutY="107.0" prefHeight="200.0" prefWidth="200.0" translateX="160.0" translateY="-170.0" styleClass="circular-image">
+                <BorderPane layoutX="423.0" layoutY="107.0" prefHeight="200.0" prefWidth="200.0" styleClass="circular-image" translateX="160.0" translateY="-170.0">
                     <top>
-                        <ImageView fx:id="imagefield" fitHeight="208.0" fitWidth="182.0"  BorderPane.alignment="CENTER">
+                        <ImageView fx:id="imagefield" fitHeight="208.0" fitWidth="182.0" BorderPane.alignment="CENTER">
                             <image>
                                 <Image url="@../img/OIP.jpg" />
                             </image>
