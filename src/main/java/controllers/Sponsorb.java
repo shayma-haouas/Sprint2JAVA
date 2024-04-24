@@ -362,7 +362,7 @@ public class Sponsorb {
 
         try {
             // Exécuter la requête SQL
-            Statement st = DatabaseCon.getInstance().getConnection().createStatement();
+            Statement st = MyDatabase.getInstance().getConnection().createStatement();
             st.executeUpdate(sql);
 
             // Supprimer la ligne de la table view
