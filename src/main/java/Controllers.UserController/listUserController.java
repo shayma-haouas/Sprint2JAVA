@@ -73,7 +73,8 @@ public class listUserController {
                             Button deleteButton = new Button("Supprimer");
 
                             editButton.setOnAction(event -> {
-                                openUpdateUserWindow(user.getId());
+                                openUpdateUserWindow(user);
+
                             });
 
                             deleteButton.setOnAction(event -> {
@@ -111,12 +112,12 @@ public class listUserController {
         });
     }
 
-    private void openUpdateUserWindow(int userId) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UpdateUser.fxml"));
+    private void openUpdateUserWindow(User user) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Controllers/UserController/ModifierUser.fxml"));
         try {
             Parent root = loader.load();
             ModifierUser updateUserController = loader.getController();
-            updateUserController.setUserData(String.valueOf(userId));
+            updateUserController.setUser(user);
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
@@ -126,7 +127,7 @@ public class listUserController {
     }
 
     public void navigateToAddUser(MouseEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AddUser.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Controllers/UserController/AddUser.fxml"));
         Parent root;
         try {
             root = loader.load();
@@ -139,5 +140,8 @@ public class listUserController {
     }
 
     public void statusChange(javafx.event.ActionEvent actionEvent) {
+    }
+
+    public void AddUserClicked(MouseEvent mouseEvent) {
     }
 }

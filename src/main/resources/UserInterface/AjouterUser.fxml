@@ -17,108 +17,111 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="672.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.UserController.AjouterUser">
-   <children>
-      <VBox layoutX="135.0" layoutY="135.0" prefHeight="444.0" prefWidth="374.0" spacing="30.0">
-         <children>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#UploadImage" text="Upload Image">
-                     <HBox.margin>
-                        <Insets left="80.0" top="30.0" />
-                     </HBox.margin>
-                  </Button>
-                   <ImageView fx:id="imageField" fitHeight="81.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" />
-               </children>
-            </HBox>
+    <children>
+        <VBox layoutX="135.0" layoutY="135.0" prefHeight="444.0" prefWidth="374.0" spacing="30.0">
+            <children>
+                <HBox prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#UploadImage" text="Upload Image">
+                            <HBox.margin>
+                                <Insets left="80.0" top="30.0" />
+                            </HBox.margin>
+                        </Button>
+                        <ImageView fx:id="imageField" fitHeight="81.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" />
+                    </children>
+                </HBox>
 
-             <TextField fx:id="firstnameField" promptText="FirstName ">
-               <VBox.margin>
-                  <Insets left="40.0" right="40.0" />
-               </VBox.margin></TextField>
-            <TextField fx:id="lastnameField" layoutX="10.0" layoutY="10.0" promptText="LastName">
-               <VBox.margin>
-                  <Insets left="40.0" right="40.0" />
-               </VBox.margin></TextField>
-            <TextField fx:id="emailField" layoutX="10.0" layoutY="45.0" promptText="Email">
-               <VBox.margin>
-                  <Insets left="40.0" right="40.0" />
-               </VBox.margin></TextField>
-            <TextField fx:id="numberField" prefHeight="42.0" prefWidth="331.0" promptText="Number">
-               <VBox.margin>
-                  <Insets left="40.0" right="40.0" />
-               </VBox.margin></TextField>
-         </children>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-      </VBox>
-      <VBox layoutX="528.0" layoutY="135.0" prefHeight="444.0" prefWidth="368.0" spacing="30.0">
-         <children>
-            <PasswordField fx:id="PasswordField" promptText="Password">
-               <VBox.margin>
-                  <Insets left="40.0" right="40.0" />
-               </VBox.margin></PasswordField>
-            <PasswordField fx:id="ResetField" promptText="Reset Password">
-               <VBox.margin>
-                  <Insets left="40.0" right="40.0" />
-               </VBox.margin></PasswordField>
-             <ChoiceBox prefHeight="35.0" prefWidth="271.0">
-                 <items>
-                     <FXCollections fx:factory="observableArrayList">
-                         <String fx:value="ROLE_FOURNISSEUR" />
-                         <String fx:value="ROLE_ADMIN" />
-                     </FXCollections>
-                 </items>
-               <VBox.margin>
-                  <Insets left="40.0" right="40.0" />
-               </VBox.margin>
-             </ChoiceBox>
-            <DatePicker prefHeight="35.0" prefWidth="254.0" promptText="Date Naissance">
-               <VBox.margin>
-                  <Insets left="40.0" right="40.0" />
-               </VBox.margin></DatePicker>
-            <Button mnemonicParsing="false" onAction="#AjoutUser" prefHeight="35.0" prefWidth="158.0" text="Ajouter User">
-               <VBox.margin>
-                  <Insets left="90.0" />
-               </VBox.margin>
-            </Button>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-             <HBox prefHeight="150.0" prefWidth="0.0">
-                 <ImageView fitHeight="68.0" fitWidth="41.0" onMouseClicked="#UpdateUser" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                         <Image url="@../img/update.png" />
-                     </image>
-                     <VBox.margin>
-                         <Insets />
-                     </VBox.margin>
-                  <HBox.margin>
-                     <Insets left="90.0" />
-                  </HBox.margin>
-                 </ImageView>
-                 <ImageView fitHeight="70.0" fitWidth="45.0" onMouseClicked="#DeleteUser" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                         <Image url="@../img/supprimer.png" />
-                     </image>
-                     <VBox.margin>
-                         <Insets />
-                     </VBox.margin>
-                  <HBox.margin>
-                     <Insets left="80.0" right="80.0" />
-                  </HBox.margin>
-                 </ImageView>
-                 <VBox.margin>
-                     <Insets top="-150.0" />
-                 </VBox.margin>
-             </HBox>
+                <TextField fx:id="firstnameField" promptText="FirstName ">
+                    <VBox.margin>
+                        <Insets left="40.0" right="40.0" />
+                    </VBox.margin></TextField>
+                <TextField fx:id="lastnameField" layoutX="10.0" layoutY="10.0" promptText="LastName">
+                    <VBox.margin>
+                        <Insets left="40.0" right="40.0" />
+                    </VBox.margin></TextField>
+                <TextField fx:id="emailField" layoutX="10.0" layoutY="45.0" promptText="Email">
+                    <VBox.margin>
+                        <Insets left="40.0" right="40.0" />
+                    </VBox.margin></TextField>
+                <TextField fx:id="numberField" prefHeight="42.0" prefWidth="331.0" promptText="Number">
+                    <VBox.margin>
+                        <Insets left="40.0" right="40.0" />
+                    </VBox.margin></TextField>
+                <DatePicker fx:id="datePicker" promptText="Date of Birth">
+                    <VBox.margin>
+                        <Insets left="40.0" right="40.0" />
+                    </VBox.margin>
+                </DatePicker>
+            </children>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+        </VBox>
+        <VBox layoutX="528.0" layoutY="135.0" prefHeight="444.0" prefWidth="368.0" spacing="30.0">
+            <children>
+                <PasswordField fx:id="PasswordField" promptText="Password">
+                    <VBox.margin>
+                        <Insets left="40.0" right="40.0" />
+                    </VBox.margin></PasswordField>
+                <PasswordField fx:id="ResetField" promptText="Reset Password">
+                    <VBox.margin>
+                        <Insets left="40.0" right="40.0" />
+                    </VBox.margin></PasswordField>
+                <ChoiceBox fx:id="choiceBox" prefHeight="35.0" prefWidth="271.0">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="ROLE_FOURNISSEUR" />
+                            <String fx:value="ROLE_ADMIN" />
+                        </FXCollections>
+                    </items>
+                    <VBox.margin>
+                        <Insets left="40.0" right="40.0" />
+                    </VBox.margin>
+                </ChoiceBox>
 
-         </children>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-      </VBox>
-      <Text fill="#8ea16d" layoutX="401.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter User" textAlignment="CENTER" wrappingWidth="254.0">
-         <font>
-            <Font size="42.0" />
-         </font></Text>
-   </children>
+
+                <Button mnemonicParsing="false" onAction="#AjoutUser" prefHeight="35.0" prefWidth="158.0" text="Ajouter User">
+                    <VBox.margin>
+                        <Insets left="90.0" />
+                    </VBox.margin>
+                </Button>
+                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                <HBox prefHeight="150.0" prefWidth="0.0">
+                    <ImageView fitHeight="68.0" fitWidth="41.0" onMouseClicked="#UpdateUser" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../img/update.png" />
+                        </image>
+                        <VBox.margin>
+                            <Insets />
+                        </VBox.margin>
+                        <HBox.margin>
+                            <Insets left="90.0" />
+                        </HBox.margin>
+                    </ImageView>
+                    <ImageView fitHeight="70.0" fitWidth="45.0" onMouseClicked="#DeleteUser" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../img/supprimer.png" />
+                        </image>
+                        <VBox.margin>
+                            <Insets />
+                        </VBox.margin>
+                        <HBox.margin>
+                            <Insets left="80.0" right="80.0" />
+                        </HBox.margin>
+                    </ImageView>
+                    <VBox.margin>
+                        <Insets top="-150.0" />
+                    </VBox.margin>
+                </HBox>
+
+            </children>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+        </VBox>
+        <Text fill="#8ea16d" layoutX="401.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter User" textAlignment="CENTER" wrappingWidth="254.0">
+            <font>
+                <Font size="42.0" />
+            </font></Text>
+    </children>
 </AnchorPane>

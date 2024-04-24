@@ -42,7 +42,7 @@
                     <top>
                         <ImageView fx:id="imagefield" fitHeight="208.0" fitWidth="182.0" BorderPane.alignment="CENTER">
                             <image>
-                                <Image url="@../img/OIP.jpg" />
+                                <Image url="@../img/profil.png" />
                             </image>
                         </ImageView>
                     </top>
@@ -165,6 +165,11 @@
                 <ImageView fitHeight="50.0" fitWidth="50.0" styleClass="circular-image" translateX="700.0" translateY="200.0">
                     <image>
                         <Image url="@../img/refractor.png" />
+                    </image>
+                </ImageView>
+                <ImageView fx:id="imagefield2" fitHeight="358.0" fitWidth="410.0" layoutX="700.0" layoutY="291.0" BorderPane.alignment="CENTER">
+                    <image>
+                        <Image url="@../img/haze-caring-for-the-environment-1.png" />
                     </image>
                 </ImageView>
             </children>

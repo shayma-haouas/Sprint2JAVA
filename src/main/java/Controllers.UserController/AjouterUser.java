@@ -1,23 +1,53 @@
 package Controllers.UserController;
 
-
+import entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import services.UserService;
 
 import java.io.File;
+import java.sql.SQLException;
+import java.sql.Date;
 
 public class AjouterUser {
 
     @FXML
     private ImageView imageField;
-    private UserService userService = new UserService(); // Référence au service utilisateur
+
+    @FXML
+    private ChoiceBox<String> choiceBox;
+
+    @FXML
+    private TextField firstnameField;
+
+    @FXML
+    private TextField lastnameField;
+
+    @FXML
+    private TextField emailField;
+
+    @FXML
+    private TextField numberField;
+
+    @FXML
+    private PasswordField PasswordField;
+
+    @FXML
+    private PasswordField ResetField;
+
+    @FXML
+    private DatePicker datePicker;
+
+    private UserService userService = new UserService();
 
     @FXML
     private void onImageClicked() {
@@ -31,11 +61,7 @@ public class AjouterUser {
             Image image = new Image(selectedFile.toURI().toString());
             imageField.setImage(image);
         } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Aucune image sélectionnée");
-            alert.setHeaderText(null);
-            alert.setContentText("Aucune image sélectionnée.");
-            alert.showAndWait();
+            showAlert(Alert.AlertType.WARNING, "Aucune image sélectionnée", null, "Aucune image sélectionnée.");
         }
     }
 
@@ -50,24 +76,45 @@ public class AjouterUser {
         if (selectedFile != null) {
             String imagePath = selectedFile.getAbsolutePath();
             imageField.setImage(new Image(selectedFile.toURI().toString()));
-        } }
+        }
+    }
 
     @FXML
     void AjoutUser(ActionEvent actionEvent) {
-       /* try {
-            // Exemple:
-            User user = new User(imageField.getAccessibleRoleDescription(), l, roles, email, password, image, number, is_verified, datenaissance);
-            userService.add(user);
+        String role = choiceBox.getValue();
+        if (role != null && !role.isEmpty()) {
+            try {
+                String name = firstnameField.getText();
+                String lastname = lastnameField.getText();
+                String email = emailField.getText();
+                String password = PasswordField.getText();
+                String resetPassword = ResetField.getText();
+                int number = Integer.parseInt(numberField.getText());
 
-            // Afficher une alerte pour informer l'utilisateur que l'ajout a été effectué avec succès
-            showAlert(Alert.AlertType.INFORMATION, "Ajout réussi", "Utilisateur ajouté avec succès", null);
-        } catch (SQLException e) {
-            // Afficher une alerte pour informer l'utilisateur s'il y a eu une erreur lors de l'ajout
-            showAlert(Alert.AlertType.ERROR, "Erreur lors de l'ajout", "Une erreur s'est produite lors de l'ajout de l'utilisateur", e.getMessage());
-        }*/
+                if (!password.equals(resetPassword)) {
+                    showAlert(Alert.AlertType.ERROR, "Erreur lors de l'ajout", null, "Les champs de mot de passe ne correspondent pas.");
+                    return;
+                }
+
+                Date dateNaissance = null;
+                if (datePicker.getValue() != null) {
+                    dateNaissance = Date.valueOf(datePicker.getValue());
+                }
+
+                User user = new User(name, lastname, role, email, password, "", number, false, dateNaissance);
+                userService.add(user);
+
+                showAlert(Alert.AlertType.INFORMATION, "Ajout réussi", "Utilisateur ajouté avec succès", null);
+            } catch (SQLException e) {
+                showAlert(Alert.AlertType.ERROR, "Erreur lors de l'ajout", "Une erreur s'est produite lors de l'ajout de l'utilisateur", e.getMessage());
+            } catch (NumberFormatException e) {
+                showAlert(Alert.AlertType.ERROR, "Erreur lors de l'ajout", "Veuillez entrer un numéro valide", null);
+            }
+        } else {
+            showAlert(Alert.AlertType.WARNING, "Aucun rôle sélectionné", "Veuillez sélectionner un rôle pour l'utilisateur", null);
+        }
     }
 
-    // Méthode pour afficher une alerte
     private void showAlert(Alert.AlertType alertType, String title, String header, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -75,9 +122,10 @@ public class AjouterUser {
         alert.setContentText(message);
         alert.showAndWait();
     }
-    public void UpdateUser(MouseEvent mouseEvent) {
+
+    public void UpdateUser(javafx.scene.input.MouseEvent mouseEvent) {
     }
 
-    public void DeleteUser(MouseEvent mouseEvent) {
+    public void DeleteUser(javafx.scene.input.MouseEvent mouseEvent) {
     }
 }

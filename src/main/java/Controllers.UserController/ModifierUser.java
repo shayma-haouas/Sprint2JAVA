@@ -75,4 +75,7 @@ public class ModifierUser {
         alert.setHeaderText(header);
         alert.showAndWait();
     }
+
+    public void setUser(User user) {
+    }
 }
