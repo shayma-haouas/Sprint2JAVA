@@ -59,14 +59,6 @@
         </VBox>
         <VBox layoutX="528.0" layoutY="135.0" prefHeight="444.0" prefWidth="368.0" spacing="30.0">
             <children>
-                <PasswordField fx:id="PasswordField" promptText="Password">
-                    <VBox.margin>
-                        <Insets left="40.0" right="40.0" />
-                    </VBox.margin></PasswordField>
-                <PasswordField fx:id="ResetField" promptText="Reset Password">
-                    <VBox.margin>
-                        <Insets left="40.0" right="40.0" />
-                    </VBox.margin></PasswordField>
                 <ChoiceBox fx:id="choiceBox" prefHeight="35.0" prefWidth="271.0">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
@@ -78,6 +70,15 @@
                         <Insets left="40.0" right="40.0" />
                     </VBox.margin>
                 </ChoiceBox>
+                <PasswordField fx:id="PasswordField" promptText="Password">
+                    <VBox.margin>
+                        <Insets left="40.0" right="40.0" />
+                    </VBox.margin></PasswordField>
+                <PasswordField fx:id="ResetField" promptText="Reset Password">
+                    <VBox.margin>
+                        <Insets left="40.0" right="40.0" />
+                    </VBox.margin></PasswordField>
+
 
 
                 <Button mnemonicParsing="false" onAction="#AjoutUser" prefHeight="35.0" prefWidth="158.0" text="Ajouter User">

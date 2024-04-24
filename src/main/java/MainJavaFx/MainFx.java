@@ -16,7 +16,7 @@ public class MainFx extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/UserInterface/SideBar.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/UserInterface/Login.fxml"));
             Scene scene = new Scene(root);
 
 

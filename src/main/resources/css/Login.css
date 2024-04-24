@@ -9,6 +9,10 @@
   -fx-scale-x: 1.1; /* Augmenter l'échelle horizontale de 10% */
   -fx-scale-y: 1.1; /* Augmenter l'échelle verticale de 10% */
 }
+.vbox-style:hover.count-text{
+  -fx-scale-x: 1.1; /* Augmenter l'échelle horizontale de 10% */
+  -fx-scale-y: 1.1;
+}
 
 .vbox-style:hover .text-field {
   /* Animation pour les champs de texte */

@@ -21,14 +21,14 @@
         </ImageView>
         <VBox layoutX="500.0" layoutY="129.0" prefHeight="425.0" prefWidth="395.0" spacing="20.0" styleClass="vbox-style" AnchorPane.rightAnchor="105.0">
             <children>
-                <Text fill="#111111" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="connect-text" text="Let's Connect">
+                <Text fill="#111111" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-field" text="Let's Connect">
                     <VBox.margin>
                         <Insets left="70.0" top="10.0" />
                     </VBox.margin>
                     <font>
                         <Font size="34.0" />
                     </font></Text>
-                <Text fill="#fcf9f9" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="count-text" text="To Your Count">
+                <Text fill="#fcf9f9" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-field" text="To Your Count">
                     <VBox.margin>
                         <Insets left="70.0" />
                     </VBox.margin>

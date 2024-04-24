@@ -18,7 +18,7 @@ public interface UserCrud<T> {
 
     void signUp(User user);
 
-    boolean login(String email, String password);
+
 
     void updateEmail(int userId, String newEmail);
 
@@ -40,6 +40,8 @@ public interface UserCrud<T> {
     List<User> searchByDateOfBirth(Date dateOfBirth);
 
     boolean isEmailUsed(String email);
+
+    boolean login(String email, String password);
 
     User getUserByEmail(String email);
 

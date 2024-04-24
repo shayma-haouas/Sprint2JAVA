@@ -12,11 +12,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.mindrot.jbcrypt.BCrypt;
 import services.UserService;
 
 import java.io.File;
-import java.sql.SQLException;
+import java.io.IOException;
 import java.sql.Date;
+import java.sql.SQLException;
 
 public class AjouterUser {
 
@@ -48,6 +50,12 @@ public class AjouterUser {
     private DatePicker datePicker;
 
     private UserService userService = new UserService();
+
+    @FXML
+    private void initialize() {
+        // Ajoutez des éléments à la ChoiceBox
+        choiceBox.getItems().addAll("ROLE_CLIENT", "ROLE_FOURNISSEUR");
+    }
 
     @FXML
     private void onImageClicked() {
@@ -84,12 +92,17 @@ public class AjouterUser {
         String role = choiceBox.getValue();
         if (role != null && !role.isEmpty()) {
             try {
-                String name = firstnameField.getText();
-                String lastname = lastnameField.getText();
-                String email = emailField.getText();
-                String password = PasswordField.getText();
-                String resetPassword = ResetField.getText();
-                int number = Integer.parseInt(numberField.getText());
+                String name = firstnameField.getText().trim();
+                String lastname = lastnameField.getText().trim();
+                String email = emailField.getText().trim();
+                String password = PasswordField.getText().trim();
+                String resetPassword = ResetField.getText().trim();
+                int number = Integer.parseInt(numberField.getText().trim());
+
+                if (name.isEmpty() || lastname.isEmpty() || email.isEmpty() || password.isEmpty() || resetPassword.isEmpty()) {
+                    showAlert(Alert.AlertType.ERROR, "Erreur lors de l'ajout", null, "Veuillez remplir tous les champs.");
+                    return;
+                }
 
                 if (!password.equals(resetPassword)) {
                     showAlert(Alert.AlertType.ERROR, "Erreur lors de l'ajout", null, "Les champs de mot de passe ne correspondent pas.");
@@ -101,7 +114,9 @@ public class AjouterUser {
                     dateNaissance = Date.valueOf(datePicker.getValue());
                 }
 
-                User user = new User(name, lastname, role, email, password, "", number, false, dateNaissance);
+
+
+                User user = new User(name, lastname,  password, email,role, "", number, false, dateNaissance);
                 userService.add(user);
 
                 showAlert(Alert.AlertType.INFORMATION, "Ajout réussi", "Utilisateur ajouté avec succès", null);

@@ -4,7 +4,6 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 import entities.User;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -154,10 +153,12 @@ public class UserService implements  UserCrud<User> {
                 String hashedPasswordFromDB = resultSet.getString("password");
                 if (BCrypt.verifyer().verify(password.toCharArray(), hashedPasswordFromDB).verified) {
                     String role = resultSet.getString("roles");
-                    if (role.contains("ROLE_CLIENT")) {
+                    if (role.contains("ROLE_CLIENT") || role.contains("ROLE_FOURNISSEUR")) {
                         loadProfileFXML();
                         return true;
-                    } else {
+                    
+
+                } else if (role.contains("ROLE_ADMIN")) {
                         loadSidebarFXML();
                         return true;
                     }
@@ -169,6 +170,7 @@ public class UserService implements  UserCrud<User> {
 
         return false;
     }
+
 
 
     private void loadProfileFXML() {
