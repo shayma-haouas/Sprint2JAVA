@@ -1,5 +1,5 @@
 package Controllers.UserController;
-
+import entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,7 +23,6 @@ public class LoginController {
 
     @FXML
     void loginclicked(ActionEvent event) {
-
         String email = Emailfield.getText();
         String password = Passwordfield.getText();
 
@@ -38,13 +37,26 @@ public class LoginController {
         }
 
         UserService userService = new UserService();
+        String role = userService.getRole(email);
         boolean loginSuccessful = userService.login(email, password);
+
         if (loginSuccessful) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserInterface/home.fxml"));
+                FXMLLoader loader;
+                if ("ROLE_CLIENT".equals(role)) {
+                    loader = new FXMLLoader(getClass().getResource("/UserInterface/home.fxml"));
+                    HomeController homeController = loader.getController();
+                    homeController.setAuthenticatedEmail(email);
+                } else if ("ROLE_ADMIN".equals(role)) {
+                    loader = new FXMLLoader(getClass().getResource("/UserInterface/sidebar.fxml"));
+                    SideBarController sideBarController = loader.getController();
+                    sideBarController.setAuthenticatedEmail(email);
+                } else {
+                    showAlert(Alert.AlertType.ERROR, "Error", "Unknown Role", "Your role is not recognized.");
+                    return;
+                }
+
                 Parent root = loader.load();
-                HomeController homeController = loader.getController();
-                homeController.setAuthenticatedEmail(email); // Passing authenticated email to HomeController
                 Stage stage = (Stage) Emailfield.getScene().getWindow();
                 stage.setScene(new Scene(root));
             } catch (IOException e) {
@@ -56,7 +68,6 @@ public class LoginController {
     }
 
     private boolean isValidEmail(String email) {
-        // Utiliser une expression régulière pour vérifier le format de l'email
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         return email.matches(emailRegex);
     }

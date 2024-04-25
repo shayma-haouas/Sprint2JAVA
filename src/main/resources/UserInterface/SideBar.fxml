@@ -32,7 +32,7 @@
                     <HBox fx:id="dashboardBtn" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" styleClass="nav-links">
                         <children>
 
-                            <ImageView fx:id="usersIcon" fitHeight="34.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" translateX="-6.0" styleClass="image"   >
+                            <ImageView fx:id="usersIcon" fitHeight="34.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" styleClass="image" translateX="-6.0">
 
                                 <HBox.margin>
                                     <Insets right="10.0" />
@@ -59,9 +59,9 @@
                             <String fx:value="activeLink" />
                         </styleClass>
                     </HBox>
-                    <HBox fx:id="usersBtn" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="200.0" styleClass="nav-links" onMouseClicked="#openUserList">
+                    <HBox fx:id="usersBtn" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" onMouseClicked="#openUserList" prefHeight="50.0" prefWidth="200.0" styleClass="nav-links">
                         <children>
-                            <ImageView fx:id="usersIcon" fitHeight="34.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" translateX="-6.0" styleClass="image" >
+                            <ImageView fx:id="usersIcon" fitHeight="34.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" styleClass="image" translateX="-6.0">
 
                                 <HBox.margin>
                                     <Insets right="10.0" />
@@ -88,7 +88,7 @@
                     </HBox>
                     <HBox fx:id="compteBtn" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="200.0" styleClass="nav-links">
                         <children>
-                            <ImageView fx:id="comptesIcon" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0" styleClass="image">
+                            <ImageView fx:id="comptesIcon" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="image" translateX="-5.0">
 
                                 <HBox.margin>
                                     <Insets right="4.0" />
@@ -115,7 +115,7 @@
                     </HBox>
                     <HBox fx:id="creditsBtn" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="200.0" styleClass="nav-links">
                         <children>
-                            <ImageView fx:id="creditsIcon" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" translateX="-3.0" styleClass="image" >
+                            <ImageView fx:id="creditsIcon" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="image" translateX="-3.0">
 
                                 <HBox.margin>
                                     <Insets right="10.0" />
@@ -170,7 +170,7 @@
 
                     <HBox fx:id="InvestBtn" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="200.0" styleClass="nav-links">
                         <children>
-                            <ImageView fx:id="investissementsIcon" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" translateX="-5.0" styleClass="image">
+                            <ImageView fx:id="investissementsIcon" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="image" translateX="-5.0">
                                 <HBox.margin>
                                     <Insets right="15.0" />
                                 </HBox.margin>
@@ -196,7 +196,7 @@
                     </HBox>
                     <HBox fx:id="evenementsBtn" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="200.0" styleClass="nav-links">
                         <children>
-                            <ImageView fx:id="evenementsIcon" fitHeight="30.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true" translateX="-3.0" styleClass="image">
+                            <ImageView fx:id="evenementsIcon" fitHeight="30.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true" styleClass="image" translateX="-3.0">
                                 <HBox.margin>
                                     <Insets right="15.0" />
                                 </HBox.margin>
@@ -220,9 +220,9 @@
                             <Insets top="10.0" />
                         </VBox.margin>
                     </HBox>
-                    <HBox fx:id="recBtn" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="200.0" styleClass="nav-links" onMouseClicked="#UpdateUser" >
+                    <HBox fx:id="recBtn" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" onMouseClicked="#UpdateUser" prefHeight="50.0" prefWidth="200.0" styleClass="nav-links">
                         <children>
-                            <ImageView fx:id="reclamationsIcon" fitHeight="40.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" translateX="-4.0"  styleClass="image">
+                            <ImageView fx:id="reclamationsIcon" fitHeight="40.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" styleClass="image" translateX="-4.0">
                                 <HBox.margin>
                                     <Insets right="15.0" />
                                 </HBox.margin>
@@ -284,7 +284,7 @@
                     <Font name="Montserrat ExtraBold" size="18.0" />
                 </font>
             </Text>
-            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" translateX="38.0" styleClass="image">
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="image" translateX="38.0">
                 <image>
                     <Image url="@../img/notification.png" />
                 </image>
@@ -315,9 +315,9 @@
                     <Insets right="10.0" />
                 </HBox.margin>
             </ImageView>
-            <Text fx:id="navFullname" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="nav-user-fullname" text="Admin">
+            <Text fx:id="navFullname" fill="#f5f2f2" fontSmoothingType="LCD" onMouseClicked="#Profilclicked" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="nav-user-fullname" text="Profil">
                 <font>
-                    <Font name="Montserrat Bold" size="18.0" />
+                    <Font name="Bauhaus 93" size="24.0" />
                 </font>
                 <HBox.margin>
                     <Insets right="16.0" />
@@ -328,7 +328,7 @@
                     <Insets right="16.0" />
                 </HBox.margin>
                 <children>
-                    <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fitHeight="26.0" fitWidth="26.0" onMouseClicked="#logoutclicked" pickOnBounds="true" preserveRatio="true">
                         <image>
                             <Image url="@../img/logout.png" />
                         </image>

@@ -46,7 +46,5 @@ public interface UserCrud<T> {
     User getUserByEmail(String email);
 
 
-
-
-
+    String getRole(String email);
 }

@@ -47,7 +47,15 @@ public class ProfileController {
     private Text emailfield;
 
     private String authenticatedEmail;
+    private User userData; // Store user data
 
+    public void setUserData(User user) {
+        this.userData = user;
+        // Populate fields with user data
+        nameField.setText(userData.getName());
+        emailfield.setText(userData.getEmail());
+        // Set other fields...
+    }
     public void setAuthenticatedEmail(String email) {
         this.authenticatedEmail = email;
         initializeFields();
@@ -55,25 +63,30 @@ public class ProfileController {
 
     @FXML
     void initializeFields() {
-        assert imagefield != null : "fx:id=\"imagefield\" was not injected: check your FXML file 'profile.fxml'.";
-        assert nameField != null : "fx:id=\"nameField\" was not injected: check your FXML file 'profile.fxml'.";
-        assert lastnamefield != null : "fx:id=\"lastnamefield\" was not injected: check your FXML file 'profile.fxml'.";
-        assert roleField != null : "fx:id=\"roleField\" was not injected: check your FXML file 'profile.fxml'.";
-        assert datenaissancefield != null : "fx:id=\"datenaissancefield\" was not injected: check your FXML file 'profile.fxml'.";
-        assert numberfield != null : "fx:id=\"numberfield\" was not injected: check your FXML file 'profile.fxml'.";
-        assert emailfield != null : "fx:id=\"emailfield\" was not injected: check your FXML file 'profile.fxml'.";
 
         // Remplir les champs avec les informations de l'utilisateur authentifié
         User authenticatedUser = getAuthenticatedUser(authenticatedEmail);
         if (authenticatedUser != null) {
             nameField.setText(authenticatedUser.getName());
             lastnamefield.setText(authenticatedUser.getLastname());
-            roleField.setText(authenticatedUser.getRoles());
+            roleField.setText(getUserRoleText(authenticatedUser.getRoles()));
             // datenaissancefield.setText(authenticatedUser.getDatenaissance());
             // numberfield.setText(authenticatedUser.getNumber());
             emailfield.setText(authenticatedUser.getEmail());
         } else {
             System.out.println("Erreur lors de la récupération de l'utilisateur authentifié.");
+        }
+    }
+
+    private String getUserRoleText(String roles) {
+        if (roles.contains("ROLE_CLIENT")) {
+            return "Client";
+        } else if (roles.contains("ROLE_ADMIN")) {
+            return "Admin";
+        } else if (roles.contains("ROLE_FOURNISSEUR")) {
+            return "Fournisseur";
+        } else {
+            return "Inconnu";
         }
     }
 
@@ -126,4 +139,20 @@ public class ProfileController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+    public void initData() {
+        // Remplir les champs avec les informations de l'utilisateur authentifié
+        User authenticatedUser = getAuthenticatedUser(authenticatedEmail);
+        if (authenticatedUser != null) {
+            nameField.setText(authenticatedUser.getName());
+            lastnamefield.setText(authenticatedUser.getLastname());
+            roleField.setText(getUserRoleText(authenticatedUser.getRoles()));
+           // datenaissancefield.setText(authenticatedUser.getDatenaissance()); // Ajouter cette ligne pour afficher la date de naissance
+           // numberfield.setText(authenticatedUser.getNumber()); // Ajouter cette ligne pour afficher le numéro de téléphone
+            emailfield.setText(authenticatedUser.getEmail());
+        } else {
+            System.out.println("Erreur lors de la récupération de l'utilisateur authentifié.");
+        }
+    }
+
 }

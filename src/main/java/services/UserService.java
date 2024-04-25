@@ -156,7 +156,7 @@ public class UserService implements  UserCrud<User> {
                     if (role.contains("ROLE_CLIENT") || role.contains("ROLE_FOURNISSEUR")) {
                         loadProfileFXML();
                         return true;
-                    
+
 
                 } else if (role.contains("ROLE_ADMIN")) {
                         loadSidebarFXML();
@@ -463,6 +463,31 @@ public class UserService implements  UserCrud<User> {
     private List<User> getUsersFromDatabase() {
         return new ArrayList<>();
     }
+
+
+@Override
+public String getRole(String email) {
+    String role = "";
+    String query = "SELECT roles FROM user WHERE email = ?";
+    try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        preparedStatement.setString(1, email);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            role = resultSet.getString("roles");
+            // Vérifie si le rôle contient "ROLE_CLIENT" ou "ROLE_ADMIN"
+            if (role.contains("ROLE_CLIENT")) {
+                role = "ROLE_CLIENT";
+            } else if (role.contains("ROLE_ADMIN")) {
+                role = "ROLE_ADMIN";
+            } else {
+                role = "UNKNOWN_ROLE"; // Si le rôle n'est pas reconnu
+            }
+        }
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+    return role;
+}
 
 
 }

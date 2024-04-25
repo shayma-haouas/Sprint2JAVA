@@ -113,7 +113,7 @@ public class listUserController {
     }
 
     private void openUpdateUserWindow(User user) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Controllers/UserController/ModifierUser.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserInterface/ModifierUser.fxml"));
         try {
             Parent root = loader.load();
             ModifierUser updateUserController = loader.getController();
@@ -127,7 +127,7 @@ public class listUserController {
     }
 
     public void navigateToAddUser(MouseEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/Controllers/UserController/AddUser.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserInterface/AddUser.fxml"));
         Parent root;
         try {
             root = loader.load();
@@ -143,5 +143,15 @@ public class listUserController {
     }
 
     public void AddUserClicked(MouseEvent mouseEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserInterface/AjouterUser.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
 }

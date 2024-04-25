@@ -3,11 +3,15 @@
 <?import java.lang.String?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -16,11 +20,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="672.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.UserController.AjouterUser">
+<AnchorPane prefHeight="672.0" prefWidth="1100.0" stylesheets="@../css/AjouterUser.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.UserController.AjouterUser">
     <children>
-        <VBox layoutX="135.0" layoutY="135.0" prefHeight="444.0" prefWidth="374.0" spacing="30.0">
+        <VBox layoutX="100.0" layoutY="132.0" prefHeight="444.0" prefWidth="374.0" spacing="30.0">
             <children>
-                <HBox prefHeight="100.0" prefWidth="200.0">
+                <HBox prefHeight="100.0" prefWidth="200.0" styleClass="bg1">
                     <children>
                         <Button mnemonicParsing="false" onAction="#UploadImage" text="Upload Image">
                             <HBox.margin>
@@ -30,6 +34,7 @@
                         <ImageView fx:id="imageField" fitHeight="81.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" />
                     </children>
                 </HBox>
+            <Separator prefWidth="200.0" />
 
                 <TextField fx:id="firstnameField" promptText="FirstName ">
                     <VBox.margin>
@@ -47,19 +52,33 @@
                     <VBox.margin>
                         <Insets left="40.0" right="40.0" />
                     </VBox.margin></TextField>
-                <DatePicker fx:id="datePicker" promptText="Date of Birth">
+
+
+
+                <Button mnemonicParsing="false" onAction="#AjoutUser" prefHeight="35.0" prefWidth="158.0" text="Ajouter User">
                     <VBox.margin>
-                        <Insets left="40.0" right="40.0" />
+                        <Insets left="90.0" />
                     </VBox.margin>
-                </DatePicker>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+               <effect>
+                  <ColorAdjust brightness="-0.15" contrast="-0.05" hue="0.54" saturation="0.24" />
+               </effect>
+                </Button>
             </children>
             <opaqueInsets>
                 <Insets />
             </opaqueInsets>
         </VBox>
-        <VBox layoutX="528.0" layoutY="135.0" prefHeight="444.0" prefWidth="368.0" spacing="30.0">
+        <VBox layoutX="474.0" layoutY="348.0" prefHeight="234.0" prefWidth="368.0" spacing="30.0">
             <children>
-                <ChoiceBox fx:id="choiceBox" prefHeight="35.0" prefWidth="271.0">
+                <DatePicker fx:id="datePicker" prefHeight="35.0" prefWidth="290.0" promptText="Date of Birth">
+                    <VBox.margin>
+                        <Insets left="40.0" right="40.0" />
+                    </VBox.margin>
+                </DatePicker>
+                <ChoiceBox fx:id="choiceBox" prefHeight="35.0" prefWidth="303.0">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
                             <String fx:value="ROLE_FOURNISSEUR" />
@@ -69,6 +88,12 @@
                     <VBox.margin>
                         <Insets left="40.0" right="40.0" />
                     </VBox.margin>
+               <effect>
+                  <ColorAdjust brightness="-0.22" contrast="0.1" hue="0.65" saturation="0.14" />
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="MOVE" />
+               </cursor>
                 </ChoiceBox>
                 <PasswordField fx:id="PasswordField" promptText="Password">
                     <VBox.margin>
@@ -78,38 +103,8 @@
                     <VBox.margin>
                         <Insets left="40.0" right="40.0" />
                     </VBox.margin></PasswordField>
-
-
-
-                <Button mnemonicParsing="false" onAction="#AjoutUser" prefHeight="35.0" prefWidth="158.0" text="Ajouter User">
-                    <VBox.margin>
-                        <Insets left="90.0" />
-                    </VBox.margin>
-                </Button>
                 <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                 <HBox prefHeight="150.0" prefWidth="0.0">
-                    <ImageView fitHeight="68.0" fitWidth="41.0" onMouseClicked="#UpdateUser" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../img/update.png" />
-                        </image>
-                        <VBox.margin>
-                            <Insets />
-                        </VBox.margin>
-                        <HBox.margin>
-                            <Insets left="90.0" />
-                        </HBox.margin>
-                    </ImageView>
-                    <ImageView fitHeight="70.0" fitWidth="45.0" onMouseClicked="#DeleteUser" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../img/supprimer.png" />
-                        </image>
-                        <VBox.margin>
-                            <Insets />
-                        </VBox.margin>
-                        <HBox.margin>
-                            <Insets left="80.0" right="80.0" />
-                        </HBox.margin>
-                    </ImageView>
                     <VBox.margin>
                         <Insets top="-150.0" />
                     </VBox.margin>
@@ -120,9 +115,33 @@
                 <Insets />
             </opaqueInsets>
         </VBox>
-        <Text fill="#8ea16d" layoutX="401.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter User" textAlignment="CENTER" wrappingWidth="254.0">
-            <font>
-                <Font size="42.0" />
-            </font></Text>
+      <HBox layoutX="-2.0" prefHeight="122.0" prefWidth="1106.0" styleClass="bg">
+         <children>
+              <Text fill="#f4f5f3" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter User" textAlignment="CENTER" wrappingWidth="339.0">
+                  <font>
+                      <Font name="Bell MT" size="48.0" />
+                  </font>
+               <HBox.margin>
+                  <Insets left="400.0" top="30.0" />
+               </HBox.margin>
+            </Text>
+                 <ImageView fitHeight="68.0" fitWidth="41.0" onMouseClicked="#UpdateUser" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                         <Image url="@../img/refractor.png" />
+                     </image>
+                     <HBox.margin>
+                         <Insets left="300.0" top="40.0" />
+                     </HBox.margin>
+                 </ImageView>
+         </children>
+      </HBox>
+       <ImageView fitHeight="364.0" fitWidth="368.0" layoutX="737.0" layoutY="82.0" onMouseClicked="#UpdateUser" pickOnBounds="true" preserveRatio="true" rotate="26.6">
+           <image>
+               <Image url="@../img/3d-casual-life-notes-composition-with-phone.png" />
+           </image>
+         <rotationAxis>
+            <Point3D x="1.0" z="1.0" />
+         </rotationAxis>
+       </ImageView>
     </children>
 </AnchorPane>
