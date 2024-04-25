@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.Crudevent"
+            prefHeight="400.0" prefWidth="600.0"  id="AnchorPane"     >
+    <children>
+        <Pane layoutX="14.0" layoutY="75.0" prefHeight="611.0" prefWidth="608.0" style="-fx-background-color: #100f0f; -fx-border-color: #131314;">
+            <children>
+                <Label layoutX="18.0" layoutY="17.0" prefHeight="46.0" prefWidth="317.0" style="-fx-border-color: orange;" text="Ajout d'un evenement :" textFill="WHITE">
+                    <font>
+                        <Font name="Corbel Bold Italic" size="28.0" />
+                    </font>
+                </Label>
+                <Label layoutX="44.0" layoutY="124.0" prefHeight="27.0" prefWidth="85.0" text="Nom:" textFill="#fffdfa">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <Label layoutX="28.0" layoutY="79.0" prefHeight="27.0" prefWidth="182.0" text="Nom Sponsor:" textFill="#fffdfa">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <Label layoutX="40.0" layoutY="166.0" prefHeight="27.0" prefWidth="85.0" text="Type:" textFill="#fffdfa">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <Label layoutX="30.0" layoutY="215.0" prefHeight="27.0" prefWidth="105.0" text="Description" textFill="#fffdfa">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <Label layoutX="24.0" layoutY="266.0" prefHeight="27.0" prefWidth="109.0" text="date debut" textFill="#fffdfa">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <Label layoutX="39.0" layoutY="317.0" prefHeight="27.0" prefWidth="92.0" text="date fin" textFill="#fffdfa">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <Label layoutX="47.0" layoutY="418.0" prefHeight="27.0" prefWidth="63.0" text="Lieu" textFill="#fffdfa">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <Label layoutX="19.0" layoutY="363.0" prefHeight="27.0" prefWidth="128.0" text="nb participant" textFill="#fffdfa">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <Label layoutX="32.0" layoutY="477.0" prefHeight="27.0" prefWidth="92.0" text="Image" textFill="#fffdfa">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="tfnameEV" layoutX="156.0" layoutY="122.0" />
+                <TextField fx:id="tflieu" layoutX="156.0" layoutY="418.0" />
+                <TextField fx:id="tftype" layoutX="160.0" layoutY="167.0" />
+                <TextField fx:id="tfdescription" layoutX="155.0" layoutY="216.0" prefHeight="25.0" prefWidth="150.0" />
+                <TextField fx:id="tfnbParticipant" layoutX="160.0" layoutY="364.0" />
+                <DatePicker fx:id="tfdatedebut" layoutX="156.0" layoutY="267.0" />
+                <DatePicker fx:id="tfdatefin" layoutX="156.0" layoutY="318.0" />
+                <ComboBox fx:id="cbsponsor" layoutX="156.0" onAction="#selectsponsor" layoutY="77.0" prefWidth="150.0" />
+                <Button fx:id="browseimg" layoutX="140.0" layoutY="475.0" mnemonicParsing="false" onAction="#ajouterimage" prefHeight="31.0" prefWidth="205.0" text="Upload" />
+                <Button fx:id="btnajouterev" layoutX="52.0" layoutY="549.0" mnemonicParsing="false" onAction="#ajouterev" prefHeight="44.0" prefWidth="105.0" style="-fx-border-color: #000000; -fx-background-color: #000000;" text="Ajouter" textFill="#eb7f7f">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </Button>
+                <ImageView fx:id="image2" fitHeight="150.0" fitWidth="200.0" layoutX="387.0" layoutY="431.0" pickOnBounds="true" preserveRatio="true" />
+            </children>
+        </Pane>
+    </children>
+
+</AnchorPane>

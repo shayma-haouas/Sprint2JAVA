@@ -99,4 +99,22 @@ public class ServiceEvenement implements CRUDEvent<Evenement> {
         }
         return liste;
     }
+
+
+
+
+    //for sponsor
+    public int getIdSponsor(String nom) {
+        int id = 0;
+        try (PreparedStatement pstmt = MyDatabase.getInstance().getConnection().prepareStatement("SELECT id FROM sponsor WHERE name= ?")) {
+            pstmt.setString(1, nom);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                id = rs.getInt("id");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return id;
+    }
 }
