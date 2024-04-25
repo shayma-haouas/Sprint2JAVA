@@ -1,0 +1,108 @@
+.root {
+    -fx-base: #2f611f; /* Dark green base color */
+    -fx-background-color: white; ; /* Dark background */
+    -fx-text-fill: #fffdfa; /* Light text for contrast */
+    -fx-font-family: "Corbel Bold Italic"; /* Consistent font */
+}
+
+.list-cell {
+    -fx-text-fill: #fffdfa;
+    -fx-font-family: "Corbel Bold Italic";
+    -fx-font-size: 20px;
+    -fx-font-style: bold;
+    -fx-alignment: LEFT;
+    -fx-height: 30px;
+    -fx-background-color: rgba(128, 128, 128, 0.5); /* Light grey background */
+}
+
+.list-cell:odd {
+    -fx-background-color: rgba(128, 128, 128, 0.5);
+}
+
+.list-cell:even {
+    -fx-background-color: rgba(128, 128, 128, 0.5);
+}
+
+.list-cell:filled:hover {
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+    -fx-background-color: rgba(136, 180, 78, 0.5); /* Light green hover */
+}
+
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: linear-gradient(to top, rgba(136, 180, 78, .6), #2f611f);
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-text-fill: white;
+}
+
+.nav {
+    -fx-background-color: linear-gradient(to top, rgba(136, 180, 78, .6), #2f611f);
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+}
+
+vbox-style {
+    -fx-background-color: rgba(128, 128, 128, 0.1);
+    -fx-border-radius: 10px;
+    -fx-padding: 20px;
+    -fx-effect: dropshadow(gaussian, rgba(136, 180, 78, .6), 10, 0.1, 0, 0);
+}
+
+/* Custom styles for your application */
+.custom-button {
+    -fx-background-color: #2f611f;
+    -fx-text-fill: white;
+    -fx-border-color: #131314;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.custom-button:hover {
+    -fx-background-color: #131314;
+    -fx-text-fill: #2f611f;
+}
+
+.custom-text-field {
+    -fx-background-color: #100f0f;
+    -fx-text-fill: #fffdfa;
+    -fx-border-color: #131314;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.custom-text-field:focused {
+    -fx-border-color: #2f611f;
+}
+
+.label {
+    -fx-text-fill: black; /* Make all labels black */
+}
+
+.button {
+    -fx-background-color: #2f611f; /* Green background for buttons */
+    -fx-text-fill: white; /* White text for buttons */
+}
+
+.button:hover {
+    -fx-background-color: #131314; /* Dark grey background on hover */
+}
+
+.text-field {
+    -fx-background-color: white; /* White background for text fields */
+    -fx-border-color: #131314; /* Border color */
+    -fx-border-radius: 5px; /* Rounded corners */
+    -fx-background-radius: 5px; /* Rounded corners */
+}
+
+.text-field:focused {
+    -fx-border-color: #2f611f; /* Green border on focus */
+}
+/* combo-size.css */
+.combo-box {
+    -fx-pref-width: 200;
+}
+
+.combo-box-popup > .list-view {
+    -fx-pref-width: 200;
+}

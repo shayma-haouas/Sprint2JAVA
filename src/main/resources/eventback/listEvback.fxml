@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<Pane fx:id="content_area" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"  styleClass="dash__container-card"  prefHeight="700.0" prefWidth="1100.0"  stylesheets="@/eventback/ListAddEVnt.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="controllers.ListEvback">
+    <children>
+        <HBox alignment="CENTER_LEFT" layoutX="-1.0" layoutY="-2.0" prefHeight="107.0" prefWidth="1431.0" styleClass="nav">
+            <children>
+                <Text fill="#eceeeb" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="DemandeCard__title" text="List Of Events">
+                    <font>
+                        <Font name="Bodoni MT Black" size="36.0" />
+                    </font>
+                    <HBox.margin>
+                        <Insets left="100.0" />
+                    </HBox.margin>
+                </Text>
+
+            </children>
+        </HBox>
+        <Button fx:id="btnajouter" layoutX="77.0" layoutY="156.0" mnemonicParsing="false" onAction="#openaddev" prefHeight="37.0" prefWidth="120.0" style="-fx-background-color: linear-gradient(to top, rgba(136, 180, 78, .6), #2f611f); -fx-text-fill: white;" text="Ajouter" textFill="#f8b135">
+            <font>
+                <Font name="System Bold Italic" size="18.0" />
+            </font>
+
+
+
+        </Button>
+        <ScrollPane hbarPolicy="NEVER" layoutX="77.0" layoutY="199.0" prefHeight="368.0" prefWidth="929.0" styleClass="user_listScrollPane">
+            <content>
+                <!-- <VBox fx:id="SPListContainer" spacing="13.0" layoutX="93.0" layoutY="245.0" prefHeight="367.0" prefWidth="915.0" styleClass="vbox-style">-->
+
+                <ListView fx:id="listEv" layoutX="93.0" layoutY="245.0" prefHeight="367.0" prefWidth="891.0" VBox.vgrow="ALWAYS" />
+
+
+
+                <!-- </VBox>-->
+            </content>
+        </ScrollPane>
+
+        <Text fill="#2f611f" layoutX="36.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sort-text" text="Trier par :">
+            <font>
+                <Font size="22.0" />
+            </font>
+        </Text>
+        <ComboBox fx:id="statusInput" layoutX="140.0" layoutY="113.0" maxHeight="-Infinity" minHeight="-Infinity" minWidth="150.0"  prefHeight="40.0" promptText="All" styleClass="Cheque__add-comboBox">
+            <padding>
+                <Insets top="4.0" />
+            </padding>
+        </ComboBox>
+
+    </children>
+</Pane>
+
+

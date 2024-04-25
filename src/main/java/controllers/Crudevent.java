@@ -11,12 +11,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import services.ServiceEvenement;
 import services.ServiceSpon;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -56,7 +59,38 @@ public class Crudevent implements Initializable {
     @FXML
     private DatePicker tfdatefin;
 
+    @FXML
+    private TableView<Evenement> tableEvenement;
 
+    @FXML
+    private TableColumn<Evenement, Integer> callidev;
+
+    @FXML
+    private TableColumn<Evenement, String> callnomev;
+
+    @FXML
+    private TableColumn<Evenement, String> calltype;
+
+    @FXML
+    private TableColumn<Evenement, String> calldescription;
+
+    @FXML
+    private TableColumn<Evenement, String> calldatedebut;
+
+    @FXML
+    private TableColumn<Evenement, String> calldatefin;
+
+    @FXML
+    private TableColumn<Evenement, Integer> callnbparticipant;
+
+    @FXML
+    private TableColumn<Evenement, String> calllieu;
+
+    @FXML
+    private TableColumn<Evenement, String> callimage;
+
+    @FXML
+    private TableColumn<Evenement, Integer> callids;
 
     @FXML
     private Button btnmodifier;
@@ -214,7 +248,21 @@ public class Crudevent implements Initializable {
     @FXML
     void ajouterimage(ActionEvent event) {
 
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile != null) {
+            // load the selected image into the image view
+            path=selectedFile.getAbsolutePath();
+            Image image = new Image(selectedFile.toURI().toString());
+            image2.setImage(image);
+        }
+
+
     }
+
 
     @FXML
     void gererevenement(ActionEvent event) {
@@ -259,7 +307,5 @@ public class Crudevent implements Initializable {
     @FXML
     void supprimerev(ActionEvent event) {
 
-    }
+    }}
 
-
-}
