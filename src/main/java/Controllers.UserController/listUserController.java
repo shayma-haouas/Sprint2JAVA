@@ -112,7 +112,7 @@ public class listUserController {
         });
     }
 
-    private void openUpdateUserWindow(User user) {
+   /* private void openUpdateUserWindow(User user) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserInterface/ModifierUser.fxml"));
         try {
             Parent root = loader.load();
@@ -124,7 +124,24 @@ public class listUserController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
+   private void openUpdateUserWindow(User user) {
+       FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserInterface/ModiferUser.fxml"));
+       try {
+           Parent root = loader.load();
+           ModifierUser updateUserController = loader.getController();
+           updateUserController.setUser(user);
+           updateUserController.setParentController(this); // Passer une référence à cette instance de listUserController à la fenêtre de mise à jour
+           Stage stage = new Stage();
+           stage.setScene(new Scene(root));
+           stage.show();
+       } catch (IOException e) {
+           e.printStackTrace();
+       }
+   }
+
+
+
 
     public void navigateToAddUser(MouseEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserInterface/AddUser.fxml"));

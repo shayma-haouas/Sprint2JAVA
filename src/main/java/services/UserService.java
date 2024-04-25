@@ -114,6 +114,8 @@ public class UserService implements  UserCrud<User> {
                 user.setEmail(resultSet.getString("email"));
                 user.setImage(resultSet.getString("image"));
                 user.setNumber(resultSet.getInt("number"));
+                user.setDatenaissance(resultSet.getDate("datenaissance"));
+
                 user.setIs_verified(resultSet.getBoolean("is_verified"));
 
                 userList.add(user);
@@ -209,8 +211,10 @@ public class UserService implements  UserCrud<User> {
                 user.setName(resultSet.getString("name"));
                 user.setLastname(resultSet.getString("lastname"));
                 user.setRoles(resultSet.getString("roles"));
-                /*user.setDatenaissance(resultSet.getString("date_naissance"));*/
-                /*user.setNumber(resultSet.getString("phone_number"));*/
+                // Assuming resultSet is an instance of ResultSet
+               // user.setDatenaissance(resultSet.getString("date_naissance"));
+                //user.setNumber(resultSet.getString("phone_number"));
+
                 user.setEmail(resultSet.getString("email"));
             }
         } catch (SQLException ex) {
@@ -248,6 +252,20 @@ public class UserService implements  UserCrud<User> {
             Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    @Override
+    public void updateRole(User user) {
+        String requete = "UPDATE user SET roles=? WHERE id=?";
+        System.out.println(user);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(requete)) {
+            preparedStatement.setString(1, user.getRoles()); // Assuming getRole() returns a single role
+            preparedStatement.setInt(2, user.getId());
+            preparedStatement.executeUpdate();
+            System.out.println("Role updated successfully.");
+        } catch (SQLException ex) {
+            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 
     @Override
     public void updateLastName(User user) {

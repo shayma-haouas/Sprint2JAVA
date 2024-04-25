@@ -33,7 +33,7 @@ public class User {
         this.email = email;
         this.roles = roles;
         this.image = image;
-        this.number=number;
+        this.number = number;
         this.is_verified = is_verified;
         this.datenaissance= datenaissance;
     }
@@ -48,7 +48,7 @@ public class User {
         this.email = email;
         this.roles = roles;
         this.image = image;
-        this.number=number;
+        this.number = number;
         this.is_verified = is_verified;
         this.datenaissance=datenaissance;
     }
@@ -80,7 +80,7 @@ public class User {
     public void setImage(String image) {
         this.image = image;
     }
-    public void setNumber(int Number) {
+    public void setNumber(int number) {
         this.number = number;
     }
     public void setIs_verified(boolean is_verified) {this.is_verified = is_verified;}

@@ -3,79 +3,100 @@ package Controllers.UserController;
 import entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import services.UserService;
-
-import java.io.File;
-import java.util.Optional;
 
 public class ModifierUser {
 
+
+
+    @FXML
+    private PasswordField PasswordField;
+
+    @FXML
+    private PasswordField ResetField;
+
+    @FXML
+    private TextField emailField;
+
+    @FXML
+    private TextField firstnameField;
+
     @FXML
     private ImageView imageField;
-    private String email;
 
-    public void UploadImage(ActionEvent actionEvent) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select Image File");
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image files", "*.png", "*.jpg", "*.jpeg", "*.gif");
-        fileChooser.getExtensionFilters().add(extFilter);
-        File selectedFile = fileChooser.showOpenDialog(new Stage());
+    @FXML
+    private TextField lastnameField;
 
-        if (selectedFile != null) {
-            String imagePath = selectedFile.getAbsolutePath();
-            imageField.setImage(new Image(selectedFile.toURI().toString()));
-        }
+    @FXML
+    private TextField numberField;
+    @FXML
+    private ChoiceBox<String> rolecombo;
+private  User user;
+
+    @FXML
+    void initialize()
+    {
+
+
+
 
     }
+    @FXML
+    void ModifierUser(ActionEvent event) {
+        if (user != null) {
+            String newRole ="[\""+rolecombo.getValue()+"\"]";// Déterminez le nouveau rôle selon vos besoins
+            user.setRoles(newRole); // Mettez à jour le rôle de l'utilisateur
 
-    private UserService userService = new UserService(); // Initialisation du service utilisateur
+            // Appelez la méthode updateRole du service utilisateur pour mettre à jour le rôle dans la base de données
+            UserService userService = new UserService(); // Initialisez votre service utilisateur
+            userService.updateRole(user); // Appelez la méthode updateRole avec l'utilisateur modifié
 
-
-
-    public void setUserData(String userEmail) {
-        this.email = userEmail; // Méthode pour définir l'email de l'utilisateur à modifier
+            System.out.println("Role updated successfully.");
+        } else {
+            System.out.println("User is null. Cannot update role.");
+        }
     }
 
-    /*public void ModifierUser(ActionEvent actionEvent) {
-        // Afficher une boîte de dialogue de confirmation avant de modifier l'utilisateur
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation de modification");
-        alert.setHeaderText(null);
-        alert.setContentText("Êtes-vous sûr de vouloir modifier cet utilisateur ?");
 
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            // L'utilisateur a confirmé la modification, procéder à la modification
-            // Rechercher l'utilisateur par son email
-            User userToUpdate = userService.getUserByEmail(email);
-            if (userToUpdate != null) {
-                // Mettre à jour les informations de l'utilisateur en fonction des nouvelles valeurs
-                // Utilisez les autres champs FXML pour récupérer les nouvelles informations de l'utilisateur
-                // Par exemple, vous devez avoir des champs FXML pour le nom, le prénom, etc.
-                // Mettez à jour ces champs de l'utilisateur à modifier
+    @FXML
+    void UploadImage(ActionEvent event) {
 
-                // Appeler la méthode update de votre service UserService pour mettre à jour l'utilisateur
-                userService.update(userToUpdate);
-                showAlert(Alert.AlertType.INFORMATION, "Modification réussie", "Les informations de l'utilisateur ont été mises à jour avec succès");
-            } else {
-                showAlert(Alert.AlertType.ERROR, "Utilisateur non trouvé", "L'utilisateur avec cet email n'existe pas");
-            }
-        }
-    }*/
-
-    private void showAlert(Alert.AlertType alertType, String title, String header) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.showAndWait();
     }
 
     public void setUser(User user) {
+        this.user = user;
+        if (user != null) {
+            if (emailField != null) {
+                emailField.setText(user.getEmail());
+            }
+            if (firstnameField != null) {
+                firstnameField.setText(user.getName());
+            }
+            if (lastnameField != null) {
+                lastnameField.setText(user.getLastname());
+            }
+            if (numberField != null) {
+                numberField.setText(String.valueOf(user.getNumber()));
+
+            }
+            if (numberField != null) {
+                numberField.setText(String.valueOf(user.getNumber()));
+
+            }
+            // Assuming setImage method is available for your ImageView
+
+
+        }
+    }
+
+    public void setParentController(listUserController listUserController) {
+    }
+
+    public void setUserData(String s) {
     }
 }

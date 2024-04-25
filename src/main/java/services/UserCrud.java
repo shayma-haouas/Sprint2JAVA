@@ -24,6 +24,8 @@ public interface UserCrud<T> {
 
     void updateName(User user);
 
+    void updateRole(User user);
+
     void updateLastName(User user);
 
     List<User> sortByEmail();
