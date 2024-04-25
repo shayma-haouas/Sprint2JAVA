@@ -29,6 +29,6 @@
             <Label prefHeight="17.0" prefWidth="65.0" text="Numéro:" />
             <TextField fx:id="numfield" />
         </HBox>
-        <Button fx:id="btnenvoyer" prefHeight="25.0" prefWidth="85.0" text="Ajouter"  />
+        <Button fx:id="btnenvoyer" prefHeight="25.0" prefWidth="85.0" text="Ajouter" onAction="#ajoutersponsor"  />
     </VBox>
 </AnchorPane>

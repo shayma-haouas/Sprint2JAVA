@@ -151,7 +151,7 @@ public class Listsponsors {
     @FXML
     void opensponadd(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/eventback/addSponn.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/eventback/addsponsors.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
