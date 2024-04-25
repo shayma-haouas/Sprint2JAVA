@@ -1,0 +1,38 @@
+.list-cell {
+      -fx-text-fill: black;
+      -fx-font-family: "Monospaced";
+      -fx-font-size: 20px; /* Decreased font size */
+      -fx-font-style: bold;
+      -fx-alignment: LEFT;
+      -fx-height: 30px;}
+
+.list-cell:odd {
+    -fx-background-color: rgba(128, 128, 128, 0.5); /* Gris transparent */
+}
+
+.list-cell:even {
+    -fx-background-color: rgba(128, 128, 128, 0.5); /* Gris transparent */
+}
+
+.list-cell:filled:hover {
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: linear-gradient(to top, rgba(136, 180, 78, .6), #2f611f);
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-text-fill: white; /* White text for selected items */
+}
+.nav{
+  -fx-background-color: linear-gradient(to top, rgba(136, 180, 78, .6), #2f611f);
+  -fx-background-repeat: no-repeat;
+  -fx-background-size: cover;
+}
+vbox-style {
+  -fx-background-color: rgba(128, 128, 128, 0.1); /* Light grey background */
+  -fx-border-radius: 10px; /* Border radius de 10px */
+  -fx-padding: 20px; /* Ajouter un padding pour que le contenu ne soit pas collé aux bords */
+  -fx-effect: dropshadow(gaussian, rgba(136, 180, 78, .6), 10, 0.1, 0, 0); /* Light green shadow */
+}

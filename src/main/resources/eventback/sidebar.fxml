@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Text?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controllers.Sponside"
+            fx:controller="controllers.Sidebar"
             prefHeight="400.0" prefWidth="600.0" stylesheets="@../eventback/style1.css">
 
 

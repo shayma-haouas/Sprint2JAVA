@@ -14,18 +14,17 @@ public class Testing extends Application {
     public void start(Stage primaryStage) throws Exception {
         try {
             // Load the FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/eventback/sponsor.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/eventback/Listsponsors.fxml"));
             Parent root = loader.load();
 
             // Get the controller instance
-            Sponsorb controller = loader.getController();
+            Listsponsors controller = loader.getController();
 
-            // Call the show() method to fetch data and populate the TableView
-            controller.show();
-            controller.ajoutersponsor(new ActionEvent());
-            controller.modifiersponsor(new ActionEvent());
+            // Call the showw() method to fetch data and populate the ListView
+            controller.showw();
+
             // Set up the primary stage
-            primaryStage.setTitle("Testing FXML Interface");
+            primaryStage.setTitle("Testing FXML Interface with showw() Method");
             primaryStage.setScene(new Scene(root, 600, 400));
             primaryStage.show();
         } catch (Exception e) {
@@ -35,4 +34,5 @@ public class Testing extends Application {
 
     public static void main(String[] args) {
         launch(args);
-    }}
+    }
+}
