@@ -14,16 +14,17 @@ import services.UserService;
 import java.io.IOException;
 
 public class LoginController {
+    static  String emailc;
 
     @FXML
-    private TextField Emailfield;
+    private TextField emailField;
 
     @FXML
     private TextField Passwordfield;
 
     @FXML
     void loginclicked(ActionEvent event) {
-        String email = Emailfield.getText();
+        String email = emailField.getText();
         String password = Passwordfield.getText();
 
         if (email.isEmpty() || password.isEmpty()) {
@@ -40,32 +41,37 @@ public class LoginController {
         String role = userService.getRole(email);
         boolean loginSuccessful = userService.login(email, password);
 
-        if (loginSuccessful) {
+        if (loginSuccessful) {System.out.println("Login successful!");
             try {
                 FXMLLoader loader;
                 if ("ROLE_CLIENT".equals(role)) {
-                    loader = new FXMLLoader(getClass().getResource("/UserInterface/home.fxml"));
-                    HomeController homeController = loader.getController();
+                    FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/UserInterface/home.fxml"));
+                    Parent root = loader1.load(); // Load the FXML file
+
+                    HomeController homeController = loader1.getController(); // Get the controller instance
+
                     homeController.setAuthenticatedEmail(email);
+                    this.emailc=email;
                 } else if ("ROLE_ADMIN".equals(role)) {
                     loader = new FXMLLoader(getClass().getResource("/UserInterface/sidebar.fxml"));
-                    SideBarController sideBarController = loader.getController();
-                    sideBarController.setAuthenticatedEmail(email);
+                    Parent root = loader.load();
+                    SideBarController sidebarController = loader.getController();
+                    this.emailc=email;
+
+                    sidebarController.setAuthenticatedEmail(email);
                 } else {
                     showAlert(Alert.AlertType.ERROR, "Error", "Unknown Role", "Your role is not recognized.");
                     return;
                 }
-
-                Parent root = loader.load();
-                Stage stage = (Stage) Emailfield.getScene().getWindow();
-                stage.setScene(new Scene(root));
+                // Autres traitements
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } else {
-            showAlert(Alert.AlertType.ERROR, "Error", "Login Failed", "Invalid email or password. Please try again.");
         }
-    }
+
+
+        }
+
 
     private boolean isValidEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
@@ -84,7 +90,7 @@ public class LoginController {
     public void ClickedSign(MouseEvent mouseEvent) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/UserInterface/Registration.fxml"));
-            Scene scene = Emailfield.getScene();
+            Scene scene = emailField.getScene();
             scene.setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();

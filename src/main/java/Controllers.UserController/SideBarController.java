@@ -20,6 +20,7 @@ public class SideBarController {
 
     private String authenticatedEmail;
 
+
     public void setAuthenticatedEmail(String email) {
         this.authenticatedEmail = email;
     }

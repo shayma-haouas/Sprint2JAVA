@@ -18,6 +18,8 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import static Controllers.UserController.LoginController.emailc;
+
 public class ProfileController {
     @FXML
     private ResourceBundle resources;
@@ -49,6 +51,13 @@ public class ProfileController {
     private String authenticatedEmail;
     private User userData; // Store user data
 
+
+     @FXML
+     private void initialize()
+     {
+         setAuthenticatedEmail();
+
+     }
     public void setUserData(User user) {
         this.userData = user;
         // Populate fields with user data
@@ -56,8 +65,8 @@ public class ProfileController {
         emailfield.setText(userData.getEmail());
         // Set other fields...
     }
-    public void setAuthenticatedEmail(String email) {
-        this.authenticatedEmail = email;
+    public void setAuthenticatedEmail() {
+        this.authenticatedEmail = HomeController.authenticatedEmail;
         initializeFields();
     }
 
@@ -65,7 +74,7 @@ public class ProfileController {
     void initializeFields() {
 
         // Remplir les champs avec les informations de l'utilisateur authentifié
-        User authenticatedUser = getAuthenticatedUser(authenticatedEmail);
+        User authenticatedUser = getAuthenticatedUser( emailc);
         if (authenticatedUser != null) {
             nameField.setText(authenticatedUser.getName());
             lastnamefield.setText(authenticatedUser.getLastname());

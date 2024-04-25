@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -63,6 +64,13 @@
                </font>
             </Text>
 
+
+             <ImageView fitHeight="50.0" fitWidth="50.0" layoutY="-9.0" onMouseClicked="#logout" styleClass="circular-image">
+                 <image>
+                     <Image url="@../img/logout.png" />
+                 </image>
+             </ImageView>
+
          </children>
       </HBox>
       <AnchorPane layoutY="126.0" prefHeight="576.0" prefWidth="1100.0">
@@ -107,6 +115,12 @@
                <Image url="@../img/logo.png" />
            </image>
        </ImageView>
-       <Text fx:id="emailfield" />
+       <Button fx:id="EmailField" text="" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+           <font>
+               <Font name="Arial" size="14.0" />
+           </font>
+       </Button>
+
+
    </children>
 </AnchorPane>

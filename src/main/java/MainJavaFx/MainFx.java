@@ -6,6 +6,7 @@ package MainJavaFx;
     import javafx.fxml.FXMLLoader;
     import javafx.scene.Parent;
     import javafx.scene.Scene;
+    import javafx.scene.image.Image;
     import javafx.scene.input.MouseEvent;
     import javafx.scene.paint.Color;
     import javafx.stage.Stage;
@@ -18,7 +19,10 @@ public class MainFx extends Application {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/UserInterface/login.fxml"));
             Scene scene = new Scene(root);
-
+           // Stage.setFullScreen(false);
+           // Stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));
+           // Stage.setTitle("RadioHub");
+           // Stage.setResizable(false);
 
             stage.setScene(scene);
 

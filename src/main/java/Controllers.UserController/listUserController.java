@@ -65,7 +65,7 @@ public class listUserController {
 
                             String birthDate = user.getDatenaissance() != null ? new SimpleDateFormat("dd/MM/yyyy").format(user.getDatenaissance()) : "Inconnue";
 
-                            setText("Nom: " + user.getName() + "\nPrénom: " + user.getLastname() +
+                            setText("Nom: " + user.getName() + "     Prénom: " + user.getLastname() +
                                 "\nEmail: " + user.getEmail() + "\nTéléphone: " + user.getNumber() +
                                 "\nRole: " + role + "\nDate de naissance: " + birthDate);
 

@@ -125,7 +125,7 @@
                   <Insets left="400.0" top="30.0" />
                </HBox.margin>
             </Text>
-                 <ImageView fitHeight="68.0" fitWidth="41.0" onMouseClicked="#UpdateUser" pickOnBounds="true" preserveRatio="true">
+                 <ImageView fitHeight="68.0" fitWidth="41.0"  pickOnBounds="true" preserveRatio="true">
                      <image>
                          <Image url="@../img/refractor.png" />
                      </image>

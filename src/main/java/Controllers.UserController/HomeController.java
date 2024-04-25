@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -14,14 +15,20 @@ import java.io.IOException;
 
 public class HomeController {
 
+
     @FXML
-    private Text emailfield;
+    private Button EmailField;
 
-    private String authenticatedEmail; // Store authenticated email
-
+    // Méthode pour définir l'e-mail authentifié
     public void setAuthenticatedEmail(String email) {
-        this.authenticatedEmail = email;
+        if (LoginController.emailc != null) {
+            EmailField.setText(email);
+        }
     }
+
+    public static  String authenticatedEmail; // Store authenticated email
+
+
 
     @FXML
     public void Profileclicked(MouseEvent mouseEvent) {
@@ -30,12 +37,24 @@ public class HomeController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserInterface/profile.fxml"));
             Parent root = loader.load();
             ProfileController profileController = loader.getController();
-            profileController.setAuthenticatedEmail(authenticatedEmail); // Passing authenticated email to ProfileController
-            Scene scene = emailfield.getScene();
+            Scene scene = EmailField.getScene();
             scene.setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Erreur", "Chargement du profil échoué", "Impossible de charger la page du profil.");
+        }
+    }
+
+    @FXML
+    public void logout() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserInterface/login.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) EmailField.getScene().getWindow();
+            stage.setScene(new Scene(root));
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Déconnexion échouée", "Impossible d'ouvrir la fenêtre de connexion.");
         }
     }
 
@@ -45,18 +64,5 @@ public class HomeController {
         alert.setHeaderText(header);
         alert.setContentText(message);
         alert.showAndWait();
-    }
-
-    @FXML
-    public void logout() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserInterface/login.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) emailfield.getScene().getWindow();
-            stage.setScene(new Scene(root));
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Déconnexion échouée", "Impossible d'ouvrir la fenêtre de connexion.");
-        }
     }
 }
