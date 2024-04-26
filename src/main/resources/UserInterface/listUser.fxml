@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
@@ -44,17 +47,23 @@
             </content>
         </ScrollPane>
 
-          <Text fill="#2f611f" layoutX="36.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sort-text" text="Trier par :">
+          <Text fill="#2f611f" layoutX="36.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sort-text" text="Tree With:">
               <font>
                   <Font size="22.0" />
               </font>
           </Text>
-          <ComboBox fx:id="statusInput" layoutX="140.0" layoutY="113.0" maxHeight="-Infinity" minHeight="-Infinity" minWidth="150.0" onAction="#statusChange" prefHeight="40.0" promptText="All" styleClass="Cheque__add-comboBox">
+          <ComboBox fx:id="statusInput" layoutX="140.0" layoutY="113.0" maxHeight="-Infinity" minHeight="-Infinity" minWidth="150.0" onAction="#statusChange" prefHeight="40.0" promptText="Choice Option" styleClass="Cheque__add-comboBox">
 
               <padding>
                   <Insets top="4.0" />
               </padding>
       </ComboBox>
-
+        <TextField fx:id="searchField" layoutX="811.0" layoutY="113.0" prefHeight="40.0" prefWidth="204.0" promptText="Cherche ..">
+         <effect>
+            <Blend />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="CLOSED_HAND" />
+         </cursor></TextField>
     </children>
 </Pane>

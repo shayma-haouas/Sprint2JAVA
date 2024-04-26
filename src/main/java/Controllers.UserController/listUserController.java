@@ -4,10 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -27,6 +24,8 @@ public class listUserController {
 
     @FXML
     private Button btnAddUser;
+    @FXML
+    private TextField searchField;
 
     @FXML
     private ComboBox<String> statusInput; // ComboBox pour sélectionner le critère de tri
@@ -40,16 +39,10 @@ public class listUserController {
 
     @FXML
     private void initialize() {
-        // Récupérez la liste des utilisateurs à partir de votre service
         users = userService.show();
-
-        // Ajoutez les utilisateurs à la ListView
         userListListView.getItems().addAll(users);
-
-        // Ajouter des éléments à la ComboBox de tri
         statusInput.getItems().addAll("Name", "Email","Role");
 
-        // Définir la manière dont les utilisateurs sont affichés dans la ListView
         userListListView.setCellFactory(new Callback<ListView<User>, ListCell<User>>() {
             @Override
             public ListCell<User> call(ListView<User> listView) {
@@ -99,9 +92,8 @@ public class listUserController {
             }
         });
 
-        // Si vous souhaitez gérer les sélections d'utilisateurs
+
         userListListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            // Gérer la sélection de l'utilisateur ici
             if (newValue != null) {
                 System.out.println("Utilisateur sélectionné : " + newValue.getName());
                 System.out.println("Prénom : " + newValue.getLastname());
@@ -112,31 +104,38 @@ public class listUserController {
             }
         });
         userListListView.setOnMouseClicked(event -> {
-            // Obtenez l'utilisateur sélectionné
             User selectedUser = userListListView.getSelectionModel().getSelectedItem();
             if (selectedUser != null) {
-                // Affichez l'interface "ShowUser.fxml" avec les détails de l'utilisateur sélectionné
                 userService.show();
             }
         });
 
-        // Écouter les changements de sélection dans la ComboBox de tri
-        // Écouter les changements de sélection dans la ComboBox de tri
+
         statusInput.setOnAction(event -> {
             String selectedSort = statusInput.getValue();
             if ("Nom".equals(selectedSort)) {
-                // Trier la liste des utilisateurs par nom
                 Collections.sort(users, Comparator.comparing(User::getName));
             } else if ("Email".equals(selectedSort)) {
-                // Trier la liste des utilisateurs par email
                 Collections.sort(users, Comparator.comparing(User::getEmail));
             } else if ("Role".equals(selectedSort)) {
-                // Trier la liste des utilisateurs par rôle
                 Collections.sort(users, Comparator.comparing(User::getRoles));
             }
-            // Mettre à jour la ListView avec la liste triée
             userListListView.getItems().setAll(users);
         });
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+
+            List<User> filteredUsers = users.stream()
+                .filter(user ->
+                    user.getName().toLowerCase().contains(newValue.toLowerCase()) ||
+                        user.getLastname().toLowerCase().contains(newValue.toLowerCase()) ||
+                        user.getEmail().toLowerCase().contains(newValue.toLowerCase()) ||
+                        user.getRoles().toLowerCase().contains(newValue.toLowerCase())
+                )
+                .toList();
+            userListListView.getItems().setAll(filteredUsers);
+        });
+
+
 
     }
 
@@ -146,7 +145,7 @@ public class listUserController {
             Parent root = loader.load();
             ModifierUser updateUserController = loader.getController();
             updateUserController.setUser(user);
-            updateUserController.setParentController(this); // Passer une référence à cette instance de listUserController à la fenêtre de mise à jour
+            updateUserController.setParentController(this);
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
