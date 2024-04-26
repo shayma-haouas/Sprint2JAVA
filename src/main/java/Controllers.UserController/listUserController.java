@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
@@ -16,6 +17,8 @@ import services.UserService;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class listUserController {
@@ -24,6 +27,9 @@ public class listUserController {
 
     @FXML
     private Button btnAddUser;
+
+    @FXML
+    private ComboBox<String> statusInput; // ComboBox pour sélectionner le critère de tri
 
     private UserService userService;
     private List<User> users;
@@ -39,6 +45,9 @@ public class listUserController {
 
         // Ajoutez les utilisateurs à la ListView
         userListListView.getItems().addAll(users);
+
+        // Ajouter des éléments à la ComboBox de tri
+        statusInput.getItems().addAll("Name", "Email","Role");
 
         // Définir la manière dont les utilisateurs sont affichés dans la ListView
         userListListView.setCellFactory(new Callback<ListView<User>, ListCell<User>>() {
@@ -66,8 +75,8 @@ public class listUserController {
                             String birthDate = user.getDatenaissance() != null ? new SimpleDateFormat("dd/MM/yyyy").format(user.getDatenaissance()) : "Inconnue";
 
                             setText("Nom: " + user.getName() + "                                                     Prénom: " + user.getLastname() +
-                                  "\nTéléphone:"  + user.getNumber()+ "                                       Email: " + user.getEmail()  +
-                                  "\nRole: " + role + "                                                       Date de naissance: " + birthDate);
+                                "\nTéléphone:"  + user.getNumber()+ "                                       Email: " + user.getEmail()  +
+                                "\nRole: " + role + "                                                       Date de naissance: " + birthDate);
 
                             Button editButton = new Button("Editer");
                             Button deleteButton = new Button("Supprimer");
@@ -110,38 +119,41 @@ public class listUserController {
                 userService.show();
             }
         });
+
+        // Écouter les changements de sélection dans la ComboBox de tri
+        // Écouter les changements de sélection dans la ComboBox de tri
+        statusInput.setOnAction(event -> {
+            String selectedSort = statusInput.getValue();
+            if ("Nom".equals(selectedSort)) {
+                // Trier la liste des utilisateurs par nom
+                Collections.sort(users, Comparator.comparing(User::getName));
+            } else if ("Email".equals(selectedSort)) {
+                // Trier la liste des utilisateurs par email
+                Collections.sort(users, Comparator.comparing(User::getEmail));
+            } else if ("Role".equals(selectedSort)) {
+                // Trier la liste des utilisateurs par rôle
+                Collections.sort(users, Comparator.comparing(User::getRoles));
+            }
+            // Mettre à jour la ListView avec la liste triée
+            userListListView.getItems().setAll(users);
+        });
+
     }
 
-   /* private void openUpdateUserWindow(User user) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserInterface/ModifierUser.fxml"));
+    private void openUpdateUserWindow(User user) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserInterface/ModiferUser.fxml"));
         try {
             Parent root = loader.load();
             ModifierUser updateUserController = loader.getController();
             updateUserController.setUser(user);
+            updateUserController.setParentController(this); // Passer une référence à cette instance de listUserController à la fenêtre de mise à jour
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }*/
-   private void openUpdateUserWindow(User user) {
-       FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserInterface/ModiferUser.fxml"));
-       try {
-           Parent root = loader.load();
-           ModifierUser updateUserController = loader.getController();
-           updateUserController.setUser(user);
-           updateUserController.setParentController(this); // Passer une référence à cette instance de listUserController à la fenêtre de mise à jour
-           Stage stage = new Stage();
-           stage.setScene(new Scene(root));
-           stage.show();
-       } catch (IOException e) {
-           e.printStackTrace();
-       }
-   }
-
-
-
+    }
 
     public void navigateToAddUser(MouseEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserInterface/AddUser.fxml"));
@@ -170,5 +182,4 @@ public class listUserController {
             e.printStackTrace();
         }
     }
-
 }
