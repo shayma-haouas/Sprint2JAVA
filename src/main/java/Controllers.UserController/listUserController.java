@@ -1,5 +1,8 @@
 package Controllers.UserController;
 
+import com.sun.javafx.charts.Legend;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,7 +24,8 @@ import java.util.List;
 public class listUserController {
     @FXML
     private ListView<User> userListListView; // ListView pour afficher les détails d'utilisateurs
-
+    @FXML
+    private TableView<User> userTableView;
     @FXML
     private Button btnAddUser;
     @FXML
@@ -41,7 +45,7 @@ public class listUserController {
     private void initialize() {
         users = userService.show();
         userListListView.getItems().addAll(users);
-        statusInput.getItems().addAll("Name", "Email","Role");
+        statusInput.getItems().addAll("Name", "Email", "Role");
 
         userListListView.setCellFactory(new Callback<ListView<User>, ListCell<User>>() {
             @Override
@@ -68,7 +72,7 @@ public class listUserController {
                             String birthDate = user.getDatenaissance() != null ? new SimpleDateFormat("dd/MM/yyyy").format(user.getDatenaissance()) : "Inconnue";
 
                             setText("Nom: " + user.getName() + "                                                     Prénom: " + user.getLastname() +
-                                "\nTéléphone:"  + user.getNumber()+ "                                       Email: " + user.getEmail()  +
+                                "\nTéléphone:" + user.getNumber() + "                                       Email: " + user.getEmail() +
                                 "\nRole: " + role + "                                                       Date de naissance: " + birthDate);
 
                             Button editButton = new Button("Editer");
@@ -82,6 +86,7 @@ public class listUserController {
                             deleteButton.setOnAction(event -> {
                                 userService.delete(user);
                                 userListListView.getItems().remove(user);
+                                refreshUserList();
                             });
 
                             HBox buttonsBox = new HBox(editButton, deleteButton);
@@ -136,7 +141,6 @@ public class listUserController {
         });
 
 
-
     }
 
     private void openUpdateUserWindow(User user) {
@@ -149,6 +153,7 @@ public class listUserController {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
+            refreshUserList();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -177,8 +182,18 @@ public class listUserController {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
+            refreshUserList();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+
+    void refreshUserList() {
+        userListListView.getItems().clear();
+        users = userService.show();
+        userListListView.getItems().addAll(users);
+    }
+
 }

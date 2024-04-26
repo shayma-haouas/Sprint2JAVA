@@ -41,7 +41,7 @@
                                     <Image url="@../img/dashboard.png" />
                                 </image>
                             </ImageView>
-                            <Label fx:id="dashboardText" text="Dashbord" textFill="WHITE">
+                            <Label fx:id="dashboardText" onMouseClicked="#StaticCliked" text="Dashbord" textFill="WHITE">
                                 <font>
                                     <Font name="Montserrat Regular" size="14.0" />
                                 </font>
@@ -328,13 +328,13 @@
                     <Insets right="16.0" />
                 </HBox.margin>
                 <children>
-                    <ImageView  fx:id="logoutC" fitHeight="26.0" fitWidth="26.0" onMouseClicked="#logoutclicked" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fx:id="logoutC" fitHeight="26.0" fitWidth="26.0" onMouseClicked="#logoutclicked" pickOnBounds="true" preserveRatio="true">
                         <image>
                             <Image url="@../img/logout.png" />
                         </image>
                     </ImageView>
                 </children>
-                <Label fx:id="nameLabel"></Label>
+                <Label fx:id="nameLabel" />
             </HBox>
         </children>
     </HBox>

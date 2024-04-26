@@ -22,7 +22,6 @@ import java.sql.Date;
 import java.sql.SQLException;
 
 public class AjouterUser {
-
     @FXML
     private ImageView imageField;
 
@@ -51,6 +50,7 @@ public class AjouterUser {
     private DatePicker datePicker;
 
     private UserService userService = new UserService();
+    private listUserController listUserController;
 
     @FXML
     private void initialize() {
@@ -130,20 +130,36 @@ public class AjouterUser {
             showAlert(Alert.AlertType.WARNING, "Aucun rôle sélectionné", "Veuillez sélectionner un rôle pour l'utilisateur", null);
         }
     }
-
     private void showAlert(Alert.AlertType alertType, String title, String header, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(message);
-        alert.showAndWait();
+
+        // Ajouter un gestionnaire d'événements pour le bouton "OK"
+        alert.setOnCloseRequest(event -> {
+            // Récupérer la scène actuelle à partir de n'importe quel nœud de la fenêtre
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            // Fermer la fenêtre
+            stage.close();
+
+            // Réinitialiser les champs du formulaire
+            firstnameField.clear();
+            lastnameField.clear();
+            emailField.clear();
+            PasswordField.clear();
+            ResetField.clear();
+            numberField.clear();
+            datePicker.setValue(null);
+        });
+
+        alert.show(); // Utiliser show() au lieu de showAndWait()
     }
 
     public void UpdateUser(javafx.scene.input.MouseEvent mouseEvent) {
     }
 
-    public void DeleteUser(javafx.scene.input.MouseEvent mouseEvent) {
-    }
+
 
     public void Backtolist(MouseEvent mouseEvent) {
         // Récupérer la scène actuelle
@@ -154,4 +170,21 @@ public class AjouterUser {
         // Par exemple, vous pouvez appeler une méthode de rafraîchissement sur le contrôleur de la fenêtre précédente
     }
 
-}
+
+
+
+
+
+
+
+
+
+        // Méthode pour injecter la référence du contrôleur de la fenêtre précédente
+        public void setListUserController(listUserController listUserController) {
+            this.listUserController = listUserController;
+        }
+
+        // Autres méthodes de votre contrôleur
+    }
+
+

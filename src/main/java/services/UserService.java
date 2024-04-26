@@ -136,7 +136,7 @@ public class UserService implements  UserCrud<User> {
 
             try {
                 add(user);
-                System.out.println("User signed up successfully.");
+                System.out.println("User deja utilise.");
 
             } catch (SQLException e) {
                 System.out.println("Error: " + e.getMessage());

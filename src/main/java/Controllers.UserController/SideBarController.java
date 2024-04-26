@@ -133,4 +133,15 @@ public class SideBarController {
         content_area.getChildren().add(profilParent);
     }
 
+    @FXML
+    public void StaticCliked(MouseEvent event) throws IOException {
+        // Chargement de la vue FXML des statistiques
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserInterface/dash.fxml"));
+        Parent statisticsParent = loader.load();
+
+        // Remplacement du contenu de content_area avec la vue des statistiques
+        content_area.getChildren().clear();
+        content_area.getChildren().add(statisticsParent);
+    }
+
 }
