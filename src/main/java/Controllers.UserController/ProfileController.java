@@ -3,6 +3,7 @@ package Controllers.UserController;
 import entities.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -10,6 +11,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import services.UserService;
 
@@ -50,12 +53,15 @@ public class ProfileController {
 
     private String authenticatedEmail;
     private User userData; // Store user data
-
+    private WebEngine webEngine;
+    @FXML
+    private WebView webView;
 
      @FXML
      private void initialize()
      {
          setAuthenticatedEmail();
+         webEngine = webView.getEngine();
 
      }
     public void setUserData(User user) {
@@ -83,7 +89,7 @@ public class ProfileController {
             // numberfield.setText(authenticatedUser.getNumber());
             emailfield.setText(authenticatedUser.getEmail());
         } else {
-            System.out.println("Erreur lors de la récupération de l'utilisateur authentifié.");
+            System.out.println("Succes to  recuperate User authentifié.");
         }
     }
 
@@ -108,7 +114,7 @@ public class ProfileController {
     @FXML
     void logoutclicked(MouseEvent mouseEvent) {
         // Vérifier si l'utilisateur est connecté
-        if (authenticatedEmail == null) {
+        if (emailc == null) {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Déconnexion échouée", "Vous n'êtes pas connecté.");
             return; // Arrêter l'exécution de la méthode si l'utilisateur n'est pas connecté
         }
@@ -139,7 +145,8 @@ public class ProfileController {
                 showAlert(Alert.AlertType.ERROR, "Erreur", "Déconnexion échouée", "Impossible d'ouvrir la fenêtre de connexion.");
             }
         }
-    }
+
+}
 
     private void showAlert(Alert.AlertType alertType, String title, String header, String message) {
         Alert alert = new Alert(alertType);
@@ -149,19 +156,18 @@ public class ProfileController {
         alert.showAndWait();
     }
 
-    public void initData() {
-        // Remplir les champs avec les informations de l'utilisateur authentifié
-        User authenticatedUser = getAuthenticatedUser(authenticatedEmail);
-        if (authenticatedUser != null) {
-            nameField.setText(authenticatedUser.getName());
-            lastnamefield.setText(authenticatedUser.getLastname());
-            roleField.setText(getUserRoleText(authenticatedUser.getRoles()));
-           // datenaissancefield.setText(authenticatedUser.getDatenaissance()); // Ajouter cette ligne pour afficher la date de naissance
-           // numberfield.setText(authenticatedUser.getNumber()); // Ajouter cette ligne pour afficher le numéro de téléphone
-            emailfield.setText(authenticatedUser.getEmail());
+    @FXML
+    void retourC(MouseEvent event) {
+        // Vérifier si la navigation arrière est possible
+        if (webEngine.getHistory().getCurrentIndex() > 0) {
+            webEngine.executeScript("history.back()");
         } else {
-            System.out.println("Erreur lors de la récupération de l'utilisateur authentifié.");
+            // Vous pouvez afficher un message indiquant que vous êtes déjà sur la première page
+            System.out.println("Impossible de revenir en arrière : Vous êtes déjà sur la première page.");
         }
     }
+
+
+
 
 }

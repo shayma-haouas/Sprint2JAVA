@@ -12,7 +12,9 @@ import utils.MyDatabase;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -507,6 +509,45 @@ public String getRole(String email) {
     return role;
 }
 
+
+    public Map<String, Integer> getUserCountByRole() {
+        Map<String, Integer> userCountByRole = new HashMap<>();
+        String query = "SELECT roles, COUNT(*) AS count FROM user GROUP BY roles";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String role = resultSet.getString("roles");
+                int count = resultSet.getInt("count");
+                userCountByRole.put(role, count);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return userCountByRole;
+    }
+
+    public Map<String, Integer> getDataForAreaChart() {
+        Map<String, Integer> userCountByAgeGroup = new HashMap<>();
+        String query = "SELECT FLOOR(DATEDIFF(CURRENT_DATE(), datenaissance) / 365.25 / 10) AS age_group, COUNT(*) AS count " +
+            "FROM user " +
+            "GROUP BY age_group";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int ageGroup = resultSet.getInt("age_group") * 10; // Calcul de l'âge approximatif
+                int count = resultSet.getInt("count");
+                String ageGroupLabel = ageGroup + "-" + (ageGroup + 9); // Création d'une étiquette pour le groupe d'âge
+                userCountByAgeGroup.put(ageGroupLabel, count);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return userCountByAgeGroup;
+    }
 
 }
 

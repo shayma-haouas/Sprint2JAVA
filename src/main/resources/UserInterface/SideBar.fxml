@@ -32,7 +32,7 @@
                     <HBox fx:id="dashboardBtn" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" styleClass="nav-links">
                         <children>
 
-                            <ImageView fx:id="usersIcon" fitHeight="34.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" styleClass="image" translateX="-6.0">
+                            <ImageView fx:id="usersIcon1" fitHeight="34.0" fitWidth="33.0" pickOnBounds="true" preserveRatio="true" styleClass="image" translateX="-6.0">
 
                                 <HBox.margin>
                                     <Insets right="10.0" />
@@ -328,12 +328,13 @@
                     <Insets right="16.0" />
                 </HBox.margin>
                 <children>
-                    <ImageView fitHeight="26.0" fitWidth="26.0" onMouseClicked="#logoutclicked" pickOnBounds="true" preserveRatio="true">
+                    <ImageView  fx:id="logoutC" fitHeight="26.0" fitWidth="26.0" onMouseClicked="#logoutclicked" pickOnBounds="true" preserveRatio="true">
                         <image>
                             <Image url="@../img/logout.png" />
                         </image>
                     </ImageView>
                 </children>
+                <Label fx:id="nameLabel"></Label>
             </HBox>
         </children>
     </HBox>

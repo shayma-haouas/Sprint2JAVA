@@ -1,14 +1,17 @@
 package Controllers.UserController;
 
+import entities.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import services.UserService;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -17,12 +20,25 @@ public class SideBarController {
 
     @FXML
     private Pane content_area;
+    private User userData; // Stocke les données de l'utilisateur
 
     private String authenticatedEmail;
-
-
+    @FXML
+    private Label nameLabel;
     public void setAuthenticatedEmail(String email) {
         this.authenticatedEmail = email;
+        // Utilisez cet e-mail pour récupérer les données de l'utilisateur et initialiser la vue
+        initData(); // Par exemple, pour le chargement des données de l'utilisateur
+    }
+
+    public void initData() {
+        // Utilisez l'e-mail authentifié pour récupérer les données de l'utilisateur
+        UserService userService = new UserService();
+        userData = userService.getUserByEmail(authenticatedEmail);
+        // Maintenant, utilisez les données de l'utilisateur pour initialiser votre vue
+        // Par exemple:
+        nameLabel.setText(userData.getName());
+        // Autres initialisations de vue avec les données de l'utilisateur
     }
 
     @FXML
@@ -61,10 +77,7 @@ public class SideBarController {
     @FXML
     void logoutclicked(MouseEvent mouseEvent) {
         // Vérifier si l'utilisateur est connecté
-        if (authenticatedEmail == null || authenticatedEmail.isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Déconnexion échouée", "Vous n'êtes pas connecté.");
-            return; // Arrêter l'exécution de la méthode si l'utilisateur n'est pas connecté
-        }
+
 
         // Afficher une boîte de dialogue de confirmation avant de se déconnecter
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -75,6 +88,7 @@ public class SideBarController {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             // L'utilisateur a confirmé la déconnexion
+            System.out.println("Logout Successful");
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserInterface/login.fxml"));
                 Parent root = loader.load();
@@ -112,7 +126,7 @@ public class SideBarController {
         ProfileController profileController = loader.getController();
 
         // Appel d'une méthode pour effectuer des actions supplémentaires dans le contrôleur du profil si nécessaire
-        profileController.initData(); // Par exemple, initialisation des données du profil
+        profileController.initializeFields(); // Par exemple, initialisation des données du profil
 
         // Remplacer le contenu actuel par la vue du profil
         content_area.getChildren().clear();

@@ -13,7 +13,7 @@
 
 <AnchorPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@../css/Profile.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.UserController.ProfileController">
     <children>
-        <HBox prefHeight="122.0" prefWidth="1100.0" styleClass="hbox-style">
+        <HBox prefHeight="122.0" prefWidth="1200.0" styleClass="hbox-style">
             <children>
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-field" text="Profile">
                     <HBox.margin>
@@ -26,7 +26,7 @@
             </children>
         </HBox>
 
-        <Pane layoutY="122.0" prefHeight="700.0" prefWidth="1100.0" styleClass="background-pane">
+        <Pane layoutY="122.0" prefHeight="700.0" prefWidth="1200.0" styleClass="background-pane">
             <children>
                 <ImageView fitHeight="208.0" fitWidth="182.0" styleClass="circular-image" translateX="10.0" translateY="-120.0">
                     <image>
@@ -162,12 +162,12 @@
                         <Image url="@../img/modifier.png" />
                     </image>
                 </ImageView>
-                <ImageView fitHeight="50.0" fitWidth="50.0" styleClass="circular-image" translateX="700.0" translateY="200.0">
+                <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#retourC" styleClass="circular-image" translateX="700.0" translateY="200.0">
                     <image>
                         <Image url="@../img/refractor.png" />
                     </image>
                 </ImageView>
-                <ImageView fx:id="imagefield2" fitHeight="358.0" fitWidth="410.0" layoutX="700.0" layoutY="291.0" BorderPane.alignment="CENTER">
+                <ImageView fx:id="imagefield2" fitHeight="358.0" fitWidth="463.0" layoutX="700.0" layoutY="291.0" BorderPane.alignment="CENTER">
                     <image>
                         <Image url="@../img/haze-caring-for-the-environment-1.png" />
                     </image>

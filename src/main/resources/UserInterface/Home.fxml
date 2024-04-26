@@ -10,6 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.web.WebView?>
 <AnchorPane prefHeight="700.0" prefWidth="1100.0" stylesheets="@../css/Home.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.UserController.HomeController">
    <children>
       <HBox prefHeight="126.0" prefWidth="1100.0" styleClass="hbox-style">
@@ -65,7 +66,7 @@
             </Text>
 
 
-             <ImageView fitHeight="50.0" fitWidth="50.0" layoutY="-9.0" onMouseClicked="#logout" styleClass="circular-image">
+             <ImageView fitHeight="50.0" fitWidth="31.0" layoutY="-9.0" onMouseClicked="#logout" opacity="0.0" styleClass="circular-image">
                  <image>
                      <Image url="@../img/logout.png" />
                  </image>
@@ -106,6 +107,11 @@
                         <Insets left="230.0" />
                      </VBox.margin>
                   </Text>
+                   <Button fx:id="EmailField" opacity="0.0" text="">
+                       <font>
+                           <Font name="Arial" size="14.0" />
+                       </font>
+                   </Button>
                </children>
             </VBox>
          </children>
@@ -115,11 +121,8 @@
                <Image url="@../img/logo.png" />
            </image>
        </ImageView>
-       <Button fx:id="EmailField" text="" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-           <font>
-               <Font name="Arial" size="14.0" />
-           </font>
-       </Button>
+
+
 
 
    </children>
