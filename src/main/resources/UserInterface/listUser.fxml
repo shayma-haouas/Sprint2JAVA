@@ -50,7 +50,7 @@
               </font>
           </Text>
           <ComboBox fx:id="statusInput" layoutX="140.0" layoutY="113.0" maxHeight="-Infinity" minHeight="-Infinity" minWidth="150.0" onAction="#statusChange" prefHeight="40.0" promptText="All" styleClass="Cheque__add-comboBox">
-             
+
               <padding>
                   <Insets top="4.0" />
               </padding>

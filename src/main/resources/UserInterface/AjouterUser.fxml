@@ -115,7 +115,7 @@
                 <Insets />
             </opaqueInsets>
         </VBox>
-      <HBox layoutX="-2.0" prefHeight="122.0" prefWidth="1106.0" styleClass="bg">
+      <HBox layoutX="-2.0" prefHeight="122.0" prefWidth="1114.0" styleClass="bg">
          <children>
               <Text fill="#f4f5f3" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter User" textAlignment="CENTER" wrappingWidth="339.0">
                   <font>
@@ -125,7 +125,7 @@
                   <Insets left="400.0" top="30.0" />
                </HBox.margin>
             </Text>
-                 <ImageView fitHeight="68.0" fitWidth="41.0"  pickOnBounds="true" preserveRatio="true">
+                 <ImageView fitHeight="68.0" fitWidth="41.0" onMouseClicked="#Backtolist" pickOnBounds="true" preserveRatio="true">
                      <image>
                          <Image url="@../img/refractor.png" />
                      </image>
@@ -143,5 +143,11 @@
             <Point3D x="1.0" z="1.0" />
          </rotationAxis>
        </ImageView>
+        <ImageView fitHeight="211.0" fitWidth="186.0" layoutX="-19.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" styleClass="circular-image" AnchorPane.leftAnchor="-20.0" AnchorPane.topAnchor="-17.6" >
+            <image>
+                <Image url="@../img/logo.png" />
+            </image>
+        </ImageView>
+
     </children>
 </AnchorPane>

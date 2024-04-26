@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -13,45 +14,28 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="672.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.UserController.ModifierUser">
+<AnchorPane prefHeight="672.0" prefWidth="1100.0" stylesheets="@../css/Modifier.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.UserController.ModifierUser">
     <children>
-        <VBox layoutX="135.0" layoutY="135.0" prefHeight="444.0" prefWidth="374.0" spacing="30.0">
+        <VBox layoutX="-5.0" layoutY="124.0" prefHeight="549.0" prefWidth="472.0" spacing="30.0" styleClass="vbox-style">
             <children>
-                <HBox prefHeight="100.0" prefWidth="200.0">
-                    <children>
-                        <Button mnemonicParsing="false" onAction="#UploadImage" text="Upload Image">
-                            <HBox.margin>
-                                <Insets left="80.0" top="30.0" />
-                            </HBox.margin>
-                        </Button>
-                        <ImageView fx:id="imageField" fitHeight="81.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" />
-                    </children>
-                </HBox>
 
-                <TextField fx:id="firstnameField" promptText="FirstName ">
+                <TextField fx:id="firstnameField" editable="false" promptText="FirstName ">
                     <VBox.margin>
-                        <Insets left="40.0" right="40.0" />
+                        <Insets left="70.0" right="70.0" top="110.0" />
                     </VBox.margin></TextField>
-                <TextField fx:id="lastnameField" layoutX="10.0" layoutY="10.0" promptText="LastName">
+                <TextField fx:id="lastnameField" editable="false" layoutX="10.0" layoutY="10.0" promptText="LastName">
                     <VBox.margin>
-                        <Insets left="40.0" right="40.0" />
+                        <Insets left="70.0" right="70.0" />
                     </VBox.margin></TextField>
-                <TextField fx:id="emailField" layoutX="10.0" layoutY="45.0" promptText="Email">
+                <TextField fx:id="emailField" editable="false" layoutX="10.0" layoutY="45.0" promptText="Email">
                     <VBox.margin>
-                        <Insets left="40.0" right="40.0" />
+                        <Insets left="70.0" right="70.0" />
                     </VBox.margin></TextField>
-                <TextField fx:id="numberField" prefHeight="42.0" prefWidth="331.0" promptText="Number">
+                <TextField fx:id="numberField" editable="false" prefHeight="42.0" prefWidth="331.0" promptText="Number">
                     <VBox.margin>
-                        <Insets left="40.0" right="40.0" />
+                        <Insets left="70.0" right="70.0" />
                     </VBox.margin></TextField>
-            </children>
-            <opaqueInsets>
-                <Insets />
-            </opaqueInsets>
-        </VBox>
-        <VBox layoutX="528.0" layoutY="135.0" prefHeight="444.0" prefWidth="368.0" spacing="30.0">
-            <children>
-                <ChoiceBox fx:id="rolecombo" prefHeight="35.0"  prefWidth="271.0">
+                <ChoiceBox fx:id="rolecombo" prefHeight="35.0" prefWidth="330.0">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
                             <String fx:value="ROLE_FOURNISSEUR" />
@@ -60,25 +44,50 @@
                         </FXCollections>
                     </items>
                     <VBox.margin>
-                        <Insets left="40.0" right="40.0" />
+                        <Insets left="72.0" right="70.0" />
                     </VBox.margin>
                 </ChoiceBox>
-                <Button mnemonicParsing="false" onAction="#ModifierUser" prefHeight="35.0" prefWidth="158.0" text="Modifier User">
+                <Button mnemonicParsing="false" onAction="#ModifierUser" prefHeight="35.0" prefWidth="158.0" text="Edit User">
                     <VBox.margin>
-                        <Insets left="90.0" />
+                        <Insets left="150.0" />
                     </VBox.margin>
                 </Button>
-
-
-
             </children>
             <opaqueInsets>
                 <Insets />
             </opaqueInsets>
         </VBox>
-        <Text fill="#8ea16d" layoutX="401.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modifier User" textAlignment="CENTER" wrappingWidth="254.0">
-            <font>
-                <Font size="42.0" />
-            </font></Text>
+      <HBox prefHeight="125.0" prefWidth="1100.0" styleClass="hbox-style">
+         <children>
+              <Text fill="#f9ffed" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit User" textAlignment="CENTER" wrappingWidth="543.0">
+                  <font>
+                      <Font name="Arial Nova Cond Light Italic" size="64.0" />
+                  </font>
+               <HBox.margin>
+                  <Insets left="220.0" top="20.0" />
+               </HBox.margin>
+            </Text>
+         </children>
+      </HBox>
+          <ImageView fitHeight="608.0" fitWidth="498.0" layoutX="519.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true" rotate="9.5">
+              <image>
+                  <Image url="@../img/coworking-signing-and-stamping-contract-agreement.png" />
+              </image>
+          </ImageView>
+       <ImageView fitHeight="236.0" fitWidth="204.0" pickOnBounds="true" preserveRatio="true" styleClass="circular-image">
+           <image>
+               <Image url="@../img/logo.png" />
+           </image>
+       </ImageView>
+      <Text fill="#6d9077" layoutX="530.0" layoutY="567.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You Can Only ">
+         <font>
+            <Font name="DecoType Naskh Extensions" size="53.0" />
+         </font>
+      </Text>
+      <Text fill="#88b44e" layoutX="537.0" layoutY="625.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UpdateRole !!">
+         <font>
+            <Font name="DecoType Naskh Extensions" size="45.0" />
+         </font>
+      </Text>
     </children>
 </AnchorPane>

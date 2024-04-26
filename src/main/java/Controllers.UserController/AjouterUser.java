@@ -10,6 +10,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.mindrot.jbcrypt.BCrypt;
@@ -143,4 +144,14 @@ public class AjouterUser {
 
     public void DeleteUser(javafx.scene.input.MouseEvent mouseEvent) {
     }
+
+    public void Backtolist(MouseEvent mouseEvent) {
+        // Récupérer la scène actuelle
+        Stage stage = (Stage) imageField.getScene().getWindow();
+        // Fermer la fenêtre actuelle
+        stage.close();
+        // Rafraîchir la liste des utilisateurs dans la fenêtre précédente (s'il y a une méthode pour cela)
+        // Par exemple, vous pouvez appeler une méthode de rafraîchissement sur le contrôleur de la fenêtre précédente
+    }
+
 }
