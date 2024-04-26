@@ -51,7 +51,7 @@
         </VBox>
         <VBox layoutX="528.0" layoutY="135.0" prefHeight="444.0" prefWidth="368.0" spacing="30.0">
             <children>
-                <ChoiceBox fx:id="rolecombo" prefHeight="35.0" prefWidth="271.0">
+                <ChoiceBox fx:id="rolecombo" prefHeight="35.0"  prefWidth="271.0">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
                             <String fx:value="ROLE_FOURNISSEUR" />

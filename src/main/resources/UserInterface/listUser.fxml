@@ -12,6 +12,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.collections.FXCollections?>
+<?import com.sun.org.apache.xpath.internal.operations.String?>
+<?import javafx.scene.control.ChoiceBox?>
 <Pane fx:id="content_area" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" styleClass="dash__container-card" stylesheets="@../css/listUser.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.UserController.listUserController">
     <children>
         <HBox alignment="CENTER_LEFT" layoutX="-1.0" layoutY="-3.0" prefHeight="108.0" prefWidth="1159.0" styleClass="nav">
@@ -49,11 +52,22 @@
                   <Font size="22.0" />
               </font>
           </Text>
-          <ComboBox fx:id="statusInput" layoutX="140.0" layoutY="113.0" maxHeight="-Infinity" minHeight="-Infinity" minWidth="150.0" onAction="#statusChange" prefHeight="40.0" promptText="All" styleClass="Cheque__add-comboBox">
-              <padding>
-                  <Insets top="4.0" />
-              </padding>
-      </ComboBox>
+        <ChoiceBox fx:id="statusInput" layoutX="140.0" layoutY="113.0" maxHeight="-Infinity" minHeight="-Infinity" minWidth="150.0" prefHeight="40.0" styleClass="Cheque__add-comboBox">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="TreeName" />
+                    <String fx:value="ROLE_ADMIN" />
+                    <String fx:value="ROLE_CLIENT" />
+                </FXCollections>
+            </items>
+            <padding>
+                <Insets top="4.0" />
+            </padding>
+        </ChoiceBox>
+
+
+
+
 
     </children>
 </Pane>

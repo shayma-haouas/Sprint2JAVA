@@ -65,9 +65,9 @@ public class listUserController {
 
                             String birthDate = user.getDatenaissance() != null ? new SimpleDateFormat("dd/MM/yyyy").format(user.getDatenaissance()) : "Inconnue";
 
-                            setText("Nom: " + user.getName() + "     Prénom: " + user.getLastname() +
-                                "\nEmail: " + user.getEmail() + "\nTéléphone: " + user.getNumber() +
-                                "\nRole: " + role + "\nDate de naissance: " + birthDate);
+                            setText("Nom: " + user.getName() + "                                                     Prénom: " + user.getLastname() +
+                                  "\nTéléphone:"  + user.getNumber()+ "                                       Email: " + user.getEmail()  +
+                                  "\nRole: " + role + "                                                       Date de naissance: " + birthDate);
 
                             Button editButton = new Button("Editer");
                             Button deleteButton = new Button("Supprimer");
