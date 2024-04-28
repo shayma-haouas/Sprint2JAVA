@@ -1,2 +1,4 @@
-package Controllers.UserController;public class ForgotController {
+package Controllers.UserController;
+
+public class ForgotController {
 }

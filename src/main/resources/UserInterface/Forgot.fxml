@@ -1,14 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="$CONTROLLER_NAME$"
-            prefHeight="400.0" prefWidth="600.0" >
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@../css/Forgot.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.UserController.ForgotController">
+    <children>
+        <HBox prefHeight="100.0" prefWidth="1000.0" styleClass="hbox-style" />
 
+        <HBox style="     -fx-background-color: linear-gradient(to right, rgba(136, 180, 78, 0.7), rgba(255, 255, 255, 0.7)); ">
+            <!-- Vos éléments à l'intérieur de la HBox -->
+        </HBox>
+      <HBox layoutY="100.0" prefHeight="602.0" prefWidth="1000.0" styleClass="hbox-style1">
+         <children>
+            <VBox accessibleRole="DECREMENT_BUTTON" alignment="CENTER" blendMode="MULTIPLY" cache="true" cacheHint="SPEED" depthTest="ENABLE" disable="true" focusTraversable="true" mouseTransparent="true" nodeOrientation="LEFT_TO_RIGHT" prefHeight="461.0" prefWidth="605.0" snapToPixel="false" style="-fx-scale-shape: 15; -fx-shape: 100;" styleClass="hbox-style2">
+               <HBox.margin>
+                  <Insets left="20.0" top="30.0" />
+               </HBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <ColorAdjust brightness="-0.24" contrast="1.0" hue="-0.07" saturation="-0.02" />
+               </effect>
+               <opaqueInsets>
+                  <Insets left="20.0" right="20.0" top="25.0" />
+               </opaqueInsets>
+               <children>
+                  <Text boundsType="VISUAL" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Forgot Your Password ?" textAlignment="CENTER">
+                     <font>
+                        <Font name="Bodoni MT" size="32.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="-550.0" top="-400.0" />
+                     </HBox.margin>
+                     <VBox.margin>
+                        <Insets top="-350.0" />
+                     </VBox.margin>
+                  </Text>
+                  <Text blendMode="DIFFERENCE" fill="WHITE" fontSmoothingType="LCD" strokeLineJoin="BEVEL" strokeType="OUTSIDE" strokeWidth="0.0" text="To receive a password reset link" wrappingWidth="294.71875">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="-550.0" top="-300.0" />
+                     </HBox.margin>
+                     <VBox.margin>
+                        <Insets right="20.0" />
+                     </VBox.margin>
+                  </Text>
+                  <Text blendMode="DIFFERENCE" cache="true" fill="WHITE" nodeOrientation="LEFT_TO_RIGHT" smooth="false" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="0.0" text="Enter your Email below ">
+                     <font>
+                        <Font name="Arial Bold Italic" size="20.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="-350.0" />
+                     </HBox.margin>
+                     <VBox.margin>
+                        <Insets right="80.0" />
+                     </VBox.margin>
+                  </Text>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+
+              <ImageView fitHeight="192.0" fitWidth="172.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../img/logo.png" />
+            </image>
+        </ImageView>
+
+    </children>
 </AnchorPane>
