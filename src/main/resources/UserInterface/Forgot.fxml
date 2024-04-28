@@ -53,12 +53,10 @@
       </HBox>
         <HBox prefHeight="100.0" prefWidth="1000.0" styleClass="hbox-style" />
 
-        <HBox style="     -fx-background-color: linear-gradient(to right, rgba(136, 180, 78, 0.7), rgba(255, 255, 255, 0.7)); ">
-            <!-- Vos éléments à l'intérieur de la HBox -->
-        </HBox>
+
       <HBox layoutY="100.0" prefHeight="602.0" prefWidth="1000.0" styleClass="hbox-style1">
          <children>
-            <VBox accessibleRole="DECREMENT_BUTTON" alignment="CENTER" blendMode="MULTIPLY" cache="true" cacheHint="SPEED" depthTest="ENABLE" disable="true" focusTraversable="true" mouseTransparent="true" nodeOrientation="LEFT_TO_RIGHT" prefHeight="461.0" prefWidth="605.0" snapToPixel="false" style="-fx-scale-shape: 15; -fx-shape: 100;" styleClass="hbox-style2">
+            <VBox accessibleRole="DECREMENT_BUTTON" alignment="CENTER" blendMode="MULTIPLY" cache="true" cacheHint="SPEED" depthTest="ENABLE" disable="true" focusTraversable="true" mouseTransparent="true" nodeOrientation="LEFT_TO_RIGHT" prefHeight="461.0" prefWidth="605.0" snapToPixel="false" styleClass="hbox-style2">
                <HBox.margin>
                   <Insets left="20.0" top="30.0" />
                </HBox.margin>
@@ -150,7 +148,7 @@
                 <Image url="@../img/logo.png" />
             </image>
         </ImageView>
-      <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="906.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="906.0" AnchorPane.topAnchor="30.0">
+      <ImageView  fx:id="retour" fitHeight="50.0" fitWidth="50.0" layoutX="906.0" onMouseClicked="#retourClick" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="906.0" AnchorPane.topAnchor="30.0">
          <image>
             <Image url="@../img/refractor.png" />
          </image>

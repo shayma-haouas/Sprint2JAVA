@@ -9,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import org.w3c.dom.Text;
 import services.UserService;
 
 import java.io.IOException;
@@ -21,6 +22,8 @@ public class LoginController {
 
     @FXML
     private TextField Passwordfield;
+  /*  @FXML
+    private Text forgotField;*/
 
     @FXML
     void loginclicked(ActionEvent event) {
@@ -70,7 +73,7 @@ public class LoginController {
         }
 
 
-        }
+    }
 
 
     private boolean isValidEmail(String email) {
@@ -95,5 +98,15 @@ public class LoginController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void forgot(MouseEvent event) {
+      /*  try {
+            Parent root = FXMLLoader.load(getClass().getResource("/UserInterface/Forgot.fxml"));
+            Scene scene = forgotField.getScene();
+            scene.setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
     }
 }
