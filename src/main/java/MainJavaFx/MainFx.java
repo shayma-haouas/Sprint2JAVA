@@ -17,7 +17,7 @@ public class MainFx extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/UserInterface/Forgot.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/UserInterface/Login.fxml"));
             Scene scene = new Scene(root);
            // Stage.setFullScreen(false);
            // Stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo/favicon.png")));

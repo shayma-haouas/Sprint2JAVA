@@ -3,6 +3,7 @@ import entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -22,8 +23,7 @@ public class LoginController {
 
     @FXML
     private TextField Passwordfield;
-  /*  @FXML
-    private Text forgotField;*/
+
 
     @FXML
     void loginclicked(ActionEvent event) {
@@ -100,13 +100,21 @@ public class LoginController {
         }
     }
 
+
     public void forgot(MouseEvent event) {
-      /*  try {
+        try {
+            // Récupérer le nœud source de l'événement
+            Node source = (Node) event.getSource();
+
+            // Récupérer la scène à partir du nœud source
+            Scene scene = source.getScene();
+
+            // Charger la page Forgot.fxml et changer la racine de la scène
             Parent root = FXMLLoader.load(getClass().getResource("/UserInterface/Forgot.fxml"));
-            Scene scene = forgotField.getScene();
             scene.setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
     }
+
 }

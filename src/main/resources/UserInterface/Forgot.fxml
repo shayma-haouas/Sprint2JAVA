@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -56,7 +57,7 @@
 
       <HBox layoutY="100.0" prefHeight="602.0" prefWidth="1000.0" styleClass="hbox-style1">
          <children>
-            <VBox accessibleRole="DECREMENT_BUTTON" alignment="CENTER" blendMode="MULTIPLY" cache="true" cacheHint="SPEED" depthTest="ENABLE" disable="true" focusTraversable="true" mouseTransparent="true" nodeOrientation="LEFT_TO_RIGHT" prefHeight="461.0" prefWidth="605.0" snapToPixel="false" styleClass="hbox-style2">
+            <VBox alignment="CENTER" blendMode="MULTIPLY" cache="true" cacheHint="SPEED" depthTest="ENABLE" disable="false" mouseTransparent="true" nodeOrientation="LEFT_TO_RIGHT" prefHeight="461.0" prefWidth="605.0" snapToPixel="false" styleClass="hbox-style2">
                <HBox.margin>
                   <Insets left="20.0" top="30.0" />
                </HBox.margin>
@@ -108,26 +109,34 @@
                         <Insets right="280.0" top="120.0" />
                      </VBox.margin>
                   </Text>
-                  <TextField>
+                  <TextField fx:id="testField" blendMode="LIGHTEN" editable="true" promptText="Email">
                      <VBox.margin>
                         <Insets left="100.0" right="100.0" top="10.0" />
                      </VBox.margin>
                      <effect>
                         <DropShadow height="0.0" radius="16.27" width="67.08" />
                      </effect>
+                     <cursor>
+                        <Cursor fx:constant="OPEN_HAND" />
+                     </cursor>
                   </TextField>
-                  <Button mnemonicParsing="false" text="Reset Password">
+                  <Button disable="false" mnemonicParsing="false" onAction="#goForgot" text="Reset Password" textFill="#68906a" textOverrun="CLIP">
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>
                      <effect>
-                        <InnerShadow />
+                        <InnerShadow>
+                           <color>
+                              <Color red="0.41176900267601013" green="0.4736842215061188" blue="0.304824560880661" />
+                           </color></InnerShadow>
                      </effect>
                   </Button>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
+                   
+
                   </HBox>
                </children>
 
@@ -148,7 +157,7 @@
                 <Image url="@../img/logo.png" />
             </image>
         </ImageView>
-      <ImageView  fx:id="retour" fitHeight="50.0" fitWidth="50.0" layoutX="906.0" onMouseClicked="#retourClick" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="906.0" AnchorPane.topAnchor="30.0">
+      <ImageView fx:id="retour" fitHeight="50.0" fitWidth="50.0" layoutX="906.0" onMouseClicked="#retourClick" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="906.0" AnchorPane.topAnchor="30.0">
          <image>
             <Image url="@../img/refractor.png" />
          </image>
