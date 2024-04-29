@@ -23,7 +23,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<Pane fx:id="content_area" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"  styleClass="dash__container-card"  prefHeight="700.0" prefWidth="1100.0"  stylesheets="@/eventback/ListAddEVnt.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="controllers.ListEvback">
+<Pane fx:id="content_area" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1100.0" styleClass="dash__container-card" stylesheets="@/eventback/ListAddEVnt.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ListEvback">
     <children>
         <HBox alignment="CENTER_LEFT" layoutX="-1.0" layoutY="-2.0" prefHeight="107.0" prefWidth="1431.0" styleClass="nav">
             <children>
@@ -37,6 +37,11 @@
                 </Text>
 
             </children>
+            <Label layoutX="250.0" layoutY="561.0" prefHeight="34.0" prefWidth="109.0" text="recherche" textFill="#f8f5f5">
+                <font>
+                    <Font size="18.0" />
+                </font>
+            </Label>
         </HBox>
         <Button fx:id="btnajouter" layoutX="77.0" layoutY="156.0" mnemonicParsing="false" onAction="#openaddev" prefHeight="37.0" prefWidth="120.0" style="-fx-background-color: linear-gradient(to top, rgba(136, 180, 78, .6), #2f611f); -fx-text-fill: white;" text="Ajouter" textFill="#f8b135">
             <font>
@@ -57,19 +62,26 @@
                 <!-- </VBox>-->
             </content>
         </ScrollPane>
-
-        <Text fill="#2f611f" layoutX="36.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="sort-text" text="Trier par :">
+        <TextField fx:id="searchInput" layoutX="489.0" layoutY="157.0" onAction="#searchevents" prefHeight="37.0" prefWidth="226.0" />
+        <Button fx:id="trie1" layoutX="861.0" layoutY="159.0" mnemonicParsing="false" onAction="#triNomA" prefHeight="33.0" prefWidth="103.0" style="-fx-border-color: orange; -fx-background-color: #000000;" text="Trie ASC" textFill="#fffdf7">
             <font>
-                <Font size="22.0" />
+                <Font name="System Bold Italic" size="15.0" />
             </font>
-        </Text>
-        <ComboBox fx:id="statusInput" layoutX="140.0" layoutY="113.0" maxHeight="-Infinity" minHeight="-Infinity" minWidth="150.0"  prefHeight="40.0" promptText="All" styleClass="Cheque__add-comboBox">
-            <padding>
-                <Insets top="4.0" />
-            </padding>
-        </ComboBox>
+        </Button>
+
+
+        <Button fx:id="trie" layoutX="737.0" layoutY="159.0" mnemonicParsing="false" onAction="#triNomD" prefHeight="33.0" prefWidth="103.0" style="-fx-border-color: orange; -fx-background-color: #000000;" text="Trie DESC" textFill="WHITE">
+            <font>
+                <Font name="System Bold Italic" size="15.0" />
+            </font>
+        </Button>
+        <Label layoutX="392.0" layoutY="166.0" text="Recherche">
+            <font>
+                <Font name="Bauhaus 93" size="17.0" />
+            </font>
+        </Label>
+
+
 
     </children>
 </Pane>
-
-

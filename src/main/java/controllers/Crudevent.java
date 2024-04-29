@@ -59,41 +59,9 @@ public class Crudevent implements Initializable {
     @FXML
     private DatePicker tfdatefin;
 
-    @FXML
-    private TableView<Evenement> tableEvenement;
 
-    @FXML
-    private TableColumn<Evenement, Integer> callidev;
 
-    @FXML
-    private TableColumn<Evenement, String> callnomev;
 
-    @FXML
-    private TableColumn<Evenement, String> calltype;
-
-    @FXML
-    private TableColumn<Evenement, String> calldescription;
-
-    @FXML
-    private TableColumn<Evenement, String> calldatedebut;
-
-    @FXML
-    private TableColumn<Evenement, String> calldatefin;
-
-    @FXML
-    private TableColumn<Evenement, Integer> callnbparticipant;
-
-    @FXML
-    private TableColumn<Evenement, String> calllieu;
-
-    @FXML
-    private TableColumn<Evenement, String> callimage;
-
-    @FXML
-    private TableColumn<Evenement, Integer> callids;
-
-    @FXML
-    private Button btnmodifier;
 
     @FXML
     private Button btnsupprimer;
@@ -200,6 +168,8 @@ public class Crudevent implements Initializable {
 
             // Récupérer les autres champs
             String image = path;
+            image2.setImage(new Image("file:" + image));
+
 
             // Vérifier que les champs pour le nombre de participants est un nombre entier
             int nb_participant = 0;
@@ -282,6 +252,7 @@ public class Crudevent implements Initializable {
     }
 
 
+
     @FXML
     void modifierev(ActionEvent event) {
 
@@ -307,5 +278,6 @@ public class Crudevent implements Initializable {
     @FXML
     void supprimerev(ActionEvent event) {
 
-    }}
+    }
 
+}

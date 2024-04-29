@@ -1,17 +1,19 @@
 package controllers;
 
 import entities.Evenement;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -19,9 +21,12 @@ import javafx.util.Callback;
 import utils.MyDatabase;
 
 import java.io.File;
+import java.io.IOException;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Comparator;
 
 public class ListEvback {
     @FXML
@@ -36,15 +41,59 @@ public class ListEvback {
     @FXML
     private ComboBox<?> statusInput;
 
+    @FXML
+    private TextField searchInput;
+
+    @FXML
+    private Button trie1;
+
+    @FXML
+    private Button trie;
+
+
+    private ObservableList<Evenement> originalEventList;
+    @FXML
+    private void searchevents(ActionEvent event) {
+        // Get the search term from the input field
+        String searchTerm = searchInput.getText().toLowerCase();
+
+        // If the original list is null, store it for the first time
+        if (originalEventList == null) {
+            originalEventList = FXCollections.observableArrayList(listEv.getItems());
+        }
+
+        // Filter the original list based on the search term
+        FilteredList<Evenement> filteredList = new FilteredList<>(originalEventList);
+        filteredList.setPredicate(eventy -> eventy.getNameevent().toLowerCase().contains(searchTerm));
+
+        // Update the ListView with the filtered list
+        listEv.setItems(filteredList);
+    }
+    @FXML
+    private void triNomA(ActionEvent event) {
+        // Sort the list in ascending order by Event name
+        listEv.getItems().sort(Comparator.comparing(Evenement::getNameevent));
+    }
+    @FXML
+    private void triNomD(ActionEvent event) {
+        // Sort the list in descending order by Event name
+        listEv.getItems().sort(Comparator.comparing(Evenement::getNameevent).reversed());
+    }
 
     @FXML
     private void initialize() {
         // Set the EventCellFactory as the cell factory for the ListView
-        listEv.setCellFactory(new EventCellFactory());
+        //listEv.setCellFactory(new EventCellFactory());
+
+        // Set the CustomEventCellFactory as the cell factory for the ListView
+        listEv.setCellFactory(new CombinedEventCellFactory());
 
         // Populate the ListView with event data
         showEvents();
     }
+    // Populate the ListView with event data
+
+
 
     @FXML
     private void showEvents() {
@@ -75,69 +124,129 @@ public class ListEvback {
     }
 
     // Custom ListCell factory to display Event data
-    class EventCellFactory implements Callback<ListView<Evenement>, ListCell<Evenement>> {
+    class CombinedEventCellFactory implements Callback<ListView<Evenement>, ListCell<Evenement>> {
         @Override
         public ListCell<Evenement> call(ListView<Evenement> param) {
             return new ListCell<Evenement>() {
+                private final Button editButton = new Button("Edit");
+                private final Button deleteButton = new Button("Delete");
+                private final HBox buttonsContainer = new HBox(editButton, deleteButton);
+                private final BorderPane cellPane = new BorderPane();
+
+                {
+                    editButton.setOnAction(event -> {
+                        Evenement eventt = getItem();
+                        if (eventt != null) {
+                            openEditEventInterface(eventt);
+                        }
+                    });
+
+                    deleteButton.setOnAction(event -> {
+                        Evenement eventt = getItem();
+                        if (eventt != null) {
+                            deleteEvent(eventt.getId());
+                            listEv.getItems().remove(eventt); // Remove the event from the ListView
+                        }
+                    });
+
+                    buttonsContainer.setSpacing(10);
+                    cellPane.setRight(buttonsContainer);
+                }
+
                 @Override
                 protected void updateItem(Evenement event, boolean empty) {
                     super.updateItem(event, empty);
                     if (empty || event == null) {
                         setText(null);
                         setGraphic(null);
-
-                    } else{
-
-
-                        // Create an ImageView to display the event image
-
-
-                        // Set the image to the ImageView
-                        // Assuming event.getImage() returns the path to the image file
-                        // String imagePath = "file:///C:\\Users\\Chaima\\Downloads\\Teach Green_ Lesson Plans on Recycling.jpg";
-                        //imageView.setImage(new Image(imagePath));
-                        // Create an ImageView to display the event image
+                    } else {
+                        // Display event details and image as before
                         ImageView imageView = new ImageView();
-                        String imagePath = event.getImage(); // Assuming this returns the correct path
-
-// Check if the path is null or empty
+                        String imagePath = event.getImage();
                         if (imagePath != null && !imagePath.isEmpty()) {
-                            // Create a File object to check if it's a local file
                             File file = new File(imagePath);
                             if (file.exists()) {
-                                // Load the image directly from the file path
                                 imageView.setImage(new Image(file.toURI().toString()));
                             } else {
-                                // Load the image as a resource
                                 imageView.setImage(new Image(getClass().getResourceAsStream(imagePath)));
                             }
                         }
-                        // Set the size of the ImageView (optional)
                         imageView.setFitWidth(100);
                         imageView.setFitHeight(100);
 
                         // Customize the display of the Event object
-                        setText(String.format("Event Name: %s\nType: %s\nStart Date: %s\nEnd Date: %s\nDescription: %s\nParticipants: %d\nLocation: %s",
+                        Label eventDetailsLabel = new Label(String.format("Event Name: %s\nType: %s\nStart Date: %s\nEnd Date: %s\nDescription: %s\nParticipants: %d\nLocation: %s",
                                 event.getNameevent(), event.getType(), event.getDatedebut(), event.getDatefin(),
                                 event.getDescription(), event.getNbparticipant(), event.getLieu()));
 
-                        // Set the ImageView as the graphic of the cell
-                        setGraphic(imageView);
+                        // Set the event details label to the center of the BorderPane
+                        cellPane.setCenter(eventDetailsLabel);
+
+                        // Set the ImageView as the left graphic of the BorderPane
+                        cellPane.setLeft(imageView);
+
+                        // Set the BorderPane as the graphic of the cell
+                        setGraphic(cellPane);
                     }
                 }
             };
         }
+
+        private void openEditEventInterface(Evenement event) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/eventback/addevent.fxml"));
+                Parent root = loader.load();
+
+                // Access the controller of the edit event interface
+                Crudevent controller = loader.getController();
+
+                // Pass the selected event to the controller
+                //  controller.initData(event);
+
+                // Create a new stage for the edit event interface
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Edit Event");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+
+                // Optionally, refresh the list view after editing
+                showEvents();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        private void deleteEvent(int id) {
+            try {
+                String deleteEventSQL = "DELETE FROM evenement WHERE id = ?";
+                PreparedStatement pstDeleteEvent = MyDatabase.getInstance().getConnection().prepareStatement(deleteEventSQL);
+                pstDeleteEvent.setInt(1, id);
+
+                int rowsAffectedEvent = pstDeleteEvent.executeUpdate();
+
+                if (rowsAffectedEvent > 0) {
+                    System.out.println("Event with ID " + id + " deleted successfully.");
+                    // Optionally, show a success alert
+                } else {
+                    System.out.println("Failed to delete event with ID " + id + ".");
+                    // Optionally, show an error alert
+                }
+
+                pstDeleteEvent.close();
+            } catch (SQLException ex) {
+                System.err.println("Error deleting event: " + ex.getMessage());
+                ex.printStackTrace();
+                // Optionally, show an error alert
+            }
+        }
+
     }
-
-
-
-
-
     @FXML
     void openaddev(ActionEvent event) {
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/evenement/addevent.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/eventback/addevent.fxml"));
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
@@ -155,8 +264,6 @@ public class ListEvback {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-}
+    }}
 
 

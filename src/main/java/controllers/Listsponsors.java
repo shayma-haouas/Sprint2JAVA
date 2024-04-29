@@ -3,15 +3,14 @@ package controllers;
 import entities.Sponsor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
+
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -20,9 +19,12 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import utils.MyDatabase;
 
+import java.io.IOException;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Comparator;
 
 public class Listsponsors {
 
@@ -37,18 +39,63 @@ public class Listsponsors {
     @FXML
     private ListView<Sponsor> listrec;
 
+    @FXML
+    private Button trie;
+
+    @FXML
+    private Button trie1;
+
+    @FXML
+    private TextField searchInput;
+
+
+
+    @FXML
+    private void triNomD(ActionEvent event) {
+        // Sort the list in descending order by Sponsor name
+        listrec.getItems().sort(Comparator.comparing(Sponsor::getName).reversed());
+    }
+
+    // Method to perform sorting in ascending order
+    @FXML
+    private void triNomA(ActionEvent event) {
+        // Sort the list in ascending order by Sponsor name
+        listrec.getItems().sort(Comparator.comparing(Sponsor::getName));
+    }
+
+    // Method to perform searching
+    private ObservableList<Sponsor> originalSponsorList;
+
+    @FXML
+    private void searchSponsors(ActionEvent event) {
+        // Get the search term from the input field
+        String searchTerm = searchInput.getText().toLowerCase();
+
+        // If the original list is null, store it for the first time
+        if (originalSponsorList == null) {
+            originalSponsorList = FXCollections.observableArrayList(listrec.getItems());
+        }
+
+        // Filter the original list based on the search term
+        FilteredList<Sponsor> filteredList = new FilteredList<>(originalSponsorList);
+        filteredList.setPredicate(sponsor -> sponsor.getName().toLowerCase().contains(searchTerm));
+
+        // Update the ListView with the filtered list
+        listrec.setItems(filteredList);
+    }
 
 
 
 
     @FXML
     private VBox SPListContainer;
+
     @FXML
 
     public void initialize() {
         // Set the SponsorListCell as the cell factory for the ListView
         listrec.setCellFactory(new SponsorCellFactory());
-        listrec.setCellFactory(param -> new SponsorListCell());
+        listrec.setCellFactory(param -> new SponsorListCell(listrec));
         // Add listener to hide/show the scroll pane container based on list items
         // listrec.getItems().addListener((ListChangeListener<Object>) change -> {
         //   if (change.getList().isEmpty()) {
@@ -58,6 +105,7 @@ public class Listsponsors {
         //}
         //});
     }
+
     @FXML
     public void showw() {
         // Clear the existing data bsh metdupliquish l old data khtr k naaml show f testing o show houny ijouny mertyn
@@ -75,6 +123,7 @@ public class Listsponsors {
         }
 
     }
+
     public class SponsorCellFactory implements Callback<ListView<Sponsor>, ListCell<Sponsor>> {
         @Override
         public ListCell<Sponsor> call(ListView<Sponsor> param) {
@@ -94,49 +143,148 @@ public class Listsponsors {
         }
     }
 
+
     public class SponsorListCell extends ListCell<Sponsor> {
 
         private final Button editButton;
         private final Button deleteButton;
+        private final HBox buttonsContainer; // Container to hold the buttons
+        private final ListView<Sponsor> listView; // Reference to the ListView
 
-        private final HBox buttonsContainer;
-        public SponsorListCell() {
+        public SponsorListCell(ListView<Sponsor> listView) {
+            this.listView = listView;
             editButton = new Button("Edit");
             deleteButton = new Button("Delete");
+            buttonsContainer = new HBox(editButton, deleteButton);
 
             editButton.setOnAction(event -> {
                 Sponsor sponsor = getItem();
-                // Handle edit button action for the sponsor
-                System.out.println("Edit button clicked for sponsor: " + sponsor.getName());
+                if (sponsor != null) {
+                    openEditSponsorInterface(sponsor);
+                }
             });
+
+            // Your other initialization code...
+
+
+            // Method to open the modifspon interface for editing the sponsor
+
+            // Your other methods...
 
             deleteButton.setOnAction(event -> {
                 Sponsor sponsor = getItem();
-                // Handle delete button action for the sponsor
-                System.out.println("Delete button clicked for sponsor: " + sponsor.getName());
+                if (sponsor != null) {
+                    // Remove the sponsor from the ListView
+                    listView.getItems().remove(sponsor);
+                    // Call your deletion method here passing the sponsor's ID
+                    deleteSponsor(sponsor.getId());
+                }
             });
 
+            // Optionally, you can set spacing between buttons or customize the layout
+            buttonsContainer.setSpacing(10);
 
-            buttonsContainer = new HBox(editButton, deleteButton);
-            buttonsContainer.setAlignment(Pos.CENTER_RIGHT); // Align buttons to the right
+            // Set the container as the graphic of the cell
+            setGraphic(buttonsContainer);
+        }
+        private void openEditSponsorInterface(Sponsor sponsor) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/eventback/modifspon.fxml"));
+                Parent root = loader.load();
 
-            // Set spacing between buttons if necessary
-            buttonsContainer.setSpacing(10); // Adjust the spacing as needed
+                // Access the controller of the modifspon interface
+                CRUDsponsor controller = loader.getController();
+
+                // Pass the selected sponsor to the controller
+                controller.initData(sponsor);
+
+                // Create a new stage for the modifspon interface
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Edit Sponsor");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+
+                // Optionally, you can update the UI after editing
+                // For example, you can refresh the list view
+                showw();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
+        private void deleteSponsor(int id) {
+            try {
+                // Prepare the SQL statement to delete the sponsor
+                String deleteSponsorSQL = "DELETE FROM sponsor WHERE id = ?";
+                PreparedStatement pstDeleteSponsor = MyDatabase.getInstance().getConnection().prepareStatement(deleteSponsorSQL);
+                pstDeleteSponsor.setInt(1, id);
 
+                // Execute deletion of sponsor
+                int rowsAffectedSponsor = pstDeleteSponsor.executeUpdate();
 
+                if (rowsAffectedSponsor > 0) {
+                    // Deletion of sponsor successful
+                    System.out.println("Sponsor with ID " + id + " deleted successfully.");
+                    showSuccessAlert("Deletion Successful", "Sponsor with ID " + id + " deleted successfully.");
+                } else {
+                    // No rows affected, sponsor not found or deletion failed
+                    System.out.println("Failed to delete sponsor with ID " + id + ".");
+                    showErrorAlertWithRefresh("Deletion Failed", "Failed to delete sponsor with ID " + id + ".");
+                }
+
+                // Close the prepared statement
+                pstDeleteSponsor.close();
+            } catch (SQLException ex) {
+                // Error occurred during deletion
+                System.err.println("Error deleting sponsor: " + ex.getMessage());
+                ex.printStackTrace();
+                showErrorAlertWithRefresh("Error", "An error occurred while deleting sponsor: " + ex.getMessage());
+            }
+        }
+
+        private void showErrorAlertWithRefresh(String title, String message) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(title);
+            alert.setHeaderText(null);
+            alert.setContentText(message);
+
+            ButtonType okButton = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
+            alert.getButtonTypes().setAll(okButton);
+
+            // Event handler for the OK button
+            alert.setOnCloseRequest(event -> {
+                // Refresh the table view to ensure deleted sponsor is still displayed
+                showw();
+            });
+
+            alert.showAndWait();
+        }
+        private void showSuccessAlert(String title, String message) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(title);
+            alert.setHeaderText(null);
+            alert.setContentText(message);
+            alert.showAndWait();
+        }
+
+        private void showErrorAlert(String title, String message) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(title);
+            alert.setHeaderText(null);
+            alert.setContentText(message);
+            alert.showAndWait();
+        }
         @Override
         protected void updateItem(Sponsor sponsor, boolean empty) {
             super.updateItem(sponsor, empty);
-
 
             if (empty || sponsor == null) {
                 setText(null);
                 setGraphic(null);
             } else {
                 setText("Name: " + sponsor.getName() + ", Number: " + sponsor.getNumber() + ", Email: " + sponsor.getEmail());
-
+                // Set the buttons container as the graphic of the cell
                 setGraphic(buttonsContainer);
             }
         }
@@ -171,5 +319,3 @@ public class Listsponsors {
         }
     }
 }
-
-

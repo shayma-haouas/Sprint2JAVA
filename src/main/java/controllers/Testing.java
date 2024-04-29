@@ -14,15 +14,15 @@ public class Testing extends Application {
     public void start(Stage primaryStage) throws Exception {
         try {
             // Load the FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/eventback/Listsponsors.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/eventback/sidebar.fxml"));
             Parent root = loader.load();
-
+            Sidebar c =loader.getController();
             // Get the controller instance
-            Listsponsors controller = loader.getController();
+
 
             // Call the showw() method to fetch data and populate the ListView
-            controller.showw();
 
+            //controller.showw();
             // Set up the primary stage
             primaryStage.setTitle("Testing FXML Interface with showw() Method");
             primaryStage.setScene(new Scene(root, 600, 400));
