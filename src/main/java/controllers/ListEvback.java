@@ -7,6 +7,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -19,7 +20,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import utils.MyDatabase;
-
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.File;
 import java.io.IOException;
 import java.sql.PreparedStatement;
@@ -128,12 +130,24 @@ public class ListEvback {
         @Override
         public ListCell<Evenement> call(ListView<Evenement> param) {
             return new ListCell<Evenement>() {
-                private final Button editButton = new Button("Edit");
-                private final Button deleteButton = new Button("Delete");
+                private final Button editButton = new Button();
+                private final Button deleteButton = new Button();
                 private final HBox buttonsContainer = new HBox(editButton, deleteButton);
                 private final BorderPane cellPane = new BorderPane();
 
                 {
+                    // Set icons for edit and delete buttons
+                    FontAwesomeIconView editIcon = new FontAwesomeIconView(FontAwesomeIcon.EDIT);
+                    editIcon.setSize("30");
+                    editButton.setGraphic(editIcon);
+                    editButton.setStyle("-fx-background-color: transparent;"); // Remove background color
+                    editButton.setCursor(Cursor.HAND); // Set cursor to hand
+                    FontAwesomeIconView deleteIcon = new FontAwesomeIconView(FontAwesomeIcon.TRASH);
+                    deleteIcon.setSize("30");
+                    deleteButton.setGraphic(deleteIcon);
+                    deleteButton.setStyle("-fx-background-color: transparent;"); // Remove background color
+                    deleteButton.setCursor(Cursor.HAND); // Set cursor to hand
+                    // Add action listeners for edit and delete buttons
                     editButton.setOnAction(event -> {
                         Evenement eventt = getItem();
                         if (eventt != null) {
@@ -149,9 +163,10 @@ public class ListEvback {
                         }
                     });
 
-                    buttonsContainer.setSpacing(10);
+                    buttonsContainer.setSpacing(0);
                     cellPane.setRight(buttonsContainer);
                 }
+
 
                 @Override
                 protected void updateItem(Evenement event, boolean empty) {

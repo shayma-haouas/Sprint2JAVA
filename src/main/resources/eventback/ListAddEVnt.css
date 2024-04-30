@@ -1,8 +1,59 @@
 .root {
-    -fx-base: #2f611f; /* Dark green base color */
-    -fx-background-color: white; ; /* Dark background */
-    -fx-text-fill: #fffdfa; /* Light text for contrast */
-    -fx-font-family: "Corbel Bold Italic"; /* Consistent font */
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-font-family: "Arial";
+}
+
+/* Title Text Style */
+.DemandeCard__title {
+    -fx-fill: black;
+    -fx-font: 36px "Arial Black";
+    -fx-padding: 0 0 0 100;
+}
+
+/* Button Styles */
+#btnajouter, #trie1, #trie {
+    -fx-background-color: linear-gradient(to top, rgba(136, 180, 78, 0.6), #2f611f);
+    -fx-text-fill: white;
+    -fx-font: 18px "Arial Bold";
+    -fx-background-radius: 20;
+}
+
+#btnajouter:hover, #trie1:hover, #trie:hover {
+    -fx-background-color: #3a7f2b; /* Adjusted hover color */
+}
+
+/* Text Field Style */
+
+
+/* Label Style */
+Label {
+    -fx-text-fill: black;
+    -fx-font: 18px "Arial";
+}
+
+/* ScrollPane Style */
+.user_listScrollPane {
+    -fx-background-color: rgba(128, 128, 128, 0.1);
+    -fx-border-radius: 10px;
+    -fx-padding: 20px;
+    -fx-effect: dropshadow(gaussian, rgba(136, 180, 78, 0.6), 10, 0.1, 0, 0);
+}
+
+/* HBox Style */
+.nav {
+
+    -fx-padding: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 1);
+}
+/* Search Input Style */
+#searchInput {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-border-color: #131314;
+    -fx-font-size: 14px;
+    -fx-font-family: "Arial";
+    -fx-background-radius: 30;
 }
 
 .list-cell {
@@ -35,13 +86,6 @@
     -fx-background-size: cover;
     -fx-text-fill: white;
 }
-
-.nav {
-    -fx-background-color: linear-gradient(to top, rgba(136, 180, 78, .6), #2f611f);
-    -fx-background-repeat: no-repeat;
-    -fx-background-size: cover;
-}
-
 vbox-style {
     -fx-background-color: rgba(128, 128, 128, 0.1);
     -fx-border-radius: 10px;
@@ -74,11 +118,6 @@ vbox-style {
 .custom-text-field:focused {
     -fx-border-color: #2f611f;
 }
-
-.label {
-    -fx-text-fill: black; /* Make all labels black */
-}
-
 .button {
     -fx-background-color: #2f611f; /* Green background for buttons */
     -fx-text-fill: white; /* White text for buttons */

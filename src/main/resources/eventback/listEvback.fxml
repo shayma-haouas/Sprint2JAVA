@@ -43,34 +43,23 @@
                 </font>
             </Label>
         </HBox>
-        <Button fx:id="btnajouter" layoutX="77.0" layoutY="156.0" mnemonicParsing="false" onAction="#openaddev" prefHeight="37.0" prefWidth="120.0" style="-fx-background-color: linear-gradient(to top, rgba(136, 180, 78, .6), #2f611f); -fx-text-fill: white;" text="Ajouter" textFill="#f8b135">
+        <Button fx:id="btnajouter" layoutX="77.0" layoutY="156.0" mnemonicParsing="false" onAction="#openaddev" prefHeight="37.0" prefWidth="120.0" text="Ajouter" textFill="#f8b135">
             <font>
                 <Font name="System Bold Italic" size="18.0" />
             </font>
-
-
-
         </Button>
         <ScrollPane hbarPolicy="NEVER" layoutX="77.0" layoutY="199.0" prefHeight="368.0" prefWidth="929.0" styleClass="user_listScrollPane">
             <content>
-                <!-- <VBox fx:id="SPListContainer" spacing="13.0" layoutX="93.0" layoutY="245.0" prefHeight="367.0" prefWidth="915.0" styleClass="vbox-style">-->
-
                 <ListView fx:id="listEv" layoutX="93.0" layoutY="245.0" prefHeight="367.0" prefWidth="891.0" VBox.vgrow="ALWAYS" />
-
-
-
-                <!-- </VBox>-->
             </content>
         </ScrollPane>
-        <TextField fx:id="searchInput" layoutX="489.0" layoutY="157.0" onAction="#searchevents" prefHeight="37.0" prefWidth="226.0" />
-        <Button fx:id="trie1" layoutX="861.0" layoutY="159.0" mnemonicParsing="false" onAction="#triNomA" prefHeight="33.0" prefWidth="103.0" style="-fx-border-color: orange; -fx-background-color: #000000;" text="Trie ASC" textFill="#fffdf7">
+        <TextField fx:id="searchInput" layoutX="489.0" layoutY="157.0" onAction="#searchevents" prefHeight="37.0" prefWidth="226.0" style="-fx-background-radius: 20;" />
+        <Button fx:id="trie1" layoutX="861.0" layoutY="159.0" mnemonicParsing="false" onAction="#triNomA" prefHeight="33.0" prefWidth="103.0" text="Trie ASC" textFill="#fffdf7">
             <font>
                 <Font name="System Bold Italic" size="15.0" />
             </font>
         </Button>
-
-
-        <Button fx:id="trie" layoutX="737.0" layoutY="159.0" mnemonicParsing="false" onAction="#triNomD" prefHeight="33.0" prefWidth="103.0" style="-fx-border-color: orange; -fx-background-color: #000000;" text="Trie DESC" textFill="WHITE">
+        <Button fx:id="trie" layoutX="737.0" layoutY="159.0" mnemonicParsing="false" onAction="#triNomD" prefHeight="33.0" prefWidth="103.0" text="Trie DESC" textFill="WHITE">
             <font>
                 <Font name="System Bold Italic" size="15.0" />
             </font>
@@ -80,8 +69,5 @@
                 <Font name="Bauhaus 93" size="17.0" />
             </font>
         </Label>
-
-
-
     </children>
 </Pane>

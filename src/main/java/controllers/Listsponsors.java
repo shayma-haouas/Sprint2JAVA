@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -145,7 +146,7 @@ public class Listsponsors {
 
 
     public class SponsorListCell extends ListCell<Sponsor> {
-
+        private final BorderPane cellPane = new BorderPane();
         private final Button editButton;
         private final Button deleteButton;
         private final HBox buttonsContainer; // Container to hold the buttons
@@ -182,8 +183,10 @@ public class Listsponsors {
             });
 
             // Optionally, you can set spacing between buttons or customize the layout
-            buttonsContainer.setSpacing(10);
 
+            // Set alignment to the right
+            buttonsContainer.setSpacing(10);
+            cellPane.setRight(buttonsContainer);
             // Set the container as the graphic of the cell
             setGraphic(buttonsContainer);
         }
@@ -283,9 +286,14 @@ public class Listsponsors {
                 setText(null);
                 setGraphic(null);
             } else {
-                setText("Name: " + sponsor.getName() + ", Number: " + sponsor.getNumber() + ", Email: " + sponsor.getEmail());
-                // Set the buttons container as the graphic of the cell
-                setGraphic(buttonsContainer);
+                Label sponsorDetailsLabel = new Label(String.format("Name: %s\nNumber: %d\nEmail: %s",
+                        sponsor.getName(), sponsor.getNumber(), sponsor.getEmail()));
+
+                // Set the sponsor details label to the left of the BorderPane
+                cellPane.setLeft(sponsorDetailsLabel);
+
+                // Set the BorderPane as the graphic of the cell
+                setGraphic(cellPane);
             }
         }
     }
