@@ -60,8 +60,8 @@ public class ManageController implements Initializable {
     private final String subject = "Reservation Confirmation";
     private final String messageContent = "Your reservation has been confirmed.";
     //sms
-    private final String ACCOUNT_SID = "AC6af7e9a17146c12be7c71b7fdbdf5b48";
-    private final String AUTH_TOKEN = "15cdfdfcca68cea64e4e97f76c37f7ec";
+    private final String ACCOUNT_SID = "put your ssid here";
+    private final String AUTH_TOKEN = "put your auth token here";
     public static Dechets currentDechets;
 
     @Override
