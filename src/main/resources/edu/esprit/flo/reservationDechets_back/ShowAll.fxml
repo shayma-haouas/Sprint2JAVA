@@ -19,7 +19,7 @@
                 </font>
             </Text>
         </StackPane>
-        <TextField id="searchField" fx:id="searchField4" layoutX="267.0" layoutY="23.0" prefHeight="27.0" prefWidth="342.0" promptText="Search here..." style="-fx-background-color: #fff; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-border-color: #ccc; -fx-border-width: 1px;" />
+        <TextField id="searchField" fx:id="searchField4" layoutX="267.0" layoutY="23.0" prefHeight="27.0" prefWidth="342.0" promptText="Search..." style="-fx-background-color: #fff; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-border-color: #ccc; -fx-border-width: 1px;" />
         <Button fx:id="trie2" layoutX="620.0" layoutY="24.0" mnemonicParsing="false" onAction="#triNomD" style="-fx-background-color: #4CAF50FF; -fx-text-fill: #fff; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-border-color: transparent; -fx-border-width: 1px; -fx-padding: 5px 10px;" text="DESC" />
         <Button fx:id="trie3" layoutX="675.0" layoutY="24.0" mnemonicParsing="false" onAction="#triNomA" style="-fx-background-color: #4CAF50FF; -fx-text-fill: #fff; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-border-color: transparent; -fx-border-width: 1px; -fx-padding: 5px 10px;" text="ASC" />
         <Button fx:id="print" layoutX="730.0" layoutY="24.0" mnemonicParsing="false" onAction="#print" style="-fx-background-color: #4CAF50FF; -fx-text-fill: #fff; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-border-color: transparent; -fx-border-width: 1px; -fx-padding: 5px 10px;" text="Print" />
