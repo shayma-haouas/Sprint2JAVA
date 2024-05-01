@@ -68,19 +68,6 @@ public class RegistrationController {
         WebEngine engine = captchaWebView.getEngine();
         engine.load("https://www.google.com/recaptcha/api2/anchor?ar=1&k=6LeKGs0pAAAAAJkTYIf_U-YiIlCCu8Sqlief-0a3");
     }
-    @FXML
-    void uploadImage() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select Image File");
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image files", "*.png", "*.jpg", "*.jpeg", "*.gif");
-        fileChooser.getExtensionFilters().add(extFilter);
-        File selectedFile = fileChooser.showOpenDialog(new Stage());
-
-        if (selectedFile != null) {
-            imagePath = selectedFile.getAbsolutePath(); // Stockez le chemin de l'image sélectionnée dans la variable de classe
-            // Chargez l'image dans l'ImageView si nécessaire
-            imageView.setImage(new Image(selectedFile.toURI().toString()));
-        } }
 
 
 
@@ -186,13 +173,33 @@ public class RegistrationController {
         webcam.open();
 
         String filename = number + "_" + ".jpg";
-        String filePath = "C:\\Users\\siwar\\OneDrive\\Bureau\\JAVASPRINT\\Sprint2JAVA\\src\\main\\resources\\img" + filename; // Modifier le chemin absolu ici
+        String filePath = "C:\\Users\\siwar\\OneDrive\\Bureau\\JAVASPRINT\\Sprint2JAVA\\src\\main\\resources\\img\\uploads\\" + filename; // Modifier le chemin absolu ici
         ImageIO.write(webcam.getImage(), "JPG", new File(filePath));
 
         System.out.println(filename);
 
         webcam.close();
+
+        // Charger l'image dans l'ImageView
+        Image image = new Image(new File(filePath).toURI().toString());
+        imageView.setImage(image);
     }
+
+    @FXML
+    void uploadImage(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Image File");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Image files", "*.png", "*.jpg", "*.jpeg", "*.gif");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File selectedFile = fileChooser.showOpenDialog(new Stage());
+
+        if (selectedFile != null) {
+            String imagePath = selectedFile.toURI().toString();
+            Image image = new Image(imagePath);
+            imageView.setImage(image);
+        }
+    }
+
 
 
     private void showAlert(Alert.AlertType alertType, String title, String header, String message, StageStyle stageStyle) {
