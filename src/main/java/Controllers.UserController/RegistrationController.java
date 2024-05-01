@@ -88,6 +88,13 @@ public class RegistrationController {
         DatePicker datenaissance = Datefield;
         String roles = "ROLE_CLIENT";
 
+        String enteredCaptcha = captchaField.getText();
+        boolean isValidCaptcha = validateCaptcha(enteredCaptcha);
+
+        if (!isValidCaptcha) {
+            showAlert(Alert.AlertType.ERROR, "Alert", "Erreur Saisie", "Captcha incorrect.", StageStyle.DECORATED);
+            return;
+        }
 
         if (email.isEmpty() || !email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
             showAlert(Alert.AlertType.ERROR, "Alert", "Erreur Saisie", "Veuillez saisir une adresse email valide.", StageStyle.DECORATED);
@@ -130,11 +137,10 @@ public class RegistrationController {
         boolean isValidRecaptcha = validateRecaptchaToken(recaptchaToken);
 
         if (isValidRecaptcha) {
-            // Le token reCAPTCHA est valide, continuez avec l'enregistrement de l'utilisateur
-            // Votre logique de traitement ici
+
             System.out.println("Token reCAPTCHA valide. Enregistrement de l'utilisateur...");
         } else {
-            // Le token reCAPTCHA est invalide, affichez un message d'erreur à l'utilisateur
+
             Alert alert = new Alert(Alert.AlertType.ERROR, "Captcha incorrect.");
             alert.showAndWait();
             return;
@@ -143,25 +149,20 @@ public class RegistrationController {
         addUserToDatabase(name, lastname, roles, email, password, image, number, false, java.sql.Date.valueOf(datenaissance.getValue()));
         clearInputFields();
     }
+    private boolean validateCaptcha(String enteredCaptcha) {
+
+        return enteredCaptcha.equals(captchaText);
+    }
+
     private boolean validateRecaptchaToken(String recaptchaToken) {
-        // Envoyez le token reCAPTCHA au serveur Google reCAPTCHA pour validation
-        // Utilisez les API reCAPTCHA pour valider le token
-        // Retournez true si le token est valide, sinon false
-        // Remplacez YOUR_SECRET_KEY par votre clé secrète reCAPTCHA
-        String secretKey = "VOTRE_CLE_SECRETE_RECAPTCHA"; // Remplacez par votre clé secrète reCAPTCHA
+
+        String secretKey = "6LeKGs0pAAAAAJkTYIf_U-YiIlCCu8Sqlief-0a3\n"; // Remplacez par votre clé secrète reCAPTCHA
         String response = sendRecaptchaValidationRequest(recaptchaToken, secretKey);
         return parseRecaptchaValidationResponse(response);
     }
 
     private String sendRecaptchaValidationRequest(String recaptchaToken, String secretKey) {
-        // Envoyez une requête POST au serveur Google reCAPTCHA pour valider le token
-        // Utilisez la bibliothèque HTTP de votre choix pour effectuer la requête POST
-        // Retournez la réponse JSON du serveur
-        // Exemple : Apache HttpClient, OkHttp, etc.
-        // Voici un exemple de requête HTTP POST à envoyer au serveur reCAPTCHA
-        // Assurez-vous d'utiliser la bibliothèque HTTP appropriée (par exemple, Apache HttpClient)
-        // pour envoyer la requête POST
-        // Vous devrez remplacer la ligne suivante par votre implémentation réelle
+
         return "{\"success\": true}"; // Réponse JSON simulée
     }
 

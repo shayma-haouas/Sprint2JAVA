@@ -22,7 +22,7 @@
                 <CategoryAxis side="BOTTOM" styleClass="chart-axis" fx:id="xAxis" />
               </xAxis>
               <yAxis>
-                <NumberAxis fx:id="yAxis" side="LEFT" * />
+                <NumberAxis fx:id="yAxis" side="LEFT" />
               </yAxis>
             </BarChart>
             <AreaChart fx:id="areaChart" prefHeight="277.0" prefWidth="405.0" styleClass="bar-chart">
