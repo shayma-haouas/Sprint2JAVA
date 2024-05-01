@@ -78,11 +78,15 @@
                         -fx-background-color: linear-gradient(to bottom, rgba(136, 180, 78, 1.0), rgba(136, 180, 78, 0.7));
                     </style>
                     <children>
-                        <Button mnemonicParsing="false" onAction="#uploadImage" prefHeight="35.0" prefWidth="181.0" text="Upload Image">
-                            <VBox.margin>
-                                <Insets left="80.0" top="30.0" />
-                            </VBox.margin>
-                        </Button>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="40.0">
+                     <children>
+                              <Button mnemonicParsing="false" onAction="#uploadImage" prefHeight="35.0" prefWidth="181.0" text="Upload Photo" />
+                              <Button onAction="#camera" prefHeight="35.0" prefWidth="168.0" text="Take Photo" />
+                     </children>
+                     <VBox.margin>
+                        <Insets left="40.0" right="40.0" />
+                     </VBox.margin>
+                  </HBox>
                         <ImageView fx:id="imageView" fitHeight="109.0" fitWidth="111.0">
                             <VBox.margin>
                                 <Insets left="120.0" />
@@ -163,8 +167,8 @@
                         <Insets left="200.0" top="10.0" />
                     </VBox.margin>
                 </Button>
-      
-            
+
+
                       <ImageView fitHeight="249.0" fitWidth="357.0" pickOnBounds="true" preserveRatio="true" scaleX="1.65" scaleY="1.65">
                     <image>
                         <Image url="@../img/OIp8.jpeg" />
@@ -173,6 +177,7 @@
                         <Insets left="110.0" top="110.0" />
                     </VBox.margin>
                 </ImageView>
+
             </children>
         </VBox>
     </children>

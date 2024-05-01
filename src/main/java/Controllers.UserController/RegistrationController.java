@@ -1,5 +1,6 @@
 package Controllers.UserController;
 
+import com.github.sarxos.webcam.Webcam;
 import entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,11 +18,13 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import services.UserService;
 
+import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
 import java.util.Optional;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 public class RegistrationController {
@@ -54,13 +57,16 @@ public class RegistrationController {
     @FXML
     private TextField captchaField;
     private String captchaText;
+    @FXML
+    private Button cam;
+    String pic ;
 
 
     public void initialize(URL url, ResourceBundle rb) {
 
         // Chargez le captcha dans le WebView
         WebEngine engine = captchaWebView.getEngine();
-        engine.load("https://www.google.com/recaptcha/api2/anchor?ar=1&k=6LeKGs0pAAAAAJkTYIf_U-YiIlCCu8Sqlief-0a3\n");
+        engine.load("https://www.google.com/recaptcha/api2/anchor?ar=1&k=6LeKGs0pAAAAAJkTYIf_U-YiIlCCu8Sqlief-0a3");
     }
     @FXML
     void uploadImage() {
@@ -75,6 +81,7 @@ public class RegistrationController {
             // Chargez l'image dans l'ImageView si nécessaire
             imageView.setImage(new Image(selectedFile.toURI().toString()));
         } }
+
 
 
     @FXML
@@ -170,6 +177,23 @@ public class RegistrationController {
 
         return response.contains("\"success\": true");
     }
+    @FXML
+    private void camera(ActionEvent event) throws IOException {
+        Random rnd = new Random();
+        int number = rnd.nextInt(999999999);
+
+        Webcam webcam = Webcam.getDefault();
+        webcam.open();
+
+        String filename = number + "_" + ".jpg";
+        String filePath = "C:\\Users\\siwar\\OneDrive\\Bureau\\JAVASPRINT\\Sprint2JAVA\\src\\main\\resources\\img" + filename; // Modifier le chemin absolu ici
+        ImageIO.write(webcam.getImage(), "JPG", new File(filePath));
+
+        System.out.println(filename);
+
+        webcam.close();
+    }
+
 
     private void showAlert(Alert.AlertType alertType, String title, String header, String message, StageStyle stageStyle) {
         Alert alert = new Alert(alertType);
