@@ -49,4 +49,6 @@ public interface UserCrud<T> {
 
 
     String getRole(String email);
+
+    void testEamil(String email);
 }

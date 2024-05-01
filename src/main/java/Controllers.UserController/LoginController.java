@@ -1,5 +1,5 @@
 package Controllers.UserController;
-import entities.User;
+import com.mysql.cj.Session;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,8 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
-import org.w3c.dom.Text;
 import services.UserService;
 
 import java.io.IOException;
@@ -23,7 +21,7 @@ public class LoginController {
 
     @FXML
     private TextField Passwordfield;
-
+    private static Session session;
 
     @FXML
     void loginclicked(ActionEvent event) {
@@ -110,11 +108,14 @@ public class LoginController {
             Scene scene = source.getScene();
 
             // Charger la page Forgot.fxml et changer la racine de la scène
-            Parent root = FXMLLoader.load(getClass().getResource("/UserInterface/Forgot.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/UserInterface/ResetPwd.fxml"));
             scene.setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public static Session getSession() {
+        return session;
     }
 
 }

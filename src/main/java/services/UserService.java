@@ -1,8 +1,8 @@
 package services;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import entities.Reset;
 import entities.User;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -22,6 +22,9 @@ import java.util.logging.Logger;
 public class UserService implements  UserCrud<User> {
     Connection connection;
 
+    public static String email;
+    public static String password;
+    public static String name;
     public UserService() {
         connection = MyDatabase.getInstance().getConnection();
 
@@ -548,6 +551,90 @@ public String getRole(String email) {
 
         return userCountByAgeGroup;
     }
+
+
+@Override
+    public void testEamil(String email) {
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/flo_dbt", "root", "");
+            String sql = "SELECT COUNT(*) FROM user WHERE email = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            int count = rs.getInt(1);
+            if (count > 0) {
+                System.out.println("L'adresse e-mail existe dans la base de données.");
+            } else {
+                System.out.println("L'adresse e-mail n'existe pas dans la base de données.");
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    public boolean reset(Reset t) {
+        long end = System.currentTimeMillis();
+        try {
+            String req = "SELECT * from reset where code=?";
+            PreparedStatement pst = connection.prepareStatement(req);
+            pst.setInt(1, t.getCode());
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                long StartTime = Long.parseLong(rs.getString("timeMils"));
+                long calT = end - StartTime;
+                if (calT < 120000) {
+                    email = rs.getString("email");
+                    return true;
+                } else {
+                    String reqs = "DELETE FROM reset WHERE code=?";
+                    PreparedStatement psts = connection.prepareStatement(reqs);
+                    psts.setInt(1, t.getCode());
+                    psts.executeUpdate();
+                    System.err.println("Time OUT !! Code Introuvable.");
+                    return false;
+                }
+            } else {
+                System.err.println("Code Incorrect !");
+                return false;
+            }
+
+        } catch (SQLException e) {
+
+            System.out.println(e.getMessage());
+            return false;
+
+        }
+    }
+
+    public void modifierMdp(User t) throws SQLException {
+        int cost = 13;
+        BCrypt.Hasher hasher = BCrypt.with(BCrypt.Version.VERSION_2Y);
+        String saltedPassword = hasher.hashToString(cost, t.getPassword().toCharArray());
+        try {
+
+            System.out.println(t.getEmail()+"+"+t.getPassword());
+            String reqs = "UPDATE user SET password=? WHERE email=?";
+            PreparedStatement pst = connection.prepareStatement(reqs);
+
+            pst.setString(2, t.getEmail());
+            pst.setString(1, saltedPassword);
+            System.out.println(t.getEmail()+"+"+saltedPassword);
+
+            pst.executeUpdate();
+
+            System.out.println("Mot de passe modifié !");
+
+        } catch (SQLException ex) {
+            System.out.println("Erreur lors de la modification du mot de passe :");
+            System.out.println(ex.getMessage());
+            connection.rollback(); // Annuler la transaction en cas d'erreur
+
+        }
+    }
+
 
 }
 

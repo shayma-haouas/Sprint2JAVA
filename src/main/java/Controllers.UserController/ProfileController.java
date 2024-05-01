@@ -61,7 +61,7 @@ public class ProfileController {
      private void initialize()
      {
          setAuthenticatedEmail();
-         webEngine = webView.getEngine();
+
 
      }
     public void setUserData(User user) {

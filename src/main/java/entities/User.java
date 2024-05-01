@@ -53,6 +53,11 @@ public class User {
         this.datenaissance=datenaissance;
     }
 
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
     public void setId(int id) {
         this.id = id;
     }

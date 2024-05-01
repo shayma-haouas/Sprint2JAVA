@@ -10,7 +10,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.StackPane;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -18,8 +19,10 @@ import services.UserService;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Date;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 public class RegistrationController {
 
@@ -44,8 +47,21 @@ public class RegistrationController {
     private PasswordField Passwordfield;
     @FXML
     private ImageView imageView;
+    @FXML
+    private WebView captchaWebView;
 
     private String imagePath;
+    @FXML
+    private TextField captchaField;
+    private String captchaText;
+
+
+    public void initialize(URL url, ResourceBundle rb) {
+
+        // Chargez le captcha dans le WebView
+        WebEngine engine = captchaWebView.getEngine();
+        engine.load("https://www.google.com/recaptcha/api2/anchor?ar=1&k=6LeKGs0pAAAAAJkTYIf_U-YiIlCCu8Sqlief-0a3\n");
+    }
     @FXML
     void uploadImage() {
         FileChooser fileChooser = new FileChooser();
@@ -110,10 +126,49 @@ public class RegistrationController {
 
             return;
         }
+        String recaptchaToken = "6LeKGs0pAAAAAJkTYIf_U-YiIlCCu8Sqlief-0a3\n"; // Remplacez par la méthode pour récupérer le token
+        boolean isValidRecaptcha = validateRecaptchaToken(recaptchaToken);
+
+        if (isValidRecaptcha) {
+            // Le token reCAPTCHA est valide, continuez avec l'enregistrement de l'utilisateur
+            // Votre logique de traitement ici
+            System.out.println("Token reCAPTCHA valide. Enregistrement de l'utilisateur...");
+        } else {
+            // Le token reCAPTCHA est invalide, affichez un message d'erreur à l'utilisateur
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Captcha incorrect.");
+            alert.showAndWait();
+            return;
+        }
+
         addUserToDatabase(name, lastname, roles, email, password, image, number, false, java.sql.Date.valueOf(datenaissance.getValue()));
         clearInputFields();
     }
+    private boolean validateRecaptchaToken(String recaptchaToken) {
+        // Envoyez le token reCAPTCHA au serveur Google reCAPTCHA pour validation
+        // Utilisez les API reCAPTCHA pour valider le token
+        // Retournez true si le token est valide, sinon false
+        // Remplacez YOUR_SECRET_KEY par votre clé secrète reCAPTCHA
+        String secretKey = "VOTRE_CLE_SECRETE_RECAPTCHA"; // Remplacez par votre clé secrète reCAPTCHA
+        String response = sendRecaptchaValidationRequest(recaptchaToken, secretKey);
+        return parseRecaptchaValidationResponse(response);
+    }
 
+    private String sendRecaptchaValidationRequest(String recaptchaToken, String secretKey) {
+        // Envoyez une requête POST au serveur Google reCAPTCHA pour valider le token
+        // Utilisez la bibliothèque HTTP de votre choix pour effectuer la requête POST
+        // Retournez la réponse JSON du serveur
+        // Exemple : Apache HttpClient, OkHttp, etc.
+        // Voici un exemple de requête HTTP POST à envoyer au serveur reCAPTCHA
+        // Assurez-vous d'utiliser la bibliothèque HTTP appropriée (par exemple, Apache HttpClient)
+        // pour envoyer la requête POST
+        // Vous devrez remplacer la ligne suivante par votre implémentation réelle
+        return "{\"success\": true}"; // Réponse JSON simulée
+    }
+
+    private boolean parseRecaptchaValidationResponse(String response) {
+
+        return response.contains("\"success\": true");
+    }
 
     private void showAlert(Alert.AlertType alertType, String title, String header, String message, StageStyle stageStyle) {
         Alert alert = new Alert(alertType);
@@ -141,6 +196,7 @@ public class RegistrationController {
         scene.getStylesheets().add(getClass().getResource("/css/CustomAlertStyle.css").toExternalForm());
         alert.getDialogPane().getStyleClass().add("custom-alert");
     }
+
     private void addUserToDatabase(String name, String lastname, String roles , String email, String password, String image, int number, Boolean is_verified, Date datenaissance) {
 
         User user = new User(name, lastname, roles, email,password, image, number, is_verified, datenaissance);

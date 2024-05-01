@@ -57,7 +57,7 @@
 
       <HBox layoutY="100.0" prefHeight="602.0" prefWidth="1000.0" styleClass="hbox-style1">
          <children>
-            <VBox alignment="CENTER" blendMode="MULTIPLY" cache="true" cacheHint="SPEED" depthTest="ENABLE" disable="false" mouseTransparent="true" nodeOrientation="LEFT_TO_RIGHT" prefHeight="461.0" prefWidth="605.0" snapToPixel="false" styleClass="hbox-style2">
+            <VBox alignment="CENTER" blendMode="MULTIPLY" cache="true" cacheHint="SPEED" depthTest="ENABLE" disable="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="461.0" prefWidth="605.0" snapToPixel="false" styleClass="hbox-style2">
                <HBox.margin>
                   <Insets left="20.0" top="30.0" />
                </HBox.margin>
@@ -109,7 +109,7 @@
                         <Insets right="280.0" top="120.0" />
                      </VBox.margin>
                   </Text>
-                  <TextField fx:id="testField" blendMode="LIGHTEN" editable="true" promptText="Email">
+                  <TextField fx:id="erreurT" blendMode="LIGHTEN" editable="true" promptText="Email">
                      <VBox.margin>
                         <Insets left="100.0" right="100.0" top="10.0" />
                      </VBox.margin>
@@ -120,7 +120,7 @@
                         <Cursor fx:constant="OPEN_HAND" />
                      </cursor>
                   </TextField>
-                  <Button disable="false" mnemonicParsing="false" onAction="#goForgot" text="Reset Password" textFill="#68906a" textOverrun="CLIP">
+                  <Button disable="false" mnemonicParsing="false" onAction="#SendREs" text="Reset Password" textFill="#68906a" textOverrun="CLIP">
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>
@@ -135,7 +135,7 @@
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
-                   
+
 
                   </HBox>
                </children>
