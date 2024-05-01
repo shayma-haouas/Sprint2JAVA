@@ -1,19 +1,26 @@
 package Controllers.UserController;
 
 import entities.User;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import services.UserService;
 
+import javax.imageio.ImageIO;
+import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 public class SideBarController {
@@ -143,5 +150,33 @@ public class SideBarController {
         content_area.getChildren().clear();
         content_area.getChildren().add(statisticsParent);
     }
+
+    public void capturer(MouseEvent event) {
+        // Récupération de la racine de la scène
+        Node root = content_area.getScene().getRoot();
+
+        // Création d'une image pour stocker la capture d'écran
+        WritableImage image = new WritableImage((int) root.getBoundsInLocal().getWidth(), (int) root.getBoundsInLocal().getHeight());
+
+        // Capture d'écran de la racine de la scène
+        root.snapshot(null, image);
+
+        // Définir le chemin du dossier de destination
+        String dossierDestination = "C:\\Users\\siwar\\OneDrive\\Bureau\\JAVASPRINT\\Sprint2JAVA\\src\\main\\resources\\img\\capture\\";
+
+        // Générer un nom de fichier unique
+        String nomFichier = "capture_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")) + ".png";
+
+        // Enregistrer la capture dans le dossier de destination
+        File fichier = new File(dossierDestination + nomFichier);
+        try {
+            ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", fichier);
+            System.out.println("Capture enregistrée : " + fichier.getAbsolutePath());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+
 
 }

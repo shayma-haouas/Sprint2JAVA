@@ -168,7 +168,7 @@
                         </VBox.margin>
                     </HBox>
 
-                    <HBox fx:id="InvestBtn" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="200.0" styleClass="nav-links">
+                    <HBox fx:id="InvestBtn" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" onMouseClicked="#capturer" prefHeight="50.0" prefWidth="200.0" styleClass="nav-links">
                         <children>
                             <ImageView fx:id="investissementsIcon" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="image" translateX="-5.0">
                                 <HBox.margin>
@@ -178,7 +178,7 @@
                                     <Image url="@../img/logo.png" />
                                 </image>
                             </ImageView>
-                            <Label fx:id="investissementsText" styleClass="text" text="Projets" textFill="WHITE">
+                            <Label fx:id="investissementsText" styleClass="text" text="Capture" textFill="WHITE">
                                 <font>
                                     <Font name="Montserrat Regular" size="14.0" />
                                 </font>
