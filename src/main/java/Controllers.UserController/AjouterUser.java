@@ -100,6 +100,8 @@ public class AjouterUser {
                 String resetPassword = ResetField.getText().trim();
                 int number = Integer.parseInt(numberField.getText().trim());
 
+
+
                 if (name.isEmpty() || lastname.isEmpty() || email.isEmpty() || password.isEmpty() || resetPassword.isEmpty()) {
                     showAlert(Alert.AlertType.ERROR, "Erreur lors de l'ajout", null, "Veuillez remplir tous les champs.");
                     return;
@@ -114,6 +116,21 @@ public class AjouterUser {
                 if (datePicker.getValue() != null) {
                     dateNaissance = Date.valueOf(datePicker.getValue());
                 }
+
+                // Vérification de la longueur du numéro
+                String numberString = Integer.toString(number);
+                if (numberString.length() != 8) {
+                    showAlert(Alert.AlertType.ERROR, "Erreur lors de l'ajout", null, "Le numéro doit contenir exactement 8 chiffres.");
+                    return;
+                }
+
+                // Vérification du premier chiffre
+                char firstDigit = numberString.charAt(0);
+                if (firstDigit != '2' && firstDigit != '7' && firstDigit != '4' && firstDigit != '9') {
+                    showAlert(Alert.AlertType.ERROR, "Erreur lors de l'ajout", null, "Le numéro doit commencer par 2, 7, 4 ou 9.");
+                    return;
+                }
+
 
 
 
