@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import services.UserService;
@@ -50,11 +51,17 @@ public class VerifCodeController implements Initializable {
             ModifierMdpController apc = loader.getController();
             apc.setTxt1(email);
 
-        } else {
-            mqte.setText("Un erreur survenu");
+            // Afficher une alerte de confirmation
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Code Vérifié");
+            alert.setHeaderText(null);
+            alert.setContentText("Le code a été vérifié avec succès.");
 
-        }
-        {
+            // Attendre que l'utilisateur appuie sur le bouton OK
+            alert.showAndWait();
+
+        } else {
+            mqte.setText("Une erreur est survenue");
         }
     }
 }
