@@ -42,7 +42,8 @@ public class LoginController {
         String role = userService.getRole(email);
         boolean loginSuccessful = userService.login(email, password);
 
-        if (loginSuccessful) {System.out.println("Login successful!");
+        if (loginSuccessful) {
+            System.out.println("Login successful!");
             try {
                 FXMLLoader loader;
                 if ("ROLE_CLIENT".equals(role)) {
@@ -52,12 +53,12 @@ public class LoginController {
                     HomeController homeController = loader1.getController(); // Get the controller instance
 
                     homeController.setAuthenticatedEmail(email);
-                    this.emailc=email;
+                    this.emailc = email;
                 } else if ("ROLE_ADMIN".equals(role)) {
                     loader = new FXMLLoader(getClass().getResource("/UserInterface/sidebar.fxml"));
                     Parent root = loader.load();
                     SideBarController sidebarController = loader.getController();
-                    this.emailc=email;
+                    this.emailc = email;
 
                     sidebarController.setAuthenticatedEmail(email);
                 } else {
@@ -68,10 +69,11 @@ public class LoginController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else {
+            showAlert(Alert.AlertType.ERROR, "Error", "Login Failed", "Incorrect email or password.");
         }
 
-
-    }
+}
 
 
     private boolean isValidEmail(String email) {

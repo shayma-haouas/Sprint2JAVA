@@ -172,11 +172,25 @@ public class SideBarController {
         try {
             ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", fichier);
             System.out.println("Capture enregistrée : " + fichier.getAbsolutePath());
+
+            // Afficher une boîte de dialogue pour informer l'utilisateur que la capture a été enregistrée
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Capture d'écran");
+            alert.setHeaderText(null);
+            alert.setContentText("La capture d'écran a été enregistrée avec succès à l'emplacement : " + fichier.getAbsolutePath());
+            alert.showAndWait();
         } catch (IOException ex) {
             ex.printStackTrace();
+            // Afficher une boîte de dialogue d'erreur si une exception se produit lors de l'enregistrement de la capture
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText(null);
+            alert.setContentText("Une erreur s'est produite lors de l'enregistrement de la capture d'écran.");
+            alert.showAndWait();
         }
+    }
     }
 
 
 
-}
+
