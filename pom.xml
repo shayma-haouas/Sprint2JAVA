@@ -46,7 +46,11 @@
             <artifactId>javafx-base</artifactId>
             <version>22.0.1</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>3.4.1</version> <!-- Or the latest version -->
+        </dependency>
 
         <dependency>
             <groupId>org.openjfx</groupId>

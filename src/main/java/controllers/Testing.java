@@ -14,9 +14,9 @@ public class Testing extends Application {
     public void start(Stage primaryStage) throws Exception {
         try {
             // Load the FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/eventback/sidebar.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/eventfront/FrontEV.fxml"));
             Parent root = loader.load();
-            Sidebar c =loader.getController();
+           CardEvController c =loader.getController();
             // Get the controller instance
 
 
