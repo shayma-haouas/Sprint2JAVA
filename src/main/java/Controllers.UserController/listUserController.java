@@ -8,6 +8,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -15,6 +17,7 @@ import javafx.util.Callback;
 import entities.User;
 import services.UserService;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -71,16 +74,26 @@ public class listUserController {
 
                             String birthDate = user.getDatenaissance() != null ? new SimpleDateFormat("dd/MM/yyyy").format(user.getDatenaissance()) : "Inconnue";
 
-                            setText("Nom: " + user.getName() + "                                                     Prénom: " + user.getLastname() +
-                                "\nTéléphone:" + user.getNumber() + "                                       Email: " + user.getEmail() +
-                                "\nRole: " + role + "                                                       Date de naissance: " + birthDate);
+                            setText("Nom: " + user.getName() + " Prénom: " + user.getLastname() +
+                                "\nTéléphone:" + user.getNumber() + " Email: " + user.getEmail() +
+                                "\nRole: " + role + " Date de naissance: " + birthDate);
 
+                            // Créer un ImageView pour afficher l'image
+                            ImageView imageView = new ImageView();
+                            // Charger l'image depuis le chemin stocké dans l'objet User
+                            Image image = new Image(new File(user.getImage()).toURI().toString());
+                            // Définir la taille de l'image
+                            imageView.setFitWidth(50);
+                            imageView.setFitHeight(50);
+                            // Définir l'image dans l'ImageView
+                            imageView.setImage(image);
+
+                            // Créer des boutons pour éditer et supprimer l'utilisateur
                             Button editButton = new Button("Editer");
                             Button deleteButton = new Button("Supprimer");
 
                             editButton.setOnAction(event -> {
                                 openUpdateUserWindow(user);
-
                             });
 
                             deleteButton.setOnAction(event -> {
@@ -89,14 +102,15 @@ public class listUserController {
                                 refreshUserList();
                             });
 
-                            HBox buttonsBox = new HBox(editButton, deleteButton);
-                            setGraphic(buttonsBox);
+                            // Créer un HBox pour afficher les boutons et l'image
+                            HBox hbox = new HBox(imageView, editButton, deleteButton);
+                            // Définir le graphique de la cellule comme le HBox
+                            setGraphic(hbox);
                         }
                     }
                 };
             }
         });
-
 
         userListListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {

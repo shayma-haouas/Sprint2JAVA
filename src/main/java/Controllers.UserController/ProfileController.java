@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
@@ -16,6 +17,7 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import services.UserService;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -69,6 +71,7 @@ public class ProfileController {
         // Populate fields with user data
         nameField.setText(userData.getName());
         emailfield.setText(userData.getEmail());
+
         // Set other fields...
     }
     public void setAuthenticatedEmail() {
@@ -83,15 +86,17 @@ public class ProfileController {
         User authenticatedUser = getAuthenticatedUser( emailc);
         if (authenticatedUser != null) {
             nameField.setText(authenticatedUser.getName());
+            imagefield.setImage(new Image(authenticatedUser.getImage()));
+
             lastnamefield.setText(authenticatedUser.getLastname());
             roleField.setText(getUserRoleText(authenticatedUser.getRoles()));
             // datenaissancefield.setText(authenticatedUser.getDatenaissance());
             // numberfield.setText(authenticatedUser.getNumber());
             emailfield.setText(authenticatedUser.getEmail());
-        } else {
-            System.out.println("Succes to  recuperate User authentifié.");
-        }
-    }
+
+
+                // Définir l'image dans votre ImageView
+    }}
 
     private String getUserRoleText(String roles) {
         if (roles.contains("ROLE_CLIENT")) {

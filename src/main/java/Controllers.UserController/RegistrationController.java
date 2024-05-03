@@ -113,6 +113,12 @@ public class RegistrationController {
         }
 
         int number;
+        if (!numberText.matches("[2479]\\d{7}")) {
+            showAlert(Alert.AlertType.ERROR, "Alert", "Erreur Saisie", "Le numéro de téléphone doit contenir 8 chiffres et commencer par 2, 4, 7 ou 9.", StageStyle.DECORATED);
+            return;
+        }
+
+
         try {
             number = Integer.parseInt(numberText);
         } catch (NumberFormatException e) {
@@ -140,6 +146,7 @@ public class RegistrationController {
         } else {
             showAlert(Alert.AlertType.ERROR, "Alert", "Erreur Saisie", "Captcha incorrect.", StageStyle.DECORATED);
         }
+
 
         clearInputFields();
     }
@@ -237,26 +244,16 @@ public class RegistrationController {
         alert.setHeaderText(header);
         alert.setContentText(message);
 
-
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/img/logo.png")));
+
         ButtonType buttonType = new ButtonType("Retour", ButtonBar.ButtonData.OK_DONE);
         alert.getButtonTypes().setAll(buttonType);
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == buttonType) {
         }
-        DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(getClass().getResource("Alert.css").toExternalForm());
-        dialogPane.getStyleClass().add("alert");
-
-
-        Scene scene = alert.getDialogPane().getScene();
-        scene.getStylesheets().add(getClass().getResource("Alert.css").toExternalForm());
-        scene.getStylesheets().add(getClass().getResource("/css/CustomAlertStyle.css").toExternalForm());
-        alert.getDialogPane().getStyleClass().add("custom-alert");
     }
-
     private void addUserToDatabase(String name, String lastname, String roles , String email, String password, String image, int number, Boolean is_verified, Date datenaissance) {
 
         User user = new User(name, lastname, roles, email,password, image, number, is_verified, datenaissance);
