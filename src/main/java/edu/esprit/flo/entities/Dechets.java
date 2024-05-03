@@ -77,7 +77,7 @@ public class Dechets {
 
     public String toString() {
         return
-                " type:" + type ;
+                 type ;
     }
 
 }

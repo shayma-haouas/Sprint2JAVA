@@ -20,17 +20,17 @@
                 <HBox.margin>
                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                 </HBox.margin>
-                <Text fx:id="dateText" fill="#88b44e" text="Date" wrappingWidth="190">
+                <Text fx:id="dateText" fill="#8fb43a" text="Date" wrappingWidth="190">
                     <font>
                         <Font name="System Bold" size="15.0" />
                     </font>
                 </Text>
-                <Text fx:id="nomFournisseurText" fill="#88b44e" text="NomFournisseur" wrappingWidth="190">
+                <Text fx:id="nomFournisseurText" fill="#8fb43a" text="NomFournisseur" wrappingWidth="190">
                     <font>
                         <Font name="System Bold" size="15.0" />
                     </font>
                 </Text>
-                <Text fx:id="quantiteText" fill="#88b44e" text="Quantite" wrappingWidth="190">
+                <Text fx:id="quantiteText" fill="#8fb43a" text="Quantite" wrappingWidth="190">
                     <font>
                         <Font name="System Bold" size="15.0" />
                     </font>
@@ -42,23 +42,23 @@
                 <HBox.margin>
                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                 </HBox.margin>
-                <Text fx:id="dateRamassageText" fill="#88b44e" text="DateRamassage" wrappingWidth="190">
+                <Text fx:id="dateRamassageText" fill="#8fb43a" text="DateRamassage" wrappingWidth="190">
                     <font>
                         <Font name="System Bold" size="15.0" />
                     </font>
                 </Text>
-                <Text fx:id="numeroTellText" fill="#88b44e" text="NumeroTell" wrappingWidth="190">
+                <Text fx:id="numeroTellText" fill="#8fb43a" text="NumeroTell" wrappingWidth="190">
                     <font>
                         <Font name="System Bold" size="15.0" />
                     </font>
                 </Text>
 
-                <Text fx:id="userText" fill="#88b44e" text="User" wrappingWidth="190">
+                <Text fx:id="userText" fill="#8fb43a" text="User" wrappingWidth="190">
                     <font>
                         <Font name="System Bold" size="15.0" />
                     </font>
                 </Text>
-                <Text fx:id="dechetTextt" fill="#88b44e" text="Dechet" wrappingWidth="190">
+                <Text fx:id="dechetTextt" fill="#8fb43a" text="Dechet" wrappingWidth="190">
                     <font>
                         <Font name="System Bold" size="15.0" />
                     </font>
