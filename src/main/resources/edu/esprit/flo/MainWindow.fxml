@@ -10,8 +10,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="514.0" style="-fx-background-color: #EEEEEE;" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.flo.controllers.MainWindowController">
-    <AnchorPane minHeight="-Infinity" prefHeight="66.0" prefWidth="458.0" style="-fx-background-color: #88B44E;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-52.0">
+<AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="510.0" prefWidth="514.0" style="-fx-background-color: #EEEEEE;" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.flo.controllers.MainWindowController">
+    <AnchorPane minHeight="-Infinity" prefHeight="66.0" prefWidth="458.0" style="-fx-background-color: #88B44E;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <HBox layoutX="94.4" prefHeight="36.0" prefWidth="457.0" spacing="15.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="94.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
 
 
@@ -48,5 +48,5 @@
 
     </AnchorPane>
 
-    <AnchorPane fx:id="content" layoutX="10.0" layoutY="10.0" prefHeight="470.0" prefWidth="458.0" style="-fx-background-color: #EEEEFF;" AnchorPane.bottomAnchor="-35.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-52.0" AnchorPane.topAnchor="65.0" />
+    <AnchorPane fx:id="content" layoutX="10.0" layoutY="10.0" prefHeight="470.0" prefWidth="458.0" style="-fx-background-color: #EEEEFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="65.0" />
 </AnchorPane>

@@ -31,10 +31,9 @@ public class CommandeService implements Iservice<Commande> {
         try {
 
             String query = "SELECT * FROM `commande` AS x "
-                    + "RIGHT JOIN `user` AS y1 ON x.user_id = y1.id "
-                    + "RIGHT JOIN `produit` AS y2 ON x.produit_id = y2.id "
-
-                    + "WHERE  x.user_id = y1.id  AND   x.produit_id = y2.id  " ;
+                    + "LEFT JOIN `user` AS y1 ON x.user_id = y1.id "
+                    + "LEFT JOIN `produit` AS y2 ON x.produit_id = y2.id "
+                    + "WHERE  (x.user_id = y1.id OR x.user_id IS NULL) AND x.produit_id = y2.id  ";
             preparedStatement = connection.prepareStatement(query);
 
 
@@ -50,7 +49,7 @@ public class CommandeService implements Iservice<Commande> {
 
                 User user = new User();
                 user.setId(resultSet.getInt("y1.id"));
-                user.setName(resultSet.getString("y1.name"));
+                user.setEmail(resultSet.getString("y1.email"));
                 commande.setUser(user);
                 Produit produit = new Produit();
                 produit.setId(resultSet.getInt("y2.id"));
@@ -73,7 +72,7 @@ public class CommandeService implements Iservice<Commande> {
             while (resultSet.next()) {
                 User user = new User();
                 user.setId(resultSet.getInt("id"));
-                user.setName(resultSet.getString("name"));
+                user.setEmail(resultSet.getString("email"));
                 listUsers.add(user);
             }
         } catch (SQLException exception) {
@@ -102,9 +101,7 @@ public class CommandeService implements Iservice<Commande> {
 
 
     public boolean add(Commande commande) {
-
-
-        String request = "INSERT INTO `commande`(`montant`, `datecmd`, `lieucmd`, `quantite`, `user_id`, `produit_id`) VALUES(?, ?, ?, ?, ?, ?)" ;
+        String request = "INSERT INTO `commande` (`montant`, `datecmd`, `lieucmd`, `quantite`, `produit_id`) VALUES(?, ?, ?, ?, ?)";
 
         try {
             preparedStatement = connection.prepareStatement(request);
@@ -114,8 +111,7 @@ public class CommandeService implements Iservice<Commande> {
             preparedStatement.setString(3, commande.getLieucmd());
             preparedStatement.setInt(4, commande.getQuantite());
 
-            preparedStatement.setInt(5, commande.getUser().getId());
-            preparedStatement.setInt(6, commande.getProduit().getId());
+            preparedStatement.setInt(5, commande.getProduit().getId());
 
 
             preparedStatement.executeUpdate();
@@ -129,20 +125,16 @@ public class CommandeService implements Iservice<Commande> {
 
     public boolean edit(Commande commande) {
 
-        String request = "UPDATE `commande` SET `montant` = ?, `datecmd` = ?, `lieucmd` = ?, `quantite` = ?, `user_id` = ?, `produit_id` = ? WHERE `id` = ?" ;
+        String request = "UPDATE `commande` SET `montant` = ?, `lieucmd` = ?, `quantite` = ?, `produit_id` = ? WHERE `id` = ?";
 
         try {
             preparedStatement = connection.prepareStatement(request);
 
             preparedStatement.setFloat(1, commande.getMontant());
-            preparedStatement.setDate(2, Date.valueOf(commande.getDatecmd()));
-            preparedStatement.setString(3, commande.getLieucmd());
-            preparedStatement.setInt(4, commande.getQuantite());
-
-            preparedStatement.setInt(5, commande.getUser().getId());
-            preparedStatement.setInt(6, commande.getProduit().getId());
-
-            preparedStatement.setInt(7, commande.getId());
+            preparedStatement.setString(2, commande.getLieucmd());
+            preparedStatement.setInt(3, commande.getQuantite());
+            preparedStatement.setInt(4, commande.getProduit().getId());
+            preparedStatement.setInt(5, commande.getId());
 
             preparedStatement.executeUpdate();
             System.out.println("Commande edited");

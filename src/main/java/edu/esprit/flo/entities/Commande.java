@@ -3,7 +3,7 @@ package edu.esprit.flo.entities;
 
 import java.time.LocalDate;
 
-public class Commande {
+public class Commande implements Comparable<Commande> {
 
     private int id;
     private float montant;
@@ -77,5 +77,24 @@ public class Commande {
 
     public String toString() {
         return lieucmd;
+    }
+
+    public static String compareVar = "";
+
+    @Override
+    public int compareTo(Commande commande) {
+        return switch (compareVar) {
+            case "Tri par montant" -> Float.compare(commande.montant, this.montant);
+            case "Tri par date" -> commande.datecmd.compareTo(this.datecmd);
+            case "Tri par lieu" -> commande.lieucmd.compareTo(this.lieucmd);
+            case "Tri par quantite" -> Integer.compare(commande.quantite, this.quantite);
+            case "Tri par produit" -> {
+                if (this.produit == null || commande.produit == null) {
+                    yield 0;
+                }
+                yield this.produit.getNomp().compareTo(commande.produit.getNomp());
+            }
+            default -> 0;
+        };
     }
 }

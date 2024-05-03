@@ -2,6 +2,11 @@ module edu.esprit.flo {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
+    requires java.mail;
+    requires itextpdf;
+    requires com.google.zxing;
+    requires com.google.zxing.javase;
+    requires java.desktop;
 
     opens edu.esprit.flo to javafx.fxml;
     opens edu.esprit.flo.entities to javafx.fxml;

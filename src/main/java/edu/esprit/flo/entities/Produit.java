@@ -66,4 +66,12 @@ public class Produit {
     public String toString() {
         return nomp;
     }
+
+    public String allAttrToString() {
+        return " - Produit - " +
+                "\nNom : " + nomp +
+                "\nDescription : " + descp +
+                "\nCategorie : " + catg +
+                "\nPrix : " + prix;
+    }
 }

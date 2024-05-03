@@ -62,11 +62,28 @@
 
 
             </VBox>
+         <BorderPane>
+            <center>
+               <ImageView fx:id="qrImage" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                  <BorderPane.margin>
+                     <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                  </BorderPane.margin>
+                  <image>
+                     <Image url="@../images/image-placeholder.png" />
+                  </image>
+               </ImageView>
+            </center>
+         </BorderPane>
 
             <VBox>
                 <HBox.margin>
                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                 </HBox.margin>
+            <Button fx:id="pdfBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="success-button" text="PDF" textFill="WHITE">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </Button>
                 <Button fx:id="cmdBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="light-button" text="Commander">
                     <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
