@@ -1,5 +1,10 @@
 package edu.esprit.flo.controllers.dechets_back;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -12,6 +17,9 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+import net.glxn.qrgen.core.image.ImageType;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -28,11 +36,17 @@ import javafx.scene.text.Text;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.stream.Collectors;
+
+import net.glxn.qrgen.javase.QRCode;
 
 public class ShowAllController implements Initializable {
 
@@ -47,6 +61,8 @@ public class ShowAllController implements Initializable {
     @FXML
     private TextField searchField;
 
+    @FXML
+    private ImageView qrcode;
 
 
     @FXML
@@ -56,6 +72,48 @@ public class ShowAllController implements Initializable {
     private Button trie1;
 
     List<Dechets> listDechets;
+
+
+    @FXML
+    void stat(MouseEvent event) {
+        // Create a new stage
+        Stage stage = new Stage();
+
+        // Assuming you have a method to get all Dechets
+        List<Dechets> allDechets = listDechets;
+
+        // Group by type and count
+        Map<String, Long> typeCounts = allDechets.stream()
+                .collect(Collectors.groupingBy(Dechets::getType, Collectors.counting()));
+
+        // Create pie chart data
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+
+        for (Map.Entry<String, Long> entry : typeCounts.entrySet()) {
+            PieChart.Data data = new PieChart.Data(entry.getKey(), entry.getValue());
+            pieChartData.add(data);
+        }
+
+        // Create the PieChart
+        PieChart pieChart = new PieChart(pieChartData);
+
+        // Add a label to each slice
+        pieChartData.forEach(data ->
+                data.nameProperty().bind(
+                        Bindings.concat(
+                                data.getName(), " ", data.pieValueProperty()
+                        )
+                )
+        );
+
+        // Create the scene and show the stage
+        StackPane root = new StackPane(pieChart);
+        Scene scene = new Scene(root, 800, 600);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -89,6 +147,29 @@ public class ShowAllController implements Initializable {
 
 }
 
+    /*public void displayData() {
+        mainVBox.getChildren().clear();
+        for (Dechets dechets : listDechets) {
+            // Generate QR code for each Dechets object
+            String qrCodeText = dechets.toString(); // Make sure the toString() method of Dechets returns a string representation of the Dechets data
+            ByteArrayOutputStream out = QRCode.from(qrCodeText).to(ImageType.PNG).stream();
+            ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
+            Image qrCodeImage = new Image(in);
+
+            ImageView qrCodeImageView = new ImageView(qrCodeImage);
+            qrCodeImageView.setFitHeight(100);
+            qrCodeImageView.setFitWidth(100);
+
+            // Add the ImageView to your UI
+            // For example, if you're displaying each Dechets object in a HBox, you can do:
+            HBox hbox = new HBox();
+            hbox.getChildren().add(qrCodeImageView);
+            mainVBox.getChildren().add(hbox);
+        }
+    }*/
+
+
+
     void displayData() {
         mainVBox.getChildren().clear();
 
@@ -96,9 +177,7 @@ public class ShowAllController implements Initializable {
 
         if (!listDechets.isEmpty()) {
             for (Dechets dechets : listDechets) {
-
                 mainVBox.getChildren().add(makeDechetsModel(dechets));
-
             }
         } else {
             StackPane stackPane = new StackPane();
@@ -109,9 +188,8 @@ public class ShowAllController implements Initializable {
         }
     }
 
-    public Parent makeDechetsModel(
-            Dechets dechets
-    ) {
+
+    public Parent makeDechetsModel(Dechets dechets) {
         Parent parent = null;
         try {
             parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(Constants.FXML_BACK_MODEL_DECHETS)));
@@ -122,6 +200,15 @@ public class ShowAllController implements Initializable {
             ((Text) innerContainer.lookup("#descriptionText")).setText("Description : " + dechets.getDescription());
             ((Text) innerContainer.lookup("#quantiteText")).setText("Quantite : " + dechets.getQuantite());
 
+            // Generate QR code for each Dechets object
+            String qrCodeText = dechets.toString1(); // Make sure the toString() method of Dechets returns a string representation of the Dechets data
+            System.out.println(qrCodeText);
+            ByteArrayOutputStream out = QRCode.from(qrCodeText).to(ImageType.PNG).stream();
+            ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
+            Image qrCodeImage = new Image(in);
+
+            // Set the Image to your ImageView
+            ((ImageView) innerContainer.lookup("#qrcode")).setImage(qrCodeImage);
 
             Path selectedImagePath = FileSystems.getDefault().getPath(dechets.getImage());
             if (selectedImagePath.toFile().exists()) {
@@ -131,12 +218,12 @@ public class ShowAllController implements Initializable {
             ((Button) innerContainer.lookup("#editButton")).setOnAction((event) -> modifierDechets(dechets));
             ((Button) innerContainer.lookup("#deleteButton")).setOnAction((event) -> supprimerDechets(dechets));
 
-
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
         return parent;
     }
+
 
     @FXML
     private void ajouterDechets(ActionEvent ignored) {

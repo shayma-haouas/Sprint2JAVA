@@ -7,6 +7,8 @@ module edu.esprit.flo {
     requires layout;
     requires javax.mail.api;
     requires twilio;
+    requires javase;
+    requires core;
 
     opens edu.esprit.flo to javafx.fxml;
     opens edu.esprit.flo.entities to javafx.fxml;

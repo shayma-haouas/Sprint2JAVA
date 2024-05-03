@@ -28,7 +28,7 @@
                 <padding>
                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                 </padding>
-                <Text fill="#88b44e" strokeType="OUTSIDE" strokeWidth="0.0" text="Date :">
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date :">
                     <font>
                         <Font name="Arial" size="18.0" />
                     </font>
@@ -45,7 +45,7 @@
                 <padding>
                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                 </padding>
-                <Text fill="#88b44e" strokeType="OUTSIDE" strokeWidth="0.0" text="DateRamassage :">
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="DateRamassage :">
                     <font>
                         <Font name="Arial" size="18.0" />
                     </font>
@@ -65,7 +65,7 @@
                 <padding>
                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                 </padding>
-                <Text fill="#88b44e" strokeType="OUTSIDE" strokeWidth="0.0" text="NomFournisseur :">
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NomFournisseur :">
                     <font>
                         <Font name="Arial" size="18.0" />
                     </font>
@@ -81,7 +81,7 @@
                 <padding>
                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                 </padding>
-                <Text fill="#88b44e" strokeType="OUTSIDE" strokeWidth="0.0" text="NumeroTell :">
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NumeroTell :">
                     <font>
                         <Font name="Arial" size="18.0" />
                     </font>
@@ -100,7 +100,7 @@
                 <padding>
                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                 </padding>
-                <Text fill="#88b44e" strokeType="OUTSIDE" strokeWidth="0.0" text="Quantite :">
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quantite :">
                     <font>
                         <Font name="Arial" size="18.0" />
                     </font>
@@ -121,7 +121,7 @@
                 <padding>
                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                 </padding>
-                <Text fill="#88b44e" strokeType="OUTSIDE" strokeWidth="0.0" text="User :">
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="User :">
                     <font>
                         <Font name="Arial" size="18.0" />
                     </font>
@@ -136,7 +136,7 @@
                 <padding>
                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                 </padding>
-                <Text fill="#88b44e" strokeType="OUTSIDE" strokeWidth="0.0" text="Dechet">
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Dechet">
                     <font>
                         <Font name="Arial" size="18.0" />
                     </font>

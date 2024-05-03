@@ -12,14 +12,8 @@
     -fx-border-radius: 5;
 }
 
-/*
-.scroll-pane {
-    -fx-background-color: #F8F9FD;
-}
 
-.scroll-pane > .viewport {
-    -fx-background-color: #F8F9FD;
-}*/
+
 
 /* ------------------ BUTTONS ------------------ */
 .link-button {
@@ -63,12 +57,12 @@
 }
 
 .success-button {
-    -fx-background-color: #88b44e;
+    -fx-background-color: #8fb43a;
     -fx-background-radius: 10px;
 }
 
 .success-button:hover {
-    -fx-background-color: #73b91d;
+    -fx-background-color: #8fb43a;
 }
 
 .danger-button {
@@ -128,7 +122,7 @@
 }
 
 .form-control:focused {
-    -fx-border-color: #88b44e;
+    -fx-border-color: #8fb43a;
 }
 
 .form-control-white {
@@ -141,7 +135,7 @@
 }
 
 .form-control-white:focused {
-    -fx-border-color: #88b44e;
+    -fx-border-color: #8fb43a;
 }
 
 .search-bar {
@@ -182,7 +176,7 @@
 }
 
 .background-blue {
-    -fx-background-color: #88b44e;
+    -fx-background-color: #8fb43a;
 }
 
 .background-dark {

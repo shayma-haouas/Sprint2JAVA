@@ -65,7 +65,19 @@ public class Dechets {
     }
 
 
-    public String toString() {
-        return type;
+    public String toString1() {
+        return "Dechets{" +
+                "id=" + id +
+                ", type='" + type + '\'' +
+                ", description='" + description + '\'' +
+                ", quantite=" + quantite +
+                ", image='" + image + '\'' +
+                '}';
     }
+
+    public String toString() {
+        return
+                " type:" + type ;
+    }
+
 }

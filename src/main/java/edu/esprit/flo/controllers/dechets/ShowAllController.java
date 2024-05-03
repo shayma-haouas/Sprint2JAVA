@@ -22,7 +22,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import net.glxn.qrgen.core.image.ImageType;
+import net.glxn.qrgen.javase.QRCode;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.FileSystems;
@@ -45,6 +49,8 @@ public class ShowAllController implements Initializable {
     @FXML
     private TextField searchField2;
 
+    @FXML
+    private ImageView qrcode;
     List<Dechets> listDechets;
 
     @Override
@@ -109,6 +115,15 @@ public class ShowAllController implements Initializable {
             ((Text) innerContainer.lookup("#descriptionText")).setText("Description : " + dechets.getDescription());
             ((Text) innerContainer.lookup("#quantiteText")).setText("Quantite : " + dechets.getQuantite());
 
+            // Generate QR code for each Dechets object
+            String qrCodeText = dechets.toString1(); // Make sure the toString() method of Dechets returns a string representation of the Dechets data
+            System.out.println(qrCodeText);
+            ByteArrayOutputStream out = QRCode.from(qrCodeText).to(ImageType.PNG).stream();
+            ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
+            Image qrCodeImage = new Image(in);
+
+            // Set the Image to your ImageView
+            ((ImageView) innerContainer.lookup("#qrcode")).setImage(qrCodeImage);
 
             Path selectedImagePath = FileSystems.getDefault().getPath(dechets.getImage());
             if (selectedImagePath.toFile().exists()) {

@@ -32,12 +32,12 @@
                 <HBox.margin>
                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                 </HBox.margin>
-                <Text fx:id="typeText" fill="#88b44e" text="Type" wrappingWidth="190">
+                <Text fx:id="typeText" fill="#8fb43a" text="Type" wrappingWidth="190">
                     <font>
                         <Font name="System Bold" size="15.0" />
                     </font>
                 </Text>
-                <Text fx:id="descriptionText" fill="#88b44e" text="Description" wrappingWidth="190">
+                <Text fx:id="descriptionText" fill="#8fb43a" text="Description" wrappingWidth="190">
                     <font>
                         <Font name="System Bold" size="15.0" />
                     </font>
@@ -49,16 +49,17 @@
                 <HBox.margin>
                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                 </HBox.margin>
-                <Text fx:id="dateEntreText" fill="#88b44e" text="DateEntre" wrappingWidth="190">
+                <Text fx:id="dateEntreText" fill="#8fb43a" text="DateEntre" wrappingWidth="190">
                     <font>
                         <Font name="System Bold" size="15.0" />
                     </font>
                 </Text>
-                <Text fx:id="quantiteText" fill="#88b44e" text="Quantite" wrappingWidth="190">
+                <Text fx:id="quantiteText" fill="#8fb43a" text="Quantite" wrappingWidth="190">
                     <font>
                         <Font name="System Bold" size="15.0" />
                     </font>
                 </Text>
+            <ImageView fx:id="qrcode" fitHeight="85.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true" />
 
             </VBox>
 
@@ -66,7 +67,7 @@
                 <HBox.margin>
                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                 </HBox.margin>
-                <Button fx:id="reserverBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #88b44e;" styleClass="light-button" text="Réserver">
+                <Button fx:id="reserverBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" style="-fx-background-color: #C8D6A2;" styleClass="light-button" text="Réserver">
                     <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                     </VBox.margin>

@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" style="-fx-background-color: #EEEEEE;" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.esprit.flo.controllers.MainWindowController">
-    <AnchorPane minHeight="-Infinity" style="-fx-background-color: #88b44e;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+    <AnchorPane minHeight="-Infinity" style="-fx-background-color: #8FB43A;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <HBox layoutX="16.0" prefHeight="30.0" spacing="15.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
             <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Floreo" wrappingWidth="150">
                 <font>
