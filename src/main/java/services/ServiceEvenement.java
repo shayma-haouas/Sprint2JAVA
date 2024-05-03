@@ -1,6 +1,7 @@
 package services;
 
 import entities.Evenement;
+import entities.Sponsor;
 import utils.MyDatabase;
 
 import java.sql.*;
@@ -81,12 +82,12 @@ public class ServiceEvenement implements CRUDEvent<Evenement> {
                 evenement = new Evenement(
                         rs.getInt("id"),
                         rs.getInt("sponsor_id"),
-                        rs.getString("nom"),
+                        rs.getString("nameevent"),
                         rs.getString("type"),
+                        rs.getString("datedebut"),
+                        rs.getString("datefin"),
                         rs.getString("description"),
-                        rs.getString("date_debut"),
-                        rs.getString("date_fin"),
-                        rs.getInt("nb_participant"),
+                        rs.getInt("nbparticipant"),
                         rs.getString("lieu"),
                         rs.getString("image")
 
@@ -102,6 +103,126 @@ public class ServiceEvenement implements CRUDEvent<Evenement> {
 
 
 
+
+    public Sponsor getSponsorById(int id) {
+        Sponsor sponsor = null;
+        try {
+            Connection conn = MyDatabase.getInstance().getConnection();
+            String query = "SELECT * FROM sponsor WHERE id = ?";
+            PreparedStatement pst = conn.prepareStatement(query);
+            pst.setInt(1, id);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                sponsor = new Sponsor();
+                sponsor.setId(rs.getInt("id"));
+                sponsor.setName(rs.getString("name"));
+                sponsor.setEmail(rs.getString("email"));
+                // Compléter avec les autres champs
+            }
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return sponsor;
+    }
+    public String getNomSponsor(Sponsor sponsor) {
+        String nomSponsor = null;
+        try {
+            Connection connection = MyDatabase.getInstance().getConnection();
+            String query = "SELECT name FROM sponsor WHERE id = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, sponsor.getId());
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                nomSponsor = resultSet.getString("name");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return nomSponsor;
+    }
+    public Integer getIdSponsorFromNom(Sponsor sponsor) {
+        Integer id = null;
+        try (PreparedStatement pstmt = MyDatabase.getInstance().getConnection().prepareStatement("SELECT id  FROM Sponsor WHERE nom_sponsor= ?")) {
+            pstmt.setString(1, sponsor.getName());
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                id = rs.getInt("id");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("ID du sponsor : " + id);
+        return id;
+    }
+
+    public String getNomSponsor(int id) {
+        String nom = "";
+        try (PreparedStatement pstmt = MyDatabase.getInstance().getConnection().prepareStatement("SELECT name FROM sponsor WHERE id= ?")) {
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                nom = rs.getString("name");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return nom;
+    }
+    public List<Evenement> afficherEVWithSponsors() {
+        List<Evenement> evenements = new ArrayList<>();
+        try {
+            Connection conn = MyDatabase.getInstance().getConnection();
+            String query = "SELECT e.*, s.* FROM evenement e JOIN sponsor s ON e.sponsor_id = s.id";
+            PreparedStatement pst = conn.prepareStatement(query);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                Sponsor sponsor = new Sponsor();
+                sponsor.setId(rs.getInt("s.id"));
+                sponsor.setName(rs.getString("s.name"));
+                // Populate other sponsor fields if needed
+
+                Evenement evenement = new Evenement();
+                evenement.setId(rs.getInt("e.id"));
+                evenement.setSponsor_id(rs.getInt("e.sponsor_id"));
+                evenement.setNameevent(rs.getString("e.nameevent"));
+
+                evenement.setType(rs.getString("e.type"));
+
+                evenement.setDatedebut(rs.getString("e.datedebut"));
+                evenement.setDatefin(rs.getString("e.datefin"));
+                evenement.setDescription(rs.getString("e.description"));
+                evenement.setNbparticipant(rs.getInt("e.nbparticipant"));
+                evenement.setLieu(rs.getString("e.lieu"));
+                evenement.setImage(rs.getString("e.image"));
+
+                evenement.setSponsor(sponsor);
+
+                evenements.add(evenement);
+            }
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return evenements;
+    }
+
+
+    public String getSponsorNameById(int sponsorId) {
+        String sponsorName = "";
+        try {
+            String requete = "SELECT name FROM sponsor WHERE id = ?";
+            PreparedStatement pst = MyDatabase.getInstance().getConnection().prepareStatement(requete);
+            pst.setInt(1, sponsorId);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                sponsorName = rs.getString("name");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return sponsorName;
+    }
 
     //for sponsor
     public int getIdSponsor(String nom) {
