@@ -148,6 +148,7 @@ public class RegistrationController {
         }
 
 
+
         clearInputFields();
     }
 
@@ -230,8 +231,15 @@ public class RegistrationController {
 
         if (selectedFile != null) {
             String imagePath = selectedFile.toURI().toString();
+
+            // Charger l'image à partir du chemin du fichier sélectionné
             Image image = new Image(imagePath);
+
+            // Afficher l'image dans l'imageView
             imageView.setImage(image);
+
+            // Enregistrer le chemin du fichier sélectionné
+            this.imagePath = selectedFile.getAbsolutePath();
         }
     }
 
@@ -256,10 +264,17 @@ public class RegistrationController {
     }
     private void addUserToDatabase(String name, String lastname, String roles , String email, String password, String image, int number, Boolean is_verified, Date datenaissance) {
 
-        String imageName = new File(image).getName(); // Récupérer le nom de fichier à partir du chemin complet
+        String imageName = new File(image).getPath(); // Récupérer le nom de fichier à partir du chemin complet
         User user = new User(name, lastname, roles, email, password, imageName, number, is_verified, datenaissance);
         UserService userService = new UserService();
         userService.signUp(user);
+        boolean ajoutReussi = true;
+
+        if (ajoutReussi) {
+            showAlert(Alert.AlertType.INFORMATION, "Succès", "Utilisateur ajouté", "L'utilisateur a été ajouté avec succès à la base de données.", StageStyle.DECORATED);
+        } else {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur d'ajout", "Une erreur s'est produite lors de l'ajout de l'utilisateur à la base de données.", StageStyle.DECORATED);
+        }
     }
 
 

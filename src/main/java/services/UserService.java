@@ -6,7 +6,9 @@ import entities.User;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import utils.MyDatabase;
 
 import java.io.IOException;
@@ -33,6 +35,13 @@ public class UserService implements  UserCrud<User> {
 
     @Override
     public void add(User user) throws SQLException {
+        // Check if the email already exists in the database
+        if (isEmailUsed(user.getEmail())) {
+            System.out.println("Error: Email is already used.");
+            // Display an alert here if needed
+            return; // Exit the method without adding the user
+        }
+
         String query = "INSERT INTO user (name, lastname, roles, email,password, image, number, is_verified, datenaissance) " +
             "VALUES (?, ?, ?, ?, ?,?, ?, ?,?)";
 
@@ -47,7 +56,6 @@ public class UserService implements  UserCrud<User> {
             BCrypt.Hasher hasher = BCrypt.with(BCrypt.Version.VERSION_2Y);
             String saltedPassword = hasher.hashToString(cost, user.getPassword().toCharArray());
             preparedStatement.setString(5, saltedPassword);
-
 
             preparedStatement.setString(6, user.getImage());
             preparedStatement.setInt(7, user.getNumber());
@@ -139,16 +147,23 @@ public class UserService implements  UserCrud<User> {
 
             try {
                 add(user);
-                System.out.println("User deja utilise.");
 
             } catch (SQLException e) {
                 System.out.println("Error: " + e.getMessage());
             }
         } else {
-            System.out.println("Email is already used.");
+            showAlert(Alert.AlertType.ERROR, "Error", "Email Already Used", "This email is already registered.", StageStyle.DECORATED);
         }
     }
 
+    private void showAlert(Alert.AlertType alertType, String title, String header, String message, StageStyle stageStyle) {
+        Alert alert = new Alert(alertType);
+        alert.initStyle(stageStyle);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
     @Override
     public boolean login(String email, String password) {
         String query = "SELECT * FROM user WHERE email = ?";

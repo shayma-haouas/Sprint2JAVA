@@ -19,8 +19,8 @@ import java.util.Properties;
 public class Sendmail extends imResetPassword {
     final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
     Properties props = System.getProperties();
-    final String username = "siwar.achour@esprit.tn";
-    final String password = "prsa fhiw evgh lhyv";
+    final String username = "siwarachour999@gmail.com";
+    final String password = "orwnlwxvngkerhig";
 
 
     public void envoyer(String Toemail, String Subject , String Object) {
