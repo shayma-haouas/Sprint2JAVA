@@ -90,22 +90,22 @@ public class ProfileController {
 
             // Afficher la date de naissance si elle n'est pas nulle
             if (authenticatedUser.getDatenaissance() != null) {
-                datenaissancefield.setText(authenticatedUser.getDatenaissance().toString());
-            } else {
-                datenaissancefield.setText("Non défini");
+                String dateNaissance = authenticatedUser.getDatenaissance().toString(); // Suppose que la méthode toString() retourne une chaîne de caractères appropriée
+                datenaissancefield.setText(dateNaissance);
             }
 
             // Afficher le numéro si il est différent de zéro
             if (authenticatedUser.getNumber() != 0) {
-                numberfield.setText(String.valueOf(authenticatedUser.getNumber()));
-            } else {
-                numberfield.setText("Non défini");
+                String numero = String.valueOf(authenticatedUser.getNumber());
+                numberfield.setText(numero);
             }
 
             emailfield.setText(authenticatedUser.getEmail());
 
-            String imagePath = "C:/Users/siwar/OneDrive/Images/Captures d’écran/2.png"; // Chemin d'accès à l'image
-            if (imagePath != null && !imagePath.isEmpty()) {
+            // Récupérer le nom du fichier de l'image de l'utilisateur
+            String imageName = authenticatedUser.getImage();
+            if (imageName != null && !imageName.isEmpty()) {
+                String imagePath = "C:\\Users\\siwar\\OneDrive\\Bureau\\JAVASPRINT\\Sprint2JAVA\\src\\main\\resources\\img\\uploads" + imageName;
                 File file = new File(imagePath);
                 if (file.exists()) {
                     Image image = new Image(file.toURI().toString());
@@ -114,11 +114,10 @@ public class ProfileController {
                     System.out.println("L'image de profil n'existe pas : " + imagePath);
                 }
             } else {
-                System.out.println("Chemin d'accès à l'image non défini pour l'utilisateur : " + authenticatedUser.getName());
+                System.out.println("Nom de fichier d'image non trouvé pour l'utilisateur : " + authenticatedUser.getName());
             }
         }
     }
-
 
 
     private String getUserRoleText(String roles) {

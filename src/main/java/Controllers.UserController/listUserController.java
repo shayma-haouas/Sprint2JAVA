@@ -3,20 +3,27 @@ package Controllers.UserController;
 import com.sun.javafx.charts.Legend;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import entities.User;
 import services.UserService;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -29,6 +36,7 @@ public class listUserController {
     private ListView<User> userListListView; // ListView pour afficher les détails d'utilisateurs
     @FXML
     private TableView<User> userTableView;
+
     @FXML
     private Button btnAddUser;
     @FXML
@@ -48,7 +56,7 @@ public class listUserController {
     private void initialize() {
         users = userService.show();
         userListListView.getItems().addAll(users);
-        statusInput.getItems().addAll("Name", "Email", "Role");
+        statusInput.getItems().addAll("Name", "Email", "Role","Date");
 
         userListListView.setCellFactory(new Callback<ListView<User>, ListCell<User>>() {
             @Override
@@ -72,23 +80,42 @@ public class listUserController {
                                 role = "Inconnu";
                             }
 
-                            String birthDate = user.getDatenaissance() != null ? new SimpleDateFormat("dd/MM/yyyy").format(user.getDatenaissance()) : "Inconnue";
 
-                            setText("Nom: " + user.getName() + " \nPrénom: " + user.getLastname() +
-                                "\nTéléphone:" + user.getNumber() + " \nEmail: " + user.getEmail() +
-                                "\nRole: " + role + " \nDate de naissance: " + birthDate);
+// VBox pour les détails de l'utilisateur
+                            HBox hBox = new HBox();
+                       //     hBox.setStyle("-fx-background-color: #4CAF50;"); // Définir la couleur de fond
+                            hBox.setSpacing(50);
+                            hBox.setAlignment(Pos.CENTER);
+                            HBox.setMargin(hBox, new Insets(50, 0, 0, 0));
 
-                            // Créer un ImageView pour afficher l'image
-                            ImageView imageView = new ImageView();
-                            // Charger l'image depuis le chemin stocké dans l'objet User
-                            Image image = new Image(new File(user.getImage()).toURI().toString());
-                            // Définir la taille de l'image
-                            imageView.setFitWidth(50);
-                            imageView.setFitHeight(50);
-                            // Définir l'image dans l'ImageView
-                            imageView.setImage(image);
+// VBox pour les détails de l'utilisateur
+                            VBox vBox = new VBox();
+                           // vBox.setStyle("-fx-background-color: #4CAF50;");
+                            vBox.setSpacing(15); // Ajouter de l'espace entre les éléments
+                            vBox.getChildren().addAll(
+                                // Détails de l'utilisateur
+                                new Label("Nom: " + user.getName()),
+                                new Label("Prénom: " + user.getLastname()),
+                                new Label("Téléphone: " + user.getNumber()),
+                                new Label("Email: " + user.getEmail()),
+                                new Label("Role: " + role),
+                                new Label("Date de naissance: " + (user.getDatenaissance() != null ? new SimpleDateFormat("dd/MM/yyyy").format(user.getDatenaissance()) : "Inconnue"))
+                            );
 
-                            // Créer des boutons pour éditer et supprimer l'utilisateur
+// ImageView pour afficher l'image
+                            ImageView imageView = new ImageView(new Image(new File(user.getImage()).toURI().toString()));
+                            imageView.setFitWidth(100);
+                            imageView.setFitHeight(100);
+
+// Ajouter de l'espace autour de l'ImageView
+
+// Ajouter la VBox et l'ImageView dans le HBox
+                            hBox.getChildren().addAll(vBox, imageView);
+
+
+
+
+
                             Button editButton = new Button("Editer");
                             Button deleteButton = new Button("Supprimer");
 
@@ -102,10 +129,16 @@ public class listUserController {
                                 refreshUserList();
                             });
 
-                            // Créer un HBox pour afficher les boutons et l'image
-                            HBox hbox = new HBox(imageView, editButton, deleteButton);
-                            // Définir le graphique de la cellule comme le HBox
-                            setGraphic(hbox);
+                            // Créer un HBox pour aligner les boutons à droite
+                            HBox hbox = new HBox(editButton, deleteButton);
+                            hbox.setSpacing(50); // Espace entre les boutons
+
+                            // Créer un HBox global pour aligner les éléments
+                            HBox globalHBox = new HBox(hBox, hbox);
+                            globalHBox.setSpacing(50); // Espace entre le texte et les boutons
+                            globalHBox.setStyle("-fx-background-color: #aac98e;");
+                            // Définir le graphique de la cellule comme le HBox global
+                            setGraphic(globalHBox);
                         }
                     }
                 };
@@ -129,6 +162,7 @@ public class listUserController {
             }
         });
 
+        Comparator<User> dateOfBirthComparator = Comparator.comparing(User::getDatenaissance, Comparator.nullsLast(Comparator.naturalOrder()));
 
         statusInput.setOnAction(event -> {
             String selectedSort = statusInput.getValue();
@@ -138,8 +172,11 @@ public class listUserController {
                 Collections.sort(users, Comparator.comparing(User::getEmail));
             } else if ("Role".equals(selectedSort)) {
                 Collections.sort(users, Comparator.comparing(User::getRoles));
+            }else if ("Date".equals(selectedSort)) {
+                Collections.sort(users, dateOfBirthComparator);
             }
             userListListView.getItems().setAll(users);
+
         });
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
 

@@ -256,10 +256,12 @@ public class RegistrationController {
     }
     private void addUserToDatabase(String name, String lastname, String roles , String email, String password, String image, int number, Boolean is_verified, Date datenaissance) {
 
-        User user = new User(name, lastname, roles, email,password, image, number, is_verified, datenaissance);
+        String imageName = new File(image).getName(); // Récupérer le nom de fichier à partir du chemin complet
+        User user = new User(name, lastname, roles, email, password, imageName, number, is_verified, datenaissance);
         UserService userService = new UserService();
         userService.signUp(user);
     }
+
 
 
     private void clearInputFields() {

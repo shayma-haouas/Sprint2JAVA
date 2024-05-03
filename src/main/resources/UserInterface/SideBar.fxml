@@ -284,6 +284,13 @@
                     <Font name="Montserrat ExtraBold" size="18.0" />
                 </font>
             </Text>
+            <ImageView fx:id="capture" fitHeight="28.0" fitWidth="30.0" onMouseClicked="#capturer" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../img/icons8-fond-d'écran-80.png" />
+                </image>
+               <HBox.margin>
+                  <Insets right="-20.0" />
+               </HBox.margin></ImageView>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="image" translateX="38.0">
                 <image>
                     <Image url="@../img/notification.png" />
