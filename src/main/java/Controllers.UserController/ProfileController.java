@@ -81,22 +81,45 @@ public class ProfileController {
 
     @FXML
     void initializeFields() {
-
         // Remplir les champs avec les informations de l'utilisateur authentifié
-        User authenticatedUser = getAuthenticatedUser( emailc);
+        User authenticatedUser = getAuthenticatedUser(emailc);
         if (authenticatedUser != null) {
             nameField.setText(authenticatedUser.getName());
-            imagefield.setImage(new Image(authenticatedUser.getImage()));
-
             lastnamefield.setText(authenticatedUser.getLastname());
             roleField.setText(getUserRoleText(authenticatedUser.getRoles()));
-            // datenaissancefield.setText(authenticatedUser.getDatenaissance());
-            // numberfield.setText(authenticatedUser.getNumber());
+
+            // Afficher la date de naissance si elle n'est pas nulle
+            if (authenticatedUser.getDatenaissance() != null) {
+                datenaissancefield.setText(authenticatedUser.getDatenaissance().toString());
+            } else {
+                datenaissancefield.setText("Non défini");
+            }
+
+            // Afficher le numéro si il est différent de zéro
+            if (authenticatedUser.getNumber() != 0) {
+                numberfield.setText(String.valueOf(authenticatedUser.getNumber()));
+            } else {
+                numberfield.setText("Non défini");
+            }
+
             emailfield.setText(authenticatedUser.getEmail());
 
+            String imagePath = "C:/Users/siwar/OneDrive/Images/Captures d’écran/2.png"; // Chemin d'accès à l'image
+            if (imagePath != null && !imagePath.isEmpty()) {
+                File file = new File(imagePath);
+                if (file.exists()) {
+                    Image image = new Image(file.toURI().toString());
+                    imagefield.setImage(image);
+                } else {
+                    System.out.println("L'image de profil n'existe pas : " + imagePath);
+                }
+            } else {
+                System.out.println("Chemin d'accès à l'image non défini pour l'utilisateur : " + authenticatedUser.getName());
+            }
+        }
+    }
 
-                // Définir l'image dans votre ImageView
-    }}
+
 
     private String getUserRoleText(String roles) {
         if (roles.contains("ROLE_CLIENT")) {
