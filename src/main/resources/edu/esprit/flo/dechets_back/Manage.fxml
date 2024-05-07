@@ -17,7 +17,6 @@
     <StackPane layoutY="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <Text fx:id="topText" fill="#88b44e" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajout Dechets">
             <font>
-                <Font name="Arial Bold" size="23.0" />
             </font>
         </Text>
     </StackPane>
