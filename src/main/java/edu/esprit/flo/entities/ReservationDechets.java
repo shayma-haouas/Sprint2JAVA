@@ -88,4 +88,13 @@ public class ReservationDechets {
     public void setDechets(Dechets dechets) {
         this.dechets = dechets;
     }
+    public String getFormattedReservation() {
+        return "Date: " + date + "\nType of Waste: " + dechets.getType() + "\nQuantity: " + quantite;
+    }
+
+
+    public String ToDate() {
+        return  dechets.getType()+"\n"+quantite;
+    }
+
 }

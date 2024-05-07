@@ -3,6 +3,7 @@ package edu.esprit.flo.controllers.reservationDechets;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.time.LocalDate;
 import java.util.Properties;
 
 import edu.esprit.flo.controllers.MainWindowController;
@@ -56,12 +57,12 @@ public class ManageController implements Initializable {
     //mailing
     private final String username = "mehdi.bouazra@esprit.tn";
     private final String password = "211JMT4841";
-    private final String recipientEmail = "bouazramehdi9@gmail.com";
+    private final String recipientEmail = "oussama.bahrouni@esprit.tn";
     private final String subject = "Reservation Confirmation";
     private final String messageContent = "Your reservation has been confirmed.";
     //sms
-    private final String ACCOUNT_SID = "put your ssid here";
-    private final String AUTH_TOKEN = "put your auth token here";
+    private final String ACCOUNT_SID = "AC0cc518338273e58b968d9112e6262d8f";
+    private final String AUTH_TOKEN = "ed6372820948bd24942d539ada0fb76b";
     public static Dechets currentDechets;
 
     @Override
@@ -71,9 +72,11 @@ public class ManageController implements Initializable {
             userCB.getItems().add(user);
         }
 
-        for (Dechets dechets : DechetsService.getInstance().getAll()) {
+        /*or (Dechets dechets : DechetsService.getInstance().getAll()) {
             dechetsCB.getItems().add(dechets);
-        }
+        }*/
+
+
 
         if (currentDechets != null) {
             dechetsCB.setValue(currentDechets);
@@ -101,6 +104,8 @@ public class ManageController implements Initializable {
         } else {
             topText.setText("Ajouter reservationDechets");
             btnAjout.setText("Ajouter");
+            dateDP.setValue(LocalDate.now());
+
         }
     }
 
@@ -150,37 +155,32 @@ public class ManageController implements Initializable {
 
 
     private boolean controleDeSaisie() {
+        LocalDate today = LocalDate.now();
 
-
-        if (dateDP.getValue() == null) {
-            AlertUtils.makeInformation("Choisir une date pour date");
+        if (dateDP.getValue() == null || dateDP.getValue().isBefore(today)) {
+            AlertUtils.makeInformation("Veuillez choisir une date valide pour date");
             return false;
         }
 
-
-        if (dateRamassageDP.getValue() == null) {
-            AlertUtils.makeInformation("Choisir une date pour dateRamassage");
+        if (dateRamassageDP.getValue() == null || dateRamassageDP.getValue().isBefore(today)) {
+            AlertUtils.makeInformation("Veuillez choisir une date valide pour dateRamassage");
             return false;
         }
 
-
-        if (nomFournisseurTF.getText().isEmpty()) {
-            AlertUtils.makeInformation("nomFournisseur ne doit pas etre vide");
+        if (nomFournisseurTF.getText().isEmpty() || nomFournisseurTF.getText().length() < 4 || nomFournisseurTF.getText().matches(".*\\d.*")) {
+            AlertUtils.makeInformation("nomFournisseur doit avoir au moins 4 caractères et ne doit pas contenir de chiffres");
             return false;
         }
 
-
-        if (numeroTellTF.getText().isEmpty()) {
-            AlertUtils.makeInformation("numeroTell ne doit pas etre vide");
+        if (numeroTellTF.getText().isEmpty() || numeroTellTF.getText().length() != 8 || !numeroTellTF.getText().matches("\\d{8}")) {
+            AlertUtils.makeInformation("numeroTell doit contenir exactement 8 chiffres et aucun caractère");
             return false;
         }
-
 
         if (quantiteTF.getText().isEmpty()) {
             AlertUtils.makeInformation("quantite ne doit pas etre vide");
             return false;
         }
-
 
         try {
             Integer.parseInt(quantiteTF.getText());
@@ -201,6 +201,7 @@ public class ManageController implements Initializable {
 
         return true;
     }
+
 
     private void sendConfirmationEmail() {
         Properties props = new Properties();
@@ -233,7 +234,7 @@ public class ManageController implements Initializable {
     }
     private void sendSMSConfirmation() {
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-        String TWILIO_NUMBER = "+13184142605";
+        String TWILIO_NUMBER = "+13344544654";
         Message message = Message.creator(
                         new PhoneNumber("+21650767065"), // recipient phone number
                         new PhoneNumber(TWILIO_NUMBER), // Twilio number

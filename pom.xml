@@ -101,6 +101,21 @@
             <artifactId>twilio</artifactId>
             <version>8.22.0</version>
         </dependency>
+
+            <!-- SLF4J API -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>1.7.32</version> <!-- Or the latest version available -->
+            </dependency>
+
+            <!-- SLF4J Logback Implementation -->
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>1.2.6</version> <!-- Or the latest version available -->
+            </dependency>
+
     </dependencies>
 
 

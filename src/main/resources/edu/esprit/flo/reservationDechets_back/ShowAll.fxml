@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -20,9 +21,30 @@
             </Text>
         </StackPane>
         <TextField id="searchField" fx:id="searchField4" layoutX="267.0" layoutY="23.0" prefHeight="27.0" prefWidth="342.0" promptText="Search..." style="-fx-background-color: #fff; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-border-color: #ccc; -fx-border-width: 1px;" />
-        <Button fx:id="trie2" layoutX="620.0" layoutY="24.0" mnemonicParsing="false" onAction="#triNomD" style="-fx-background-color: #C8D6A2 #C8D6A2; -fx-text-fill: #fff; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-border-color: transparent; -fx-border-width: 1px; -fx-padding: 5px 10px;" text="DESC" />
-        <Button fx:id="trie3" layoutX="675.0" layoutY="24.0" mnemonicParsing="false" onAction="#triNomA" style="-fx-background-color: #C8D6A2; -fx-text-fill: #fff; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-border-color: transparent; -fx-border-width: 1px; -fx-padding: 5px 10px;" text="ASC" />
-        <Button fx:id="print" layoutX="730.0" layoutY="24.0" mnemonicParsing="false" onAction="#print" style="-fx-background-color: #C8D6A2; -fx-text-fill: #fff; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-border-color: transparent; -fx-border-width: 1px; -fx-padding: 5px 10px;" text="Print" />
+      <HBox layoutX="623.0" layoutY="20.0">
+         <children>
+              <Button fx:id="trie2" mnemonicParsing="false" onAction="#triNomD" style="-fx-background-color: #C8D6A2 #C8D6A2; -fx-text-fill: #fff; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-border-color: transparent; -fx-border-width: 1px; -fx-padding: 5px 10px;" text="DESC">
+               <HBox.margin>
+                  <Insets left="5.0" right="10.0" />
+               </HBox.margin>
+            </Button>
+              <Button fx:id="trie3" mnemonicParsing="false" onAction="#triNomA" style="-fx-background-color: #C8D6A2; -fx-text-fill: #fff; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-border-color: transparent; -fx-border-width: 1px; -fx-padding: 5px 10px;" text="ASC">
+               <HBox.margin>
+                  <Insets left="5.0" right="10.0" />
+               </HBox.margin>
+            </Button>
+              <Button fx:id="print" mnemonicParsing="false" onAction="#print" style="-fx-background-color: #C8D6A2; -fx-text-fill: #fff; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-border-color: transparent; -fx-border-width: 1px; -fx-padding: 5px 10px;" text="Print">
+               <HBox.margin>
+                  <Insets left="5.0" right="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="Calendar" mnemonicParsing="false" onMouseClicked="#Calendar" style="-fx-background-color: #C8D6A2; -fx-text-fill: #fff; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-border-color: transparent; -fx-border-width: 1px; -fx-padding: 5px 10px;" text="Calendar">
+               <HBox.margin>
+                  <Insets left="5.0" right="10.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
     </AnchorPane>
     <ScrollPane fitToHeight="true" fitToWidth="true" layoutY="140.0" maxHeight="-Infinity" maxWidth="-Infinity" pannable="true" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
         <opaqueInsets>

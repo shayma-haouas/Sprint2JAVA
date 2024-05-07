@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.*;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class ManageController implements Initializable {
@@ -70,6 +71,8 @@ public class ManageController implements Initializable {
         } else {
             topText.setText("Ajouter dechets");
             btnAjout.setText("Ajouter");
+            dateEntreDP.setValue(LocalDate.now());
+
         }
     }
 
@@ -133,44 +136,44 @@ public class ManageController implements Initializable {
     }
 
     private boolean controleDeSaisie() {
+        String type = typeTF.getText().trim();
+        String description = descriptionTF.getText().trim();
 
-
-        if (typeTF.getText().isEmpty()) {
-            AlertUtils.makeInformation("type ne doit pas etre vide");
+        // Check if typeTF is at least 4 characters and doesn't contain numbers
+        if (type.isEmpty() || type.length() < 4 || type.matches(".*\\d.*")) {
+            AlertUtils.makeInformation("Le type doit contenir au moins 4 caractères et ne pas contenir de chiffres.");
             return false;
         }
 
+        // Check if descriptionTF is at least 4 characters and doesn't contain numbers
+        if (description.isEmpty() || description.length() < 4 || description.matches(".*\\d.*")) {
+            AlertUtils.makeInformation("La description doit contenir au moins 4 caractères et ne pas contenir de chiffres.");
+            return false;
+        }
 
         if (dateEntreDP.getValue() == null) {
             AlertUtils.makeInformation("Choisir une date pour dateEntre");
             return false;
         }
 
-
-        if (descriptionTF.getText().isEmpty()) {
-            AlertUtils.makeInformation("description ne doit pas etre vide");
-            return false;
-        }
-
-
         if (quantiteTF.getText().isEmpty()) {
-            AlertUtils.makeInformation("quantite ne doit pas etre vide");
+            AlertUtils.makeInformation("La quantité ne doit pas être vide.");
             return false;
         }
-
 
         try {
             Integer.parseInt(quantiteTF.getText());
         } catch (NumberFormatException ignored) {
-            AlertUtils.makeInformation("quantite doit etre un nombre");
+            AlertUtils.makeInformation("La quantité doit être un nombre entier.");
             return false;
         }
 
         if (selectedImagePath == null) {
-            AlertUtils.makeInformation("Veuillez choisir une image");
+            AlertUtils.makeInformation("Veuillez choisir une image.");
             return false;
         }
 
         return true;
     }
+
 }

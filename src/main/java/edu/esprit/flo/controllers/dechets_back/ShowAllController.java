@@ -17,6 +17,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import net.glxn.qrgen.core.image.ImageType;
@@ -74,6 +75,7 @@ public class ShowAllController implements Initializable {
     List<Dechets> listDechets;
 
 
+
     @FXML
     void stat(MouseEvent event) {
         // Create a new stage
@@ -120,53 +122,36 @@ public class ShowAllController implements Initializable {
         listDechets = DechetsService.getInstance().getAll();
         displayData();
 
+        // Add a listener to the text property of searchField
+        searchField.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+            if (!newValue.isEmpty()) {
+                // Use Java streams to filter the listDechets based on the search text
+                List<Dechets> searchResults = listDechets.stream()
+                        .filter(dechets ->
+                                dechets.getType().toLowerCase().contains(newValue.toLowerCase()) ||
+                                        dechets.getDescription().toLowerCase().contains(newValue.toLowerCase()) ||
+                                        String.valueOf(dechets.getQuantite()).toLowerCase().contains(newValue.toLowerCase()))
+                        .collect(Collectors.toList());
 
-        searchField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.isEmpty()) {
-                    List<Dechets> searchResults = DechetsService.getInstance().search(newValue);
-                    if (!searchResults.isEmpty()) {
-                        listDechets.clear();
-                        listDechets.addAll(searchResults);
-                        displayData();
-                    } else {
-                        AlertUtils.makeInformation("No matching results found.");
-                    }
-                } else {
-                    // If the search field is empty, display all data
+                if (!searchResults.isEmpty()) {
+                    // Update the listDechets with search results and display data
                     listDechets.clear();
-                    listDechets.addAll(DechetsService.getInstance().getAll());
+                    listDechets.addAll(searchResults);
                     displayData();
+                } else {
+                    AlertUtils.makeInformation("No matching results found.");
                 }
+            } else {
+                // If the search field is empty, display all data
+                listDechets.clear();
+                listDechets.addAll(DechetsService.getInstance().getAll());
+                displayData();
             }
         });
+    }
 
 
 
-
-}
-
-    /*public void displayData() {
-        mainVBox.getChildren().clear();
-        for (Dechets dechets : listDechets) {
-            // Generate QR code for each Dechets object
-            String qrCodeText = dechets.toString(); // Make sure the toString() method of Dechets returns a string representation of the Dechets data
-            ByteArrayOutputStream out = QRCode.from(qrCodeText).to(ImageType.PNG).stream();
-            ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
-            Image qrCodeImage = new Image(in);
-
-            ImageView qrCodeImageView = new ImageView(qrCodeImage);
-            qrCodeImageView.setFitHeight(100);
-            qrCodeImageView.setFitWidth(100);
-
-            // Add the ImageView to your UI
-            // For example, if you're displaying each Dechets object in a HBox, you can do:
-            HBox hbox = new HBox();
-            hbox.getChildren().add(qrCodeImageView);
-            mainVBox.getChildren().add(hbox);
-        }
-    }*/
 
 
 

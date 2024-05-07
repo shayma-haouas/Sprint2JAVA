@@ -6,18 +6,21 @@ import edu.esprit.flo.entities.ReservationDechets;
 import edu.esprit.flo.services.ReservationDechetsService;
 import edu.esprit.flo.utils.AlertUtils;
 import edu.esprit.flo.utils.Constants;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -38,6 +41,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,6 +56,8 @@ public class ShowAllController implements Initializable {
     @FXML
     public Text topText;
     @FXML
+    private Button Calendar;
+    @FXML
     public VBox mainVBox;
 
     @FXML
@@ -65,6 +71,29 @@ public class ShowAllController implements Initializable {
 
     @FXML
     private Button print;
+
+    @FXML
+    void Calendar(MouseEvent event) throws IOException {
+        // Load the FXML file for the calendar scene
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/edu/esprit/flo/reservationDechets_back/Calendar.fxml"));
+        Parent root = fxmlLoader.load();
+
+        // Create a new stage for the calendar scene
+        Stage stage = new Stage();
+        stage.setTitle("Calendar");
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+
+    private boolean isDateTaken(LocalDate date) {
+        for (ReservationDechets reservationDechets : listReservationDechets) {
+            if (reservationDechets.getDateRamassage().isEqual(date)) {
+                return true; // Date is taken by reservationDechets
+            }
+        }
+        return false; // Date is not taken by reservationDechets
+    }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         listReservationDechets = ReservationDechetsService.getInstance().getAll();
@@ -128,8 +157,12 @@ public class ShowAllController implements Initializable {
             ((Text) innerContainer.lookup("#userText")).setText("User : " + (reservationDechets.getUser() == null ? "null" : reservationDechets.getUser().toString()));
             ((Text) innerContainer.lookup("#dechetTextt")).setText("Dechet : " + (reservationDechets.getDechets() == null ? "null" : reservationDechets.getDechets().toString()));
 
+            ((Text) innerContainer.lookup("#dateText")).setText(reservationDechets.getFormattedReservation());
+
+
             ((Button) innerContainer.lookup("#editButton")).setOnAction((event) -> modifierReservationDechets(reservationDechets));
             ((Button) innerContainer.lookup("#deleteButton")).setOnAction((event) -> supprimerReservationDechets(reservationDechets));
+
 
 
         } catch (IOException ex) {
@@ -240,4 +273,12 @@ public class ShowAllController implements Initializable {
         List<ReservationDechets> reservationDechetsList = listReservationDechets;
         generatePDF(reservationDechetsList);
     }
-}
+
+
+
+
+    }
+
+
+
+
