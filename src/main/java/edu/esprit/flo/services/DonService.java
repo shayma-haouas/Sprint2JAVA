@@ -139,7 +139,7 @@ public class DonService {
         }
         return false;
     }
-    public List<Don> search(String query) {
+    //public List<Don> search(String query) {
         List<Don> searchResults = new ArrayList<>();
         try {
             String searchQuery = "SELECT * FROM `don` WHERE " +
