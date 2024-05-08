@@ -15,7 +15,17 @@ public class User {
     private int number;
     private Date datenaissance;
 
+    public void setIs_banned(boolean is_banned) {
+        this.is_banned = is_banned;
+    }
+
     private boolean is_verified;
+
+    public boolean isIs_banned() {
+        return is_banned;
+    }
+
+    private  boolean is_banned;
 
     public User() {
 
@@ -132,7 +142,19 @@ public class User {
     }
 
     public boolean getIs_verified() {return is_verified;}
+    public User(String name, String lastname, String password, String email, String roles, String image, int number, boolean is_verified, Date datenaissance,boolean is_banned) {
+        this.name = name;
+        this.lastname = lastname;
+        this.password = password;
+        this.email = email;
+        this.roles = roles;
+        this.image = image;
+        this.number = number;
+        this.is_verified = is_verified;
 
+        this.datenaissance = datenaissance;
+        this.is_banned = is_banned;
+    }
 
 
 

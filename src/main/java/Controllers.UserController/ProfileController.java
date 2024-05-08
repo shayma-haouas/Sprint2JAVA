@@ -90,7 +90,7 @@ public class ProfileController {
 
             // Afficher la date de naissance si elle n'est pas nulle
             if (authenticatedUser.getDatenaissance() != null) {
-                String dateNaissance = authenticatedUser.getDatenaissance().toString(); // Suppose que la méthode toString() retourne une chaîne de caractères appropriée
+                String dateNaissance = authenticatedUser.getDatenaissance().toString();
                 datenaissancefield.setText(dateNaissance);
             }
 
@@ -102,22 +102,31 @@ public class ProfileController {
 
             emailfield.setText(authenticatedUser.getEmail());
 
-            // Récupérer le nom du fichier de l'image de l'utilisateur
-            String imageName = authenticatedUser.getImage();
-            if (imageName != null && !imageName.isEmpty()) {
-                String imagePath = "C:\\Users\\siwar\\OneDrive\\Bureau\\JAVASPRINT\\Sprint2JAVA\\src\\main\\resources\\img\\uploads" + imageName;
+            // Récupérer le chemin de l'image de profil de l'utilisateur
+            String imagePath =authenticatedUser.getImage();
+            System.out.println(imagePath);
+
+            // Vérifier si le chemin de l'image est valide
+            if (imagePath != null && !imagePath.isEmpty()) {
+                // Créer une instance de File à partir du chemin de l'image
                 File file = new File(imagePath);
+
+                // Vérifier si le fichier de l'image existe
                 if (file.exists()) {
+                    // Créer une instance de Image à partir du fichier de l'image
                     Image image = new Image(file.toURI().toString());
+
+                    // Afficher l'image dans l'imageView
                     imagefield.setImage(image);
                 } else {
                     System.out.println("L'image de profil n'existe pas : " + imagePath);
                 }
             } else {
-                System.out.println("Nom de fichier d'image non trouvé pour l'utilisateur : " + authenticatedUser.getName());
+                System.out.println("Chemin de l'image de profil non spécifié.");
             }
         }
     }
+
 
 
     private String getUserRoleText(String roles) {

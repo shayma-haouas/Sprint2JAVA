@@ -1,5 +1,7 @@
 package Controllers.UserController;
+
 import com.mysql.cj.Session;
+import entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +14,7 @@ import javafx.scene.input.MouseEvent;
 import services.UserService;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class LoginController {
     static String emailc;
@@ -22,9 +25,11 @@ public class LoginController {
     @FXML
     private TextField Passwordfield;
     private static Session session;
+    private static final int MAX_LOGIN_ATTEMPTS = 3;
+    private int loginAttempts = 0;
 
     @FXML
-    void loginclicked(ActionEvent event) {
+    void loginclicked(ActionEvent event) throws SQLException {
         String email = emailField.getText();
         String password = Passwordfield.getText();
 
@@ -61,16 +66,35 @@ public class LoginController {
                     this.emailc = email;
 
                     sidebarController.setAuthenticatedEmail(email);
+
+                } else if ("ROLE_FOURNISSEUR".equals(role)) {
+                    System.out.println(role);
+                    FXMLLoader loader2= new FXMLLoader(getClass().getResource("/UserInterface/Home2.fxml"));
+                    Parent root = loader2.load(); // Load the FXML file
+
+                    HomeController homeController = loader2.getController(); // Get the controller instance
+
+                    homeController.setAuthenticatedEmail(email);
+                    this.emailc = email;
                 } else {
                     showAlert(Alert.AlertType.ERROR, "Error", "Unknown Role", "Your role is not recognized.");
                     return;
                 }
-                // Autres traitements
+                // Other processing
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
-            showAlert(Alert.AlertType.ERROR, "Error", "Login Failed", "Incorrect email or password.");
+            loginAttempts++;
+
+            if (loginAttempts >= MAX_LOGIN_ATTEMPTS) {
+                // Block the user after three unsuccessful login attempts
+                User user = userService.getUserByEmail(email);
+                userService.banUser(user);
+                showAlert(Alert.AlertType.ERROR, "Error", "Account Blocked", "Your account has been blocked due to too many failed login attempts.");
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Error", "Login Failed", "Incorrect email or password.");
+            }
         }
     }
 
@@ -102,13 +126,9 @@ public class LoginController {
 
     public void forgot(MouseEvent event) {
         try {
-            // Récupérer le nœud source de l'événement
             Node source = (Node) event.getSource();
-
-            // Récupérer la scène à partir du nœud source
             Scene scene = source.getScene();
 
-            // Charger la page Forgot.fxml et changer la racine de la scène
             Parent root = FXMLLoader.load(getClass().getResource("/UserInterface/ResetPwd.fxml"));
             scene.setRoot(root);
         } catch (IOException e) {
@@ -125,13 +145,10 @@ public class LoginController {
     public void toggleShowPassword(ActionEvent actionEvent) {
         passwordVisible = !passwordVisible;
 
-        // Si le mot de passe doit être affiché
         if (passwordVisible) {
-            // Affichez le texte du mot de passe dans un champ de texte temporaire
             Passwordfield.setPromptText(Passwordfield.getText());
             Passwordfield.setText("");
         } else {
-            // Masquez le texte du mot de passe et restaurez le texte masqué
             StringBuilder maskedPassword = new StringBuilder();
             for (int i = 0; i < Passwordfield.getPromptText().length(); i++) {
                 maskedPassword.append("*");

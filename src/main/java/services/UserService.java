@@ -175,12 +175,15 @@ public class UserService implements  UserCrud<User> {
                 String hashedPasswordFromDB = resultSet.getString("password");
                 if (BCrypt.verifyer().verify(password.toCharArray(), hashedPasswordFromDB).verified) {
                     String role = resultSet.getString("roles");
-                    if (role.contains("ROLE_CLIENT") || role.contains("ROLE_FOURNISSEUR")) {
+                    if (role.contains("ROLE_CLIENT") ) {
                         loadProfileFXML();
                         return true;
+                    }
+                    else if( role.contains("ROLE_FOURNISSEUR")){
+                        loadFourFXML();
+                        return true;
 
-
-                } else if (role.contains("ROLE_ADMIN")) {
+                    }else if (role.contains("ROLE_ADMIN")) {
                         loadSidebarFXML();
                         return true;
                     }
@@ -194,11 +197,10 @@ public class UserService implements  UserCrud<User> {
     }
 
 
-
     private void loadProfileFXML() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../UserInterface/Home.fxml"));
-            Parent root = fxmlLoader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../UserInterface/Home.fxml"));
+            Parent root = loader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
@@ -206,6 +208,20 @@ public class UserService implements  UserCrud<User> {
             e.printStackTrace();
         }
     }
+    private void loadFourFXML() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../UserInterface/Home2.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 
     private void loadSidebarFXML() {
         try {
@@ -235,6 +251,8 @@ public class UserService implements  UserCrud<User> {
                 user.setDatenaissance(resultSet.getDate("datenaissance")); // Utilisez getDate pour récupérer une date
                user.setNumber(resultSet.getInt("number"));
                 user.setEmail(resultSet.getString("email"));
+                String imagePath = resultSet.getString("image");
+                user.setImage(imagePath);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -516,7 +534,9 @@ public String getRole(String email) {
                 role = "ROLE_CLIENT";
             } else if (role.contains("ROLE_ADMIN")) {
                 role = "ROLE_ADMIN";
-            } else {
+            }else if (role.contains("ROLE_FOURNISSEUR")) {
+                role = "ROLE_FOURNISSEUR";}
+            else {
                 role = "UNKNOWN_ROLE"; // Si le rôle n'est pas reconnu
             }
         }
@@ -649,23 +669,31 @@ public String getRole(String email) {
         }
     }
     @Override
-    public void ban(User u) throws SQLException {
-
-        String req = "UPDATE user SET is_banned = 1 where id = ?";
-        PreparedStatement ps = connection.prepareStatement(req);
-        ps.setInt(1, u.getId());
-        ps.executeUpdate();
-
+    public void banUser(User user) throws SQLException {
+        String query = "UPDATE user SET is_banned = ? WHERE id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setBoolean(1, true);
+            preparedStatement.setInt(2, user.getId());
+            preparedStatement.executeUpdate();
+            System.out.println("User is_banned status updated successfully.");
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
     }
-@Override
-    public void unban(User u) throws SQLException {
 
-        String req = "UPDATE user SET is_banned = 0 where id = ?";
-        PreparedStatement ps = connection.prepareStatement(req);
-        ps.setInt(1, u.getId());
-        ps.executeUpdate();
-
+    @Override
+    public void unbanUser(User user) throws SQLException {
+        String query = "UPDATE user SET is_banned = ? WHERE id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setBoolean(1, false);
+            preparedStatement.setInt(2, user.getId());
+            preparedStatement.executeUpdate();
+            System.out.println("User is_banned status updated successfully.");
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
     }
+
 
 }
 

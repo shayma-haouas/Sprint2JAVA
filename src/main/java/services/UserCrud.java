@@ -52,7 +52,8 @@ public interface UserCrud<T> {
 
     void testEamil(String email);
 
-    void ban(User u) throws SQLException;
 
-    void unban(User u) throws SQLException;
+    void banUser(User user) throws SQLException;
+
+    void unbanUser(User user) throws SQLException;
 }

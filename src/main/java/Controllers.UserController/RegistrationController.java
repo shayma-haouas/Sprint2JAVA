@@ -3,9 +3,12 @@ package Controllers.UserController;
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
 import entities.User;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -19,7 +22,14 @@ import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 import services.UserService;
+import nl.captcha.Captcha;
+import nl.captcha.backgrounds.GradiatedBackgroundProducer;
+import nl.captcha.noise.CurvedLineNoiseProducer;
+import tray.animations.AnimationType;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -27,12 +37,15 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Date;
 import java.util.Optional;
 import java.util.Random;
 import java.util.ResourceBundle;
 
-public class RegistrationController {
+public class RegistrationController  implements Initializable {
 
 
 
@@ -55,23 +68,52 @@ public class RegistrationController {
     private PasswordField Passwordfield;
     @FXML
     private ImageView imageView;
-    @FXML
-    private WebView captchaWebView;
+
 
     private String imagePath;
-    @FXML
-    private TextField captchaField;
-    private String captchaText;
+
     @FXML
     private Button cam;
     String pic ;
+    @FXML
+    private ImageView cap;
+
+    @FXML
+    private TextField code;
+
+    @FXML
+    private Button reset;
+
+    @FXML
+    private Button submit;
+
+    public Captcha setCaptcha() {
+        Captcha captchaV = new Captcha.Builder(250, 200)
+            .addText()
+            .addBackground(new GradiatedBackgroundProducer()) // Ajout d'un fond gradient
+            .addNoise()
+            .addBorder()
+            .build();
+
+        System.out.println(captchaV.getImage());
+        Image image = SwingFXUtils.toFXImage(captchaV.getImage(), null);
+
+        cap.setImage(image);
+
+        return captchaV;
+    }
 
 
+    Captcha captcha;
+
+
+
+    @FXML
     public void initialize(URL url, ResourceBundle rb) {
 
         // Chargez le captcha dans le WebView
-        WebEngine engine = captchaWebView.getEngine();
-        engine.load("https://www.google.com/recaptcha/api2/anchor?ar=1&k=6LeKGs0pAAAAAJkTYIf_U-YiIlCCu8Sqlief-0a3");
+        captcha =  setCaptcha();
+
     }
 
 
@@ -87,7 +129,8 @@ public class RegistrationController {
         DatePicker datenaissance = Datefield;
         String roles = "ROLE_CLIENT";
 
-        String enteredCaptcha = captchaField.getText();
+
+        String enteredCaptcha = code.getText();
         boolean isValidCaptcha = validateCaptcha(enteredCaptcha);
 
 
@@ -137,14 +180,15 @@ public class RegistrationController {
             return;
         }
 
-        String recaptchaToken = "6LeKGs0pAAAAAJkTYIf_U-YiIlCCu8Sqlief-0a3"; // Remplacez par le vrai token reCAPTCHA
-        boolean isValidRecaptcha = validateRecaptchaToken(recaptchaToken);
 
-        if (isValidRecaptcha) {
-            System.out.println("Token reCAPTCHA valide. Enregistrement de l'utilisateur...");
-            addUserToDatabase(name, lastname, roles, email, password, image, number, false, java.sql.Date.valueOf(datenaissance.getValue()));
-        } else {
+
+        if (isValidCaptcha==false) {
             showAlert(Alert.AlertType.ERROR, "Alert", "Erreur Saisie", "Captcha incorrect.", StageStyle.DECORATED);
+
+
+        } else {
+
+            addUserToDatabase(name, lastname, password, email, roles, image, number, false, java.sql.Date.valueOf(datenaissance.getValue()));
         }
 
 
@@ -152,27 +196,7 @@ public class RegistrationController {
         clearInputFields();
     }
 
-    private boolean validateCaptcha(String enteredCaptcha) {
 
-        return enteredCaptcha.equals(captchaText);
-    }
-
-    private boolean validateRecaptchaToken(String recaptchaToken) {
-
-        String secretKey = "6LeKGs0pAAAAAJkTYIf_U-YiIlCCu8Sqlief-0a3\n"; // Remplacez par votre clé secrète reCAPTCHA
-        String response = sendRecaptchaValidationRequest(recaptchaToken, secretKey);
-        return parseRecaptchaValidationResponse(response);
-    }
-
-    private String sendRecaptchaValidationRequest(String recaptchaToken, String secretKey) {
-
-        return "{\"success\": true}"; // Réponse JSON simulée
-    }
-
-    private boolean parseRecaptchaValidationResponse(String response) {
-
-        return response.contains("\"success\": true");
-    }
     @FXML
     private void camera(ActionEvent event) {
         Webcam webcam = Webcam.getDefault();
@@ -230,18 +254,40 @@ public class RegistrationController {
         File selectedFile = fileChooser.showOpenDialog(new Stage());
 
         if (selectedFile != null) {
-            String imagePath = selectedFile.toURI().toString();
+            // Obtenez le chemin du dossier où les images capturées sont sauvegardées
+            String folderPath = "C:\\Users\\siwar\\OneDrive\\Bureau\\JAVASPRINT\\Sprint2JAVA\\src\\main\\resources\\img\\uploads\\";
 
-            // Charger l'image à partir du chemin du fichier sélectionné
-            Image image = new Image(imagePath);
+            // Obtenez le nom du fichier sélectionné
+            String fileName = selectedFile.getName();
 
-            // Afficher l'image dans l'imageView
-            imageView.setImage(image);
+            // Concaténez le nom du fichier avec le chemin du dossier pour obtenir le chemin complet du fichier de destination
+            String destinationPath = folderPath + fileName;
 
-            // Enregistrer le chemin du fichier sélectionné
-            this.imagePath = selectedFile.getAbsolutePath();
+            // Essayez de copier le fichier sélectionné vers le dossier de destination
+            try {
+                Files.copy(selectedFile.toPath(), Paths.get(destinationPath), StandardCopyOption.REPLACE_EXISTING);
+                System.out.println("Image saved: " + destinationPath);
+
+                // Charger l'image à partir du chemin du fichier de destination
+                Image image = new Image(selectedFile.toURI().toString());
+
+                // Afficher l'image dans l'imageView
+                imageView.setImage(image);
+
+                // Enregistrer le chemin du fichier sélectionné
+                this.imagePath = destinationPath;
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Failed to save image: " + destinationPath);
+            }
         }
+        Image image = new Image(new File(imagePath).toURI().toString());
+
+        // Affichez l'image dans l'imageView destiné à afficher la photo de profil
+        imageView.setImage(image);
     }
+
 
 
 
@@ -305,6 +351,60 @@ public class RegistrationController {
     }
 
 
+    public void reseting(ActionEvent actionEvent) {
+        captcha =  setCaptcha();
+        code.setText("");
+    }
 
+    public void submit(ActionEvent actionEvent)  throws IOException{
+        if (captcha.isCorrect(code.getText())) {
+
+            String tilte = "Captcha";
+            String message = "Vous avez saisi le code avec succés!";
+            TrayNotification tray = new TrayNotification();
+            AnimationType type = AnimationType.POPUP;
+
+            tray.setAnimationType(type);
+            tray.setTitle(tilte);
+            tray.setMessage(message);
+            tray.setNotificationType(NotificationType.SUCCESS);
+            tray.showAndDismiss(Duration.millis(3000));
+
+            //     try {
+
+//            stage.show();
+            //Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+          //  stage.close();
+
+//        } catch (IOException ex) {
+//            Logger.getLogger(Agent_mainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        else {
+
+            String tilte = "Captcha";
+            String message = "Vous avez saisi un faux code !";
+            TrayNotification tray = new TrayNotification();
+            AnimationType type = AnimationType.POPUP;
+
+            tray.setAnimationType(type);
+            tray.setTitle(tilte);
+            tray.setMessage(message);
+            tray.setNotificationType(NotificationType.ERROR);
+            tray.showAndDismiss(Duration.millis(3000));
+
+            captcha =  setCaptcha();
+            code.setText("");
+        }
+
+
+    }
+
+    private boolean validateCaptcha(String enteredCaptcha) {
+        System.out.println(enteredCaptcha.equalsIgnoreCase(code.getText()));
+        // Comparer le captcha entré par l'utilisateur avec le texte du captcha généré
+        return enteredCaptcha.equalsIgnoreCase(code.getText());
+
+    }
 
 }

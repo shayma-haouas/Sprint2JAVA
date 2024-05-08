@@ -41,15 +41,20 @@
                     <VBox.margin>
                         <Insets left="30.0" right="30.0" top="30.0" />
                     </VBox.margin></TextField>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
 
                       <PasswordField fx:id="Passwordfield" prefHeight="35.0" prefWidth="246.0" promptText="password" />
-                      <ToggleButton fx:id="showPasswordToggle" onAction="#toggleShowPassword" prefHeight="19.0" prefWidth="15.0" text="Show Password" styleClass="eye-icon">
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
-                  </ToggleButton>
+                   <ToggleButton fx:id="showPasswordToggle" onAction="#toggleShowPassword" prefHeight="30.0" prefWidth="30.0">
+                       <graphic>
+                           <ImageView fitHeight="10.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true">
+                               <image>
+                                   <Image url="@/img/icons8-yeux-endormis-64.png" />
+                               </image>
+                           </ImageView>
+                       </graphic>
+                   </ToggleButton>
+
                </children>
                <VBox.margin>
                   <Insets left="30.0" />
@@ -61,7 +66,7 @@
                     <children>
                         <Text fill="#f8f6f6" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-field" text="You don't Have An Acount ?">
                             <font>
-                                <Font name="Arial Rounded MT Bold" size="16.0" />
+                                <Font name="Arial Rounded MT Bold" size="12.0" />
                             </font>
                             <HBox.margin>
                                 <Insets top="1.0" />
@@ -69,8 +74,11 @@
                         </Text>
                         <Text fill="#2f611f" onMouseClicked="#ClickedSign" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="click-text" text="Click Here " underline="true">
                             <HBox.margin>
-                                <Insets left="10.0" />
+                                <Insets left="50.0" />
                             </HBox.margin>
+                     <font>
+                        <Font size="13.0" />
+                     </font>
                         </Text>
 
                     </children>
@@ -80,7 +88,7 @@
                 </HBox>
                   <Text blendMode="ADD" fill="#859e7d" focusTraversable="true" onMouseClicked="#forgot" stroke="#dfe8dd" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="click-text" text="Forgot Password " underline="true">
                <VBox.margin>
-                  <Insets left="35.0" top="-20.0" />
+                  <Insets left="35.0" top="-15.0" />
                </VBox.margin>
                   </Text>
                 <Button mnemonicParsing="false" onAction="#loginclicked" text="Login">

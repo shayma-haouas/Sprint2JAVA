@@ -38,16 +38,14 @@
    -fx-background-color: linear-gradient(to top, rgba(136, 180, 78, .7), rgba(136, 180, 78, .5));
  }
 /* styles.css */
-/* styles.css */
 .eye-icon {
-  -fx-background-image: url('///C:/Users/siwar/OneDrive/Bureau/JAVASPRINT/Sprint2JAVA/src/main/resources/img/icons8-yeux-endormis-64.png');
+  -fx-background-image: url('/img/icons8-yeux-endormis-64.png');
   -fx-background-repeat: no-repeat;
   -fx-background-position: center;
-  -fx-padding: 5; /* Adjust the padding to center the icon */
+  -fx-padding: 5; /* Ajustez la marge intérieure pour que l'icône soit centrée */
 }
 
 .eye-icon:selected {
-  -fx-background-image: url('///C:/Users/siwar/OneDrive/Bureau/JAVASPRINT/Sprint2JAVA/src/main/resources/img/icons8-yeux-endormis-64.png');
+  -fx-background-image: url('/img/icons8-yeux-endormis-64.png');
 }
-
 
