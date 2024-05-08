@@ -1,6 +1,5 @@
 package edu.esprit.flo.controllers.factureDon;
 
-
 import edu.esprit.flo.MainApp;
 import edu.esprit.flo.controllers.MainWindowController;
 import edu.esprit.flo.entities.Don;
@@ -8,6 +7,7 @@ import edu.esprit.flo.entities.FactureDon;
 import edu.esprit.flo.services.FactureDonService;
 import edu.esprit.flo.utils.AlertUtils;
 import edu.esprit.flo.utils.Constants;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import org.controlsfx.control.Notifications;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -34,21 +35,17 @@ public class ManageController implements Initializable {
     public TextField numeroTelephoneTF;
     @FXML
     public TextField descriptionTF;
-
     @FXML
     public ComboBox<Don> donCB;
-
     @FXML
     public Button btnAjout;
     @FXML
     public Text topText;
 
-    FactureDon currentFactureDon;
-
+    private FactureDon currentFactureDon;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         for (Don don : FactureDonService.getInstance().getAllDons()) {
             donCB.getItems().add(don);
         }
@@ -80,9 +77,7 @@ public class ManageController implements Initializable {
 
     @FXML
     private void manage(ActionEvent ignored) {
-
         if (controleDeSaisie()) {
-
             FactureDon factureDon = new FactureDon();
             factureDon.setNomDonateur(nomDonateurTF.getText());
             factureDon.setPrenomDonateur(prenomDonateurTF.getText());
@@ -90,12 +85,11 @@ public class ManageController implements Initializable {
             factureDon.setAdresses(adressesTF.getText());
             factureDon.setNumeroTelephone(Integer.parseInt(numeroTelephoneTF.getText()));
             factureDon.setDescription(descriptionTF.getText());
-
             factureDon.setDon(donCB.getValue());
 
             if (currentFactureDon == null) {
                 if (FactureDonService.getInstance().add(factureDon)) {
-                    AlertUtils.makeSuccessNotification("FactureDon ajouté avec succés");
+                    AlertUtils.makeSuccessNotification("FactureDon ajouté avec succès");
                     MainApp.getInstance().loadLogin();
                 } else {
                     AlertUtils.makeError("Error");
@@ -103,35 +97,29 @@ public class ManageController implements Initializable {
             } else {
                 factureDon.setId(currentFactureDon.getId());
                 if (FactureDonService.getInstance().edit(factureDon)) {
-                    AlertUtils.makeSuccessNotification("FactureDon modifié avec succés");
+                    AlertUtils.makeSuccessNotification("FactureDon modifié avec succès");
                     ShowAllController.currentFactureDon = null;
                     MainWindowController.getInstance().loadInterface(Constants.FXML_FRONT_DISPLAY_ALL_FACTURE_DON);
                 } else {
                     AlertUtils.makeError("Error");
                 }
             }
-
         }
     }
 
-
     private boolean controleDeSaisie() {
-
-
         if (nomDonateurTF.getText().isEmpty()) {
-            AlertUtils.makeInformation("nomDonateur ne doit pas etre vide");
+            AlertUtils.makeInformation("nomDonateur ne doit pas être vide");
             return false;
         }
-
 
         if (prenomDonateurTF.getText().isEmpty()) {
-            AlertUtils.makeInformation("prenomDonateur ne doit pas etre vide");
+            AlertUtils.makeInformation("prenomDonateur ne doit pas être vide");
             return false;
         }
 
-
         if (emailTF.getText().isEmpty()) {
-            AlertUtils.makeInformation("email ne doit pas etre vide");
+            AlertUtils.makeInformation("email ne doit pas être vide");
             return false;
         }
         if (!Pattern.compile("^(.+)@(.+)$").matcher(emailTF.getText()).matches()) {
@@ -139,36 +127,39 @@ public class ManageController implements Initializable {
             return false;
         }
 
-
         if (adressesTF.getText().isEmpty()) {
-            AlertUtils.makeInformation("adresses ne doit pas etre vide");
+            AlertUtils.makeInformation("adresses ne doit pas être vide");
             return false;
         }
-
 
         if (numeroTelephoneTF.getText().isEmpty()) {
-            AlertUtils.makeInformation("numeroTelephone ne doit pas etre vide");
+            AlertUtils.makeInformation("numeroTelephone ne doit pas être vide");
             return false;
         }
-
 
         try {
             Integer.parseInt(numeroTelephoneTF.getText());
         } catch (NumberFormatException ignored) {
-            AlertUtils.makeInformation("numeroTelephone doit etre un nombre");
+            AlertUtils.makeInformation("numeroTelephone doit être un nombre");
             return false;
         }
 
         if (descriptionTF.getText().isEmpty()) {
-            AlertUtils.makeInformation("description ne doit pas etre vide");
+            AlertUtils.makeInformation("description ne doit pas être vide");
             return false;
         }
-
 
         if (donCB.getValue() == null) {
             AlertUtils.makeInformation("Veuillez choisir un don");
             return false;
         }
         return true;
+    }
+    private void showNotification(String title, String content) {
+        Notifications notification =Notifications.create()
+                .title(title)
+                .text(content);
+
+        Platform.runLater(() -> notification.showInformation());
     }
 }

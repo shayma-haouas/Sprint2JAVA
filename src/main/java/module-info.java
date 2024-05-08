@@ -6,6 +6,9 @@ module edu.esprit.flo {
     requires layout;
     requires stripe.java;
 
+    requires org.controlsfx.controls;
+
+
     opens edu.esprit.flo to javafx.fxml;
     opens edu.esprit.flo.entities to javafx.fxml;
     opens edu.esprit.flo.controllers to javafx.fxml;

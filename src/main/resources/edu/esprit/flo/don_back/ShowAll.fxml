@@ -22,6 +22,10 @@
       <TextField fx:id="search" layoutX="146.0" layoutY="22.0" prefHeight="26.0" prefWidth="454.0" promptText="Search " />
       <Button fx:id="trie1" layoutX="629.0" layoutY="23.0" mnemonicParsing="false" onAction="#triNomA" text="DSC" />
       <Button fx:id="trie2" layoutX="678.0" layoutY="23.0" mnemonicParsing="false" onAction="#triNomD" text="ASC" />
+<<<<<<< HEAD
+      <Button fx:id="STAT" layoutX="727.0" layoutY="23.0" mnemonicParsing="false" onAction="#STAT" text="STAT" />
+=======
+>>>>>>> 822fd09abec4b9f99de14dbf2522310524f0dad9
 
     </AnchorPane>
     <ScrollPane fitToHeight="true" fitToWidth="true" layoutY="140.0" maxHeight="-Infinity" maxWidth="-Infinity" pannable="true" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">

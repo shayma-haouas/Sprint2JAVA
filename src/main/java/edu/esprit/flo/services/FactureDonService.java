@@ -111,7 +111,7 @@ public class FactureDonService {
 
     public boolean edit(FactureDon factureDon) {
 
-        String request = "UPDATE `facture_don` SET `nom_donateur` = ?, `prenom_donateur` = ?, `email` = ?, `addresses` = ?, `numero_telephone` = ?, `description` = ?, `don_id` = ? WHERE `id` = ?" ;
+        String request = "UPDATE `facture_don` SET `nom_donateur` = ?, `prenom_donateur` = ?, `email` = ?, `adresses` = ?, `numero_telephone` = ?, `description` = ?, `don_id` = ? WHERE `id` = ?" ;
 
         try {
             preparedStatement = connection.prepareStatement(request);

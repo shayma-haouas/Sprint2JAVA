@@ -3,6 +3,9 @@ package edu.esprit.flo.controllers.don;
 
 import edu.esprit.flo.controllers.MainWindowController;
 import edu.esprit.flo.entities.Don;
+
+import edu.esprit.flo.entities.DonManager;
+
 import edu.esprit.flo.entities.User;
 import edu.esprit.flo.services.DonService;
 import edu.esprit.flo.utils.AlertUtils;
@@ -72,13 +75,14 @@ public class ManageController implements Initializable {
     private void manage(ActionEvent ignored) {
 
         if (controleDeSaisie()) {
-
             Don don = new Don();
             don.setType(typeTF.getText());
             don.setDescription(descriptionTF.getText());
             don.setDateDon(dateDonDP.getValue());
-
             don.set(userCB.getValue());
+            don.setSelectedType(typeTF.getText());
+            // Set the Don object
+            DonManager.getInstance().setDon(don);
 
             if (currentDon == null) {
                 if (DonService.getInstance().add(don)) {

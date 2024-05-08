@@ -11,7 +11,6 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import javafx.event.ActionEvent;
 import java.io.File;
-
 import java.io.IOException;
 import java.util.List;
 import edu.esprit.flo.controllers.MainWindowControllerBack;
@@ -140,13 +139,11 @@ public class ShowAllController implements Initializable {
 
     private void supprimerFactureDon(FactureDon factureDon) {
         currentFactureDon = null;
-
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmer la suppression");
         alert.setHeaderText(null);
         alert.setContentText("Etes vous sûr de vouloir supprimer factureDon ?");
         Optional<ButtonType> action = alert.showAndWait();
-
         if (action.isPresent()) {
             if (action.get() == ButtonType.OK) {
                 if (FactureDonService.getInstance().delete(factureDon.getId())) {

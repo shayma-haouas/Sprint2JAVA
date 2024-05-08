@@ -12,7 +12,11 @@ public class Don {
     private String description;
     private LocalDate dateDon;
 
+    public String selectedType;
+
     private User user;
+
+    public Don don;
 
 
     public Don() {
@@ -33,6 +37,19 @@ public class Don {
     public void setType(String type) {
         this.type = type;
     }
+
+    public void setSelectedType(String type) {
+        this.selectedType = type;
+    }
+
+    public String getSelectedType() {
+        return selectedType;
+    }
+
+
+
+
+    public void eraseSelectedType(String type){this.selectedType=null;}
 
     public String getDescription() {
         return description;
@@ -59,7 +76,18 @@ public class Don {
     }
 
 
+    public Don getDon() {
+        return don;
+    }
+
+    public void setDon(Don don) {
+        this.don = don;
+    }
+
+
     public String toString() {
         return type;
     }
+
+
 }

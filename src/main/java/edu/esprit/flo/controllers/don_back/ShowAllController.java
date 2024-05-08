@@ -6,31 +6,43 @@ import edu.esprit.flo.entities.User;
 import edu.esprit.flo.services.DonService;
 import edu.esprit.flo.utils.AlertUtils;
 import edu.esprit.flo.utils.Constants;
+import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import org.controlsfx.control.action.Action;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ShowAllController implements Initializable {
 
     public static Don currentDon;
+
+    @FXML
+    private Button STAT;
 
     @FXML
     public Text topText;
@@ -51,26 +63,69 @@ public class ShowAllController implements Initializable {
         listDon = DonService.getInstance().getAll();
         displayData();
 
-        search.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.isEmpty()) {
-                    List<Don> searchResults = DonService.getInstance().search(newValue);
-                    if (!searchResults.isEmpty()) {
-                        listDon.clear();
-                        listDon.addAll(searchResults);
-                        displayData();
-                    } else {
-                        AlertUtils.makeInformation("No matching results found.");
-                    }
-                } else {
-                    // If the search field is empty, display all data
+        search.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+            if (!newValue.isEmpty()) {
+                // Use Java streams to filter the listDechets based on the search text
+                List<Don> searchResults = listDon.stream()
+                        .filter(currentDon ->
+                                currentDon.getType().toLowerCase().contains(newValue.toLowerCase()) ||
+                                        currentDon.getDescription().toLowerCase().contains(newValue.toLowerCase())
+                                        )
+                        .collect(Collectors.toList());
+
+                if (!searchResults.isEmpty()) {
+                    // Update the listDechets with search results and display data
                     listDon.clear();
-                    listDon.addAll(DonService.getInstance().getAll());
+                    listDon.addAll(searchResults);
                     displayData();
+                } else {
+                    AlertUtils.makeInformation("No matching results found.");
                 }
+            } else {
+                // If the search field is empty, display all data
+                listDon.clear();
+                listDon.addAll(DonService.getInstance().getAll());
+                displayData();
             }
         });
+    }
+    @FXML
+    void STAT(ActionEvent event) {
+        // Create a new stage
+        Stage stage = new Stage();
+
+        // Assuming you have a method to get all Donations
+        List<Don> allDonations = listDon;
+
+        // Group by type and count
+        Map<String, Long> typeCounts = allDonations.stream()
+                .collect(Collectors.groupingBy(Don::getType, Collectors.counting()));
+
+        // Create pie chart data
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+
+        for (Map.Entry<String, Long> entry : typeCounts.entrySet()) {
+            PieChart.Data data = new PieChart.Data(entry.getKey(), entry.getValue());
+            pieChartData.add(data);
+        }
+
+        // Create the PieChart
+        PieChart pieChart = new PieChart(pieChartData);
+
+        // Add a label to each slice
+        pieChartData.forEach(data ->
+                data.nameProperty().bind(
+                        Bindings.concat(
+                                data.getName(), " ", data.pieValueProperty()
+                        )
+                )
+        );
+
+        // Create the scene and show the stage
+        StackPane root = new StackPane(pieChart);
+        Scene scene = new Scene(root, 800, 600);
+        stage.setScene(scene);
+        stage.show();
     }
     void displayData() {
         mainVBox.getChildren().clear();
