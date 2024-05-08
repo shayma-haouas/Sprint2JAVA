@@ -101,7 +101,7 @@ public class DonService {
         return false;
     }
 
-   // public boolean edit(Don don) {
+    public boolean edit(Don don) {
 
         String request = "UPDATE `don` SET `type` = ?, `description` = ?, `date_don` = ?, `user_id` = ? WHERE `id` = ?" ;
 
