@@ -150,7 +150,7 @@ public class FactureDonService {
         }
         return false;
     }
-    public List<FactureDon> search(String query) {
+   // public List<FactureDon> search(String query) {
         List<FactureDon> searchResults = new ArrayList<>();
         try {
             String searchQuery = "SELECT * FROM `facture_don` AS x "
