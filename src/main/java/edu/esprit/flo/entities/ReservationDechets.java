@@ -1,6 +1,6 @@
 package edu.esprit.flo.entities;
 
-
+import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 
 public class ReservationDechets {
@@ -89,7 +89,13 @@ public class ReservationDechets {
         this.dechets = dechets;
     }
     public String getFormattedReservation() {
-        return "Date: " + date + "\nType of Waste: " + dechets.getType() + "\nQuantity: " + quantite;
+        // Define a date format
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        // Format the date into a string
+        String formattedDate = date.format(formatter);
+
+        return "Date:"+formattedDate;
     }
 
 

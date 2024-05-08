@@ -57,12 +57,12 @@ public class ManageController implements Initializable {
     //mailing
     private final String username = "mehdi.bouazra@esprit.tn";
     private final String password = "211JMT4841";
-    private final String recipientEmail = "oussama.bahrouni@esprit.tn";
+    private final String recipientEmail = "haydar.boudhrioua@esprit.tn";
     private final String subject = "Reservation Confirmation";
     private final String messageContent = "Your reservation has been confirmed.";
     //sms
     private final String ACCOUNT_SID = "AC0cc518338273e58b968d9112e6262d8f";
-    private final String AUTH_TOKEN = "ed6372820948bd24942d539ada0fb76b";
+    private final String AUTH_TOKEN = "941833b24afbef687dac330bb5775f97";
     public static Dechets currentDechets;
 
     @Override
@@ -141,8 +141,7 @@ public class ManageController implements Initializable {
 
 //
                     AlertUtils.makeSuccessNotification("ReservationDechets modifié avec succés");
-                    sendConfirmationEmail();
-                    sendSMSConfirmation(); // New line for sending SMS confirmation
+                    // New line for sending SMS confirmation
                     ShowAllController.currentReservationDechets = null;
                     MainWindowController.getInstance().loadInterface(Constants.FXML_FRONT_DISPLAY_ALL_RESERVATION_DECHETS);
                 } else {

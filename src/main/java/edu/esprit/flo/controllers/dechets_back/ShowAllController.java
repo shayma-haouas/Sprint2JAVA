@@ -130,7 +130,9 @@ public class ShowAllController implements Initializable {
                         .filter(dechets ->
                                 dechets.getType().toLowerCase().contains(newValue.toLowerCase()) ||
                                         dechets.getDescription().toLowerCase().contains(newValue.toLowerCase()) ||
-                                        String.valueOf(dechets.getQuantite()).toLowerCase().contains(newValue.toLowerCase()))
+                                        String.valueOf(dechets.getQuantite()).toLowerCase().contains(newValue.toLowerCase()) ||
+                                        String.valueOf(dechets.getId()).toLowerCase().contains(newValue.toLowerCase()) ||
+                                        dechets.getDateEntre().toString().toLowerCase().contains(newValue.toLowerCase()))
                         .collect(Collectors.toList());
 
                 if (!searchResults.isEmpty()) {

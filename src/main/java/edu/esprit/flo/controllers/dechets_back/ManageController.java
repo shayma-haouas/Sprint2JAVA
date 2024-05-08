@@ -1,5 +1,5 @@
 package edu.esprit.flo.controllers.dechets_back;
-
+import java.time.LocalDate;
 import edu.esprit.flo.MainApp;
 import edu.esprit.flo.controllers.MainWindowControllerBack;
 import edu.esprit.flo.entities.Dechets;
@@ -151,8 +151,12 @@ public class ManageController implements Initializable {
             return false;
         }
 
-        if (dateEntreDP.getValue() == null) {
-            AlertUtils.makeInformation("Choisir une date pour dateEntre");
+        LocalDate selectedDate = dateEntreDP.getValue();
+        LocalDate currentDate = LocalDate.now();
+
+        // Check if selectedDate is null or in the past
+        if (selectedDate == null || selectedDate.isBefore(currentDate)) {
+            AlertUtils.makeInformation("Veuillez choisir une date future pour dateEntre.");
             return false;
         }
 

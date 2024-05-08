@@ -35,6 +35,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class ShowAllController implements Initializable {
 
@@ -59,24 +60,32 @@ public class ShowAllController implements Initializable {
 
         displayData();
 
-        searchField2.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.isEmpty()) {
-                    List<Dechets> searchResults = DechetsService.getInstance().search(newValue);
-                    if (!searchResults.isEmpty()) {
-                        listDechets.clear();
-                        listDechets.addAll(searchResults);
-                        displayData();
-                    } else {
-                        AlertUtils.makeInformation("No matching results found.");
-                    }
-                } else {
-                    // If the search field is empty, display all data
+        // Add a listener to the text property of searchField
+        searchField2.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+            if (!newValue.isEmpty()) {
+                // Use Java streams to filter the listDechets based on the search text
+                List<Dechets> searchResults = listDechets.stream()
+                        .filter(dechets ->
+                                dechets.getType().toLowerCase().contains(newValue.toLowerCase()) ||
+                                        dechets.getDescription().toLowerCase().contains(newValue.toLowerCase()) ||
+                                        String.valueOf(dechets.getQuantite()).toLowerCase().contains(newValue.toLowerCase()) ||
+                                        String.valueOf(dechets.getId()).toLowerCase().contains(newValue.toLowerCase()) ||
+                                        dechets.getDateEntre().toString().toLowerCase().contains(newValue.toLowerCase()))
+                        .collect(Collectors.toList());
+
+                if (!searchResults.isEmpty()) {
+                    // Update the listDechets with search results and display data
                     listDechets.clear();
-                    listDechets.addAll(DechetsService.getInstance().getAll());
+                    listDechets.addAll(searchResults);
                     displayData();
+                } else {
+                    AlertUtils.makeInformation("No matching results found.");
                 }
+            } else {
+                // If the search field is empty, display all data
+                listDechets.clear();
+                listDechets.addAll(DechetsService.getInstance().getAll());
+                displayData();
             }
         });
 

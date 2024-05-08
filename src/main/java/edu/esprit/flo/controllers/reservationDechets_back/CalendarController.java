@@ -21,6 +21,7 @@ public class CalendarController implements Initializable {
     List<ReservationDechets> listReservationDechets;
 
     ZonedDateTime dateFocus;
+    Color customColor = Color.web("#8fb43a");
     ZonedDateTime today;
 
     @FXML
@@ -96,11 +97,11 @@ public class CalendarController implements Initializable {
                         List<ReservationDechets> reservationDechetsList = reservationDechetsMap.get(currentDate);
                         if (reservationDechetsList != null && !reservationDechetsList.isEmpty()) {
                             createReservationDechets(reservationDechetsList, rectangleHeight, rectangleWidth, stackPane);
-                            rectangle.setFill(Color.BLUE); // Set the box color to blue if there are reservations
+                            rectangle.setFill(customColor); // Set the box color to blue if there are reservations
                         }
                     }
                     if (today.getYear() == dateFocus.getYear() && today.getMonth() == dateFocus.getMonth() && today.getDayOfMonth() == currentDate) {
-                        rectangle.setStroke(Color.BLUE);
+                        rectangle.setStroke(customColor);
                     }
                 }
                 calendar.getChildren().add(stackPane);

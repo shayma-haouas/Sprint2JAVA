@@ -1,7 +1,9 @@
 package edu.esprit.flo.controllers.reservationDechets;
 
 import edu.esprit.flo.controllers.MainWindowController;
+import edu.esprit.flo.entities.Dechets;
 import edu.esprit.flo.entities.ReservationDechets;
+import edu.esprit.flo.services.DechetsService;
 import edu.esprit.flo.services.ReservationDechetsService;
 import edu.esprit.flo.utils.AlertUtils;
 import edu.esprit.flo.utils.Constants;
@@ -27,6 +29,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ShowAllController implements Initializable {
 
@@ -54,24 +57,34 @@ public class ShowAllController implements Initializable {
 
         displayData();
 
-        searchField3.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.isEmpty()) {
-                    List<ReservationDechets> searchResults = ReservationDechetsService.getInstance().search(newValue);
-                    if (!searchResults.isEmpty()) {
-                        listReservationDechets.clear();
-                        listReservationDechets.addAll(searchResults);
-                        displayData();
-                    } else {
-                        AlertUtils.makeInformation("No matching results found.");
-                    }
-                } else {
-                    // If the search field is empty, display all data
+        searchField3.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+            if (!newValue.isEmpty()) {
+                // Use Java streams to filter the listDechets based on the search text
+                List<ReservationDechets> searchResults = listReservationDechets.stream()
+                        .filter(reservationDechets ->
+                                reservationDechets.getNomFournisseur().toLowerCase().contains(newValue.toLowerCase()) ||
+                                        String.valueOf(reservationDechets.getQuantite()).toLowerCase().contains(newValue.toLowerCase()) ||
+                                        String.valueOf(reservationDechets.getDate()).toLowerCase().contains(newValue.toLowerCase()) ||
+                                        String.valueOf(reservationDechets.getDateRamassage()).toLowerCase().contains(newValue.toLowerCase()) ||
+                                        String.valueOf(reservationDechets.getNumeroTell()).toLowerCase().contains(newValue.toLowerCase()) ||
+
+                                        reservationDechets.getDechets().getType().toLowerCase().contains(newValue.toLowerCase())
+                        )
+                        .collect(Collectors.toList());
+
+                if (!searchResults.isEmpty()) {
+                    // Update the listDechets with search results and display data
                     listReservationDechets.clear();
-                    listReservationDechets.addAll(ReservationDechetsService.getInstance().getAll());
+                    listReservationDechets.addAll(searchResults);
                     displayData();
+                } else {
+                    AlertUtils.makeInformation("No matching results found.");
                 }
+            } else {
+                // If the search field is empty, display all data
+                listReservationDechets.clear();
+                listReservationDechets.addAll(ReservationDechetsService.getInstance().getAll());
+                displayData();
             }
         });
     }

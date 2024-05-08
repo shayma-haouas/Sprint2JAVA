@@ -48,6 +48,7 @@ import java.util.Optional;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ShowAllController implements Initializable {
 
@@ -99,24 +100,34 @@ public class ShowAllController implements Initializable {
         listReservationDechets = ReservationDechetsService.getInstance().getAll();
 
         displayData();
-        searchField4.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.isEmpty()) {
-                    List<ReservationDechets> searchResults = ReservationDechetsService.getInstance().search(newValue);
-                    if (!searchResults.isEmpty()) {
-                        listReservationDechets.clear();
-                        listReservationDechets.addAll(searchResults);
-                        displayData();
-                    } else {
-                        AlertUtils.makeInformation("No matching results found.");
-                    }
-                } else {
-                    // If the search field is empty, display all data
+        searchField4.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
+            if (!newValue.isEmpty()) {
+                // Use Java streams to filter the listDechets based on the search text
+                List<ReservationDechets> searchResults = listReservationDechets.stream()
+                        .filter(reservationDechets ->
+                                reservationDechets.getNomFournisseur().toLowerCase().contains(newValue.toLowerCase()) ||
+                                        String.valueOf(reservationDechets.getQuantite()).toLowerCase().contains(newValue.toLowerCase()) ||
+                                        String.valueOf(reservationDechets.getDate()).toLowerCase().contains(newValue.toLowerCase()) ||
+                                        String.valueOf(reservationDechets.getDateRamassage()).toLowerCase().contains(newValue.toLowerCase()) ||
+                                        String.valueOf(reservationDechets.getNumeroTell()).toLowerCase().contains(newValue.toLowerCase()) ||
+
+                                        reservationDechets.getDechets().getType().toLowerCase().contains(newValue.toLowerCase())
+                        )
+                        .collect(Collectors.toList());
+
+                if (!searchResults.isEmpty()) {
+                    // Update the listDechets with search results and display data
                     listReservationDechets.clear();
-                    listReservationDechets.addAll(ReservationDechetsService.getInstance().getAll());
+                    listReservationDechets.addAll(searchResults);
                     displayData();
+                } else {
+                    AlertUtils.makeInformation("No matching results found.");
                 }
+            } else {
+                // If the search field is empty, display all data
+                listReservationDechets.clear();
+                listReservationDechets.addAll(ReservationDechetsService.getInstance().getAll());
+                displayData();
             }
         });
     }
@@ -142,8 +153,7 @@ public class ShowAllController implements Initializable {
     }
 
     public Parent makeReservationDechetsModel(
-            ReservationDechets reservationDechets
-    ) {
+            ReservationDechets reservationDechets) {
         Parent parent = null;
         try {
             parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(Constants.FXML_BACK_MODEL_RESERVATION_DECHETS)));
@@ -157,7 +167,6 @@ public class ShowAllController implements Initializable {
             ((Text) innerContainer.lookup("#userText")).setText("User : " + (reservationDechets.getUser() == null ? "null" : reservationDechets.getUser().toString()));
             ((Text) innerContainer.lookup("#dechetTextt")).setText("Dechet : " + (reservationDechets.getDechets() == null ? "null" : reservationDechets.getDechets().toString()));
 
-            ((Text) innerContainer.lookup("#dateText")).setText(reservationDechets.getFormattedReservation());
 
 
             ((Button) innerContainer.lookup("#editButton")).setOnAction((event) -> modifierReservationDechets(reservationDechets));
