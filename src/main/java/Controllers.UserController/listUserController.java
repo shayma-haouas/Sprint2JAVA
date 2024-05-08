@@ -119,6 +119,7 @@ public class listUserController {
                             Button editButton = new Button("Editer");
                             Button deleteButton = new Button("Supprimer");
 
+
                             editButton.setOnAction(event -> {
                                 openUpdateUserWindow(user);
                             });
@@ -132,11 +133,14 @@ public class listUserController {
                             // Créer un HBox pour aligner les boutons à droite
                             HBox hbox = new HBox(editButton, deleteButton);
                             hbox.setSpacing(50); // Espace entre les boutons
-
+                            Insets buttonMargin = new Insets(100, 0, 0, 0); // Marge de 50 pixels en haut, 0 à droite, 0 en bas, 0 à gauche
+                            HBox.setMargin(editButton, buttonMargin);
+                            HBox.setMargin(deleteButton, buttonMargin);
                             // Créer un HBox global pour aligner les éléments
                             HBox globalHBox = new HBox(hBox, hbox);
-                            globalHBox.setSpacing(50); // Espace entre le texte et les boutons
-                            globalHBox.setStyle("-fx-background-color: #aac98e;");
+                            globalHBox.setSpacing(20); // Espace entre le texte et les boutons
+                           // globalHBox.setAlignment(Pos.CENTER);
+                            globalHBox.setStyle("-fx-background-color: #bbcbac;");
                             // Définir le graphique de la cellule comme le HBox global
                             setGraphic(globalHBox);
                         }
