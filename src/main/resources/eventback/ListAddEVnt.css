@@ -12,14 +12,14 @@
 }
 
 /* Button Styles */
-#btnajouter, #trie1, #trie {
+ #trie1, #trie {
     -fx-background-color: linear-gradient(to top, rgba(136, 180, 78, 0.6), #2f611f);
     -fx-text-fill: white;
     -fx-font: 18px "Arial Bold";
     -fx-background-radius: 20;
 }
 
-#btnajouter:hover, #trie1:hover, #trie:hover {
+#trie1:hover, #trie:hover {
     -fx-background-color: #3a7f2b; /* Adjusted hover color */
 }
 

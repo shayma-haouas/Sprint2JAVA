@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.Button?>
 <AnchorPane onMousePressed="#click" prefHeight="260.0" prefWidth="277.0" stylesheets="@card1.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Card1">
     <children>
         <VBox alignment="TOP_CENTER" layoutX="25.0" prefHeight="260.0" prefWidth="277.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -15,17 +16,22 @@
 
                 <VBox alignment="CENTER" prefHeight="61.0" prefWidth="218.0">
                     <children>
-                        <Label fx:id="nameLabel" text="Cherry">
+                        <Label fx:id="ID" >
                             <font>
                                 <Font name="Cambria" size="20.0" />
                             </font>
                         </Label>
-                        <Label fx:id="typeLabel" text="\$0.99">
+                        <Label fx:id="nameLabel" >
+                            <font>
+                                <Font name="Cambria" size="20.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="typeLabel" >
                             <font>
                                 <Font name="Cambria Bold" size="14.0" />
                             </font>
                         </Label>
-                        <Label fx:id="placeLabel" text="\$2.99">
+                        <Label fx:id="placeLabel" >
                             <font>
                                 <Font name="Cambria" size="20.0" />
                             </font>
@@ -47,6 +53,9 @@
                 </ImageView>
             </children>
         </VBox>
+
+
+
     </children>
     <styleClass>
         <String fx:value="fruit-item" />

@@ -8,30 +8,35 @@ public class MyDatabase {
 
     final String URL = "jdbc:mysql://localhost:3306/flo_dbtfin";
 
-    final String USERNAME = "root";
-    final String PASSWORD = "";
-    Connection connection;
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "";
 
-    static MyDatabase instance;
+    private static MyDatabase instance;
 
     private MyDatabase() {
         try {
-            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            System.out.println("Connexion établie");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            // Optionally load the driver class
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            System.out.println("MySQL JDBC driver not found.");
         }
     }
-    // Static method to get the singleton instance
-    public static MyDatabase getInstance() {
+
+    public static synchronized MyDatabase getInstance() {
         if (instance == null) {
             instance = new MyDatabase();
         }
         return instance;
     }
 
-    // Method to get the database connection
     public Connection getConnection() {
-        return connection;
+        try {
+            Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            System.out.println("New connection established.");
+            return connection;
+        } catch (SQLException e) {
+            System.out.println("Failed to create a new connection: " + e.getMessage());
+            throw new RuntimeException("Failed to create a new connection.", e);
+        }
     }
 }

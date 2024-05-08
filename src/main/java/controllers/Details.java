@@ -1,0 +1,48 @@
+package controllers;
+import entities.Evenement;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import controllers.Mylistener;
+import services.ServiceEvenement;
+
+public class Details {
+
+
+
+
+
+    @FXML
+    private Label nameLabel;
+
+    @FXML
+    private Label typeLabel;
+
+    @FXML
+    private Label placeLabel;
+
+    @FXML
+    private Button participateButton;
+
+    private Evenement evenement;
+
+    public void setEvent(Evenement evenement) {
+        this.evenement = evenement;
+
+        typeLabel.setText("Type: " + evenement.getType());
+        placeLabel.setText("Location: " + evenement.getLieu());
+    }
+
+    @FXML
+    private void participateInEvent() {
+        int userId = 1; // Replace with actual userId
+        int eventId = evenement.getId();
+        ServiceEvenement serviceEvenement = new ServiceEvenement();
+        serviceEvenement.updateParticipantsCount( eventId);
+        // Add any further logic after participating in the event
+    }
+}

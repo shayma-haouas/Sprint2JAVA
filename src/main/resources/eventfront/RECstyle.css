@@ -1,0 +1,30 @@
+#titleLabel {
+
+     -fx-background-image: url('file:///C:/Users/Chaima/Desktop/Sprint2JAVA/src/main/resources/imgs/hed.jpg');
+      -fx-background-repeat: no-repeat;
+      -fx-background-size: cover;
+      -fx-background-position: center;
+
+      -fx-text-fill: #017907; /* Text color */
+    -fx-padding:40 px; /* Adjust padding as needed */
+    -fx-alignment: center; /* Center align the Label */
+}
+
+.scroll-pane {
+    -fx-background-color: transparent; /* Make the scroll pane background transparent */
+}
+
+.event-card {
+
+ -fx-background-color: #f0fff0; /* Very light green background */
+    -fx-border-color: #dddddd; /* Light border color for the event card */
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px; /* Round rectangle border */
+    -fx-padding: 10px; /* Add padding for space between content and border */
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.2) , 10, 0.0 , 0 , 2 );
+    -fx-background-radius: 10px; /* Round background */
+    -fx-background-insets: 0, 1;
+    -fx-text-fill: #333333; /* Text color */
+    -fx-font-size: 14px; /* Font size */
+     -fx-alignment: center;/* Round rectangle border */
+}

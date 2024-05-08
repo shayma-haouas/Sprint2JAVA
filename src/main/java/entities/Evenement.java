@@ -1,6 +1,13 @@
 package entities;
 
+import java.util.List;
+import java.util.Set;
+import javax.persistence.*;
+
 public class Evenement {
+
+    @OneToMany(mappedBy = "evenement", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<EvenementUser> evenementUsers;
     private int id, sponsor_id;
     private String nameevent,lieu,type,description;
     private String datedebut, datefin;
@@ -10,7 +17,31 @@ public class Evenement {
 
     public Evenement() {
     }
-//constructeur meghyr id meghyr sponsor obj
+
+    public List<EvenementUser> getEvenementUsers() {
+        return evenementUsers;
+    }
+
+    public void setEvenementUsers(List<EvenementUser> evenementUsers) {
+        this.evenementUsers = evenementUsers;
+    }
+
+    public Evenement(List<EvenementUser> evenementUsers, int id, int sponsor_id, String nameevent, String lieu, String type, String description, String datedebut, String datefin, String image, int nbparticipant, Sponsor sponsor) {
+        this.evenementUsers = evenementUsers;
+        this.id = id;
+        this.sponsor_id = sponsor_id;
+        this.nameevent = nameevent;
+        this.lieu = lieu;
+        this.type = type;
+        this.description = description;
+        this.datedebut = datedebut;
+        this.datefin = datefin;
+        this.image = image;
+        this.nbparticipant = nbparticipant;
+        this.sponsor = sponsor;
+    }
+
+    //constructeur meghyr id meghyr sponsor obj
     public Evenement(int sponsor_id , String nameevent, String type, String datedebut , String datefin, String description, int nbparticipant, String lieu, String image ) {
         this.sponsor_id = sponsor_id;
         this.nameevent = nameevent;
@@ -140,6 +171,9 @@ public class Evenement {
         this.sponsor = sponsor;
     }
 
+
+
+
     @Override
     public String toString() {
         return "Evenement{" +
@@ -154,6 +188,8 @@ public class Evenement {
                 ", image='" + image + '\'' +
                 ", nbparticipant=" + nbparticipant +
                 ", sponsor=" + sponsor +
+
+
                 '}';
     }
 }

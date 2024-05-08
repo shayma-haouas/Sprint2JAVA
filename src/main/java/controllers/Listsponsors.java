@@ -1,5 +1,7 @@
 package controllers;
 
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import entities.Sponsor;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -144,7 +147,6 @@ public class Listsponsors {
         }
     }
 
-
     public class SponsorListCell extends ListCell<Sponsor> {
         private final BorderPane cellPane = new BorderPane();
         private final Button editButton;
@@ -154,27 +156,34 @@ public class Listsponsors {
 
         public SponsorListCell(ListView<Sponsor> listView) {
             this.listView = listView;
-            editButton = new Button("Edit");
-            deleteButton = new Button("Delete");
+            editButton = new Button();
+            deleteButton = new Button();
             buttonsContainer = new HBox(editButton, deleteButton);
 
+            // Set icons for edit and delete buttons
+            FontAwesomeIconView editIcon = new FontAwesomeIconView(FontAwesomeIcon.EDIT);
+            editIcon.setSize("30");
+            editButton.setGraphic(editIcon);
+            editButton.setStyle("-fx-background-color: transparent;"); // Remove background color
+            editButton.setCursor(Cursor.HAND); // Set cursor to hand
+
+            FontAwesomeIconView deleteIcon = new FontAwesomeIconView(FontAwesomeIcon.TRASH);
+            deleteIcon.setSize("30");
+            deleteButton.setGraphic(deleteIcon);
+            deleteButton.setStyle("-fx-background-color: transparent;"); // Remove background color
+            deleteButton.setCursor(Cursor.HAND); // Set cursor to hand
+
+            // Add action listeners for edit and delete buttons
             editButton.setOnAction(event -> {
                 Sponsor sponsor = getItem();
-                if (sponsor != null) {
+                if (sponsor!= null) {
                     openEditSponsorInterface(sponsor);
                 }
             });
 
-            // Your other initialization code...
-
-
-            // Method to open the modifspon interface for editing the sponsor
-
-            // Your other methods...
-
             deleteButton.setOnAction(event -> {
                 Sponsor sponsor = getItem();
-                if (sponsor != null) {
+                if (sponsor!= null) {
                     // Remove the sponsor from the ListView
                     listView.getItems().remove(sponsor);
                     // Call your deletion method here passing the sponsor's ID
@@ -183,13 +192,12 @@ public class Listsponsors {
             });
 
             // Optionally, you can set spacing between buttons or customize the layout
-
-            // Set alignment to the right
             buttonsContainer.setSpacing(10);
-            cellPane.setRight(buttonsContainer);
+
             // Set the container as the graphic of the cell
-            setGraphic(buttonsContainer);
+            setGraphic(cellPane);
         }
+
         private void openEditSponsorInterface(Sponsor sponsor) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/eventback/modifspon.fxml"));
@@ -263,6 +271,7 @@ public class Listsponsors {
 
             alert.showAndWait();
         }
+
         private void showSuccessAlert(String title, String message) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle(title);
@@ -278,6 +287,7 @@ public class Listsponsors {
             alert.setContentText(message);
             alert.showAndWait();
         }
+
         @Override
         protected void updateItem(Sponsor sponsor, boolean empty) {
             super.updateItem(sponsor, empty);
@@ -297,6 +307,7 @@ public class Listsponsors {
             }
         }
     }
+
 
     //By extending ListCell<Sponsor>, you're creating a
     // custom cell implementation tailored to display Sponsor objects in a ListView.

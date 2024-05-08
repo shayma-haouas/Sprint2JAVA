@@ -24,19 +24,53 @@
     -fx-padding: 10px; /* Add padding */
 }
 
-.button {
-    -fx-background-color: linear-gradient(to bottom, #74ad2e, #2f611f); /* Gradient background for buttons */
-    -fx-background-radius: 20; /* Rounded corners */
-    -fx-text-fill: white; /* Black text color */
-    -fx-font-size: 16px; /* Font size */
-    -fx-font-family: "Corbel Bold Italic"; /* Font family */
-    -fx-pref-width: 120px; /* Adjusted width */
-    -fx-pref-height: 40px; /* Adjusted height */
+
+
+/* Button Styles */
+#btnajouter, #trie1, #trie {
+    -fx-background-color: linear-gradient(to top, rgba(136, 180, 78, 0.6), #2f611f);
+    -fx-text-fill: white;
+    -fx-font: 18px "Arial Bold";
+    -fx-background-radius: 20;
 }
 
-.button:hover {
-    -fx-background-color: linear-gradient(to bottom, #9bdd4d, #457a29); /* Darker gradient on hover */
+#btnajouter:hover, #trie1:hover, #trie:hover {
+    -fx-background-color: #3a7f2b; /* Adjusted hover color */
 }
+
+.custom-button {
+     -fx-background-color: #2f611f;
+     -fx-text-fill: white;
+     -fx-border-color: #131314;
+     -fx-border-radius: 5px;
+     -fx-background-radius: 5px;
+ }
+
+ .custom-button:hover {
+     -fx-background-color: #131314;
+     -fx-text-fill: #2f611f;
+ }
+
+ .custom-text-field {
+     -fx-background-color: #100f0f;
+     -fx-text-fill: #fffdfa;
+     -fx-border-color: #131314;
+     -fx-border-radius: 5px;
+     -fx-background-radius: 5px;
+ }
+
+ .custom-text-field:focused {
+     -fx-border-color: #2f611f;
+ }
+ .button {
+     -fx-background-color: #2f611f; /* Green background for buttons */
+     -fx-text-fill: white; /* White text for buttons */
+ }
+
+ .button:hover {
+     -fx-background-color: #131314; /* Dark grey background on hover */
+ }
+
 
 .text-field {
     -fx-background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white background for text fields */

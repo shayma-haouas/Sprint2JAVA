@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="@/eventback/styleADDEV.css" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Crudevent">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" stylesheets="/eventback/add.css" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Crudevent">
 
     <children>
         <ScrollPane AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
@@ -73,11 +73,11 @@
                                 <Font size="18.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="tfnameEV" layoutX="156.0" layoutY="122.0" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: white; -fx-border-color: #131314; -fx-border-radius: 5px; -fx-background-radius: 5px;" />
-                        <TextField fx:id="tflieu" layoutX="156.0" layoutY="418.0" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: white; -fx-border-color: #131314; -fx-border-radius: 5px; -fx-background-radius: 5px;" />
-                        <TextField fx:id="tftype" layoutX="156.0" layoutY="167.0" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: white; -fx-border-color: #131314; -fx-border-radius: 5px; -fx-background-radius: 5px;" />
-                        <TextField fx:id="tfdescription" layoutX="156.0" layoutY="216.0" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: white; -fx-border-color: #131314; -fx-border-radius: 5px; -fx-background-radius: 5px;" />
-                        <TextField fx:id="tfnbParticipant" layoutX="156.0" layoutY="364.0" prefHeight="25.0" prefWidth="200.0" style="-fx-background-color: white; -fx-border-color: #131314; -fx-border-radius: 5px; -fx-background-radius: 5px;" />
+                        <TextField fx:id="tfnameEV" layoutX="156.0" layoutY="122.0" prefHeight="25.0" prefWidth="200.0"  />
+                        <TextField fx:id="tflieu" layoutX="156.0" layoutY="418.0" prefHeight="25.0" prefWidth="200.0" />
+                        <TextField fx:id="tftype" layoutX="156.0" layoutY="167.0" prefHeight="25.0" prefWidth="200.0" />
+                        <TextField fx:id="tfdescription" layoutX="156.0" layoutY="216.0" prefHeight="25.0" prefWidth="200.0"  />
+                        <TextField fx:id="tfnbParticipant" layoutX="156.0" layoutY="364.0" prefHeight="25.0" prefWidth="200.0"  />
                         <ComboBox fx:id="cbsponsor" layoutX="156.0" layoutY="77.0" onAction="#selectsponsor" prefWidth="200.0" />
                         <DatePicker fx:id="tfdatedebut" layoutX="156.0" layoutY="267.0" prefWidth="200.0" />
                         <DatePicker fx:id="tfdatefin" layoutX="156.0" layoutY="318.0" prefWidth="200.0" />

@@ -3,8 +3,10 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -18,124 +20,186 @@
     <children>
         <BorderPane layoutX="6.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <left>
-                <VBox prefHeight="200.0" prefWidth="435.0" styleClass="right-bar" stylesheets="@card1.css" BorderPane.alignment="CENTER">
+                <VBox prefHeight="805.0" prefWidth="454.0" styleClass="right-bar" stylesheets="@card1.css" BorderPane.alignment="CENTER">
                     <children>
-                        <HBox alignment="CENTER" prefHeight="110.0" prefWidth="200.0">
+                         <ImageView fitHeight="51.0" fitWidth="68.0" onMouseClicked="#goToRecommendedEvents">
+                             <image>
+                                 <Image url="@/imgs/coming-soon.png" />
+                             </image>
+                         </ImageView>
+                        <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="51.0" prefWidth="256.0">
                             <children>
-                                <Label prefHeight="49.0" prefWidth="128.0" text="Event" textFill="#878787">
+                                <Label prefHeight="49.0" prefWidth="110.0" text="Event" textFill="#878787">
                                     <font>
                                         <Font name="Cambria Bold" size="40.0" />
                                     </font>
                                 </Label>
-                                <Label text="Detail" textFill="#878787">
+                                <Label prefHeight="56.0" prefWidth="147.0" text="Details" textFill="#878787">
                                     <font>
                                         <Font name="Cambria" size="40.0" />
                                     </font>
                                 </Label>
                             </children>
+                     <VBox.margin>
+                        <Insets bottom="15.0" left="103.0" top="-30.0" />
+                     </VBox.margin>
                         </HBox>
-                        <HBox alignment="CENTER" prefHeight="65.0" prefWidth="200.0" stylesheets="@card1.css" VBox.vgrow="NEVER">
-                            <VBox.margin>
-                                <Insets left="30.0" right="30.0" />
-                            </VBox.margin>
+                        <Pane prefHeight="57.0" prefWidth="435.0" VBox.vgrow="ALWAYS">
                             <children>
-                                <TextField prefHeight="40.0" prefWidth="235.0" promptText="Type here to search" styleClass="transparent" stylesheets="@card1.css">
-                                    <HBox.margin>
-                                        <Insets left="20.0" />
-                                    </HBox.margin>
-                                    <font>
-                                        <Font name="Cambria" size="18.0" />
-                                    </font>
-                                </TextField>
-                                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" styleClass="search-button" stylesheets="@card1.css" text="Search" textFill="WHITE" />
+                                <HBox alignment="CENTER" layoutX="31.0" prefHeight="59.0" prefWidth="374.0" stylesheets="@card1.css">
+                                    <children>
+                                        <TextField fx:id="searchTextField" prefHeight="40.0" prefWidth="235.0" promptText="Type here to search" styleClass="transparent" stylesheets="@card1.css">
+                                            <HBox.margin>
+                                                <Insets left="20.0" />
+                                            </HBox.margin>
+                                            <font>
+                                                <Font name="Cambria" size="18.0" />
+                                            </font>
+                                        </TextField>
+                                    </children>
+                                    <styleClass>
+                                        <String fx:value="search-box" />
+                                        <String fx:value="shadow" />
+                                    </styleClass>
+                                </HBox>
+                              <!-- Filter TextFields and DatePicker -->
+                              <HBox alignment="CENTER" layoutX="-7.0" layoutY="75.0" prefHeight="58.0" prefWidth="458.0" stylesheets="@card1.css">
+
+                                                    <children>
+                                      <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#applyFilters" prefHeight="29.0" prefWidth="89.0" stylesheets="@card1.css" text="Apply Filters" textFill="WHITE">
+                                 <HBox.margin>
+                                    <Insets left="8.0" />
+                                 </HBox.margin></Button>
+                                      <TextField fx:id="typeFilterTextField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="34.0" prefWidth="110.0" promptText="Type Filter" styleClass="transparent" stylesheets="@card1.css">
+                                          <HBox.margin>
+                                              <Insets left="20.0" />
+                                          </HBox.margin>
+                                          <font>
+                                              <Font name="Cambria" size="18.0" />
+                                          </font>
+                                      </TextField>
+                                      <TextField fx:id="locationFilterTextField" minHeight="-Infinity" minWidth="-Infinity" prefHeight="29.0" prefWidth="109.0" promptText="Location Filter" styleClass="transparent" stylesheets="@card1.css">
+                                          <HBox.margin>
+                                              <Insets left="20.0" />
+                                          </HBox.margin>
+                                          <font>
+                                              <Font name="Cambria" size="18.0" />
+                                          </font>
+                                      </TextField>
+                                      <DatePicker fx:id="startDateFilterDatePicker" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="82.0" promptText="Start Date Filter" styleClass="transparent" stylesheets="@card1.css">
+                                          <HBox.margin>
+                                              <Insets left="20.0" />
+                                          </HBox.margin>
+                                      </DatePicker>
+                                  </children>
+                                  <styleClass>
+                                      <String fx:value="filter-box" />
+                                      <String fx:value="shadow" />
+                                  </styleClass>
+                              </HBox>
                             </children>
-                            <styleClass>
-                                <String fx:value="search-box" />
-                                <String fx:value="shadow" />
-                            </styleClass>
-                        </HBox>
-                        <Pane prefHeight="57.0" prefWidth="435.0" VBox.vgrow="ALWAYS" />
-                        <VBox fx:id="chosenFruitCard" alignment="CENTER" prefHeight="532.0" prefWidth="345.0" stylesheets="@card1.css">
+                        </Pane>
+                        <VBox fx:id="chosenFruitCard" alignment="CENTER_LEFT" prefHeight="532.0" prefWidth="345.0" stylesheets="@card1.css">
                             <VBox.margin>
                                 <Insets left="50.0" right="50.0" />
                             </VBox.margin>
                             <children>
-                                <VBox prefHeight="209.0" prefWidth="343.0">
-                                    <children>
-                                        <Label fx:id="eventNameLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="355.0" text="Event Name" textAlignment="CENTER" textFill="WHITE">
-                                            <font>
-                                                <Font name="Cambria" size="36.0" />
-                                            </font>
+                                <VBox prefHeight="457.0" prefWidth="354.0">
+                                <children>
+                                    <Label fx:id="eventNameLabel" contentDisplay="CENTER" prefHeight="29.0" prefWidth="335.0" textFill="WHITE">
+                                        <font>
+                                            <Font name="Cambria" size="36.0" />
+                                        </font>
+                                    </Label>
 
+                                    <Label fx:id="eventSponsorLabel" prefHeight="29.0" prefWidth="335.0" textFill="WHITE">
+                                        <font>
+                                            <Font name="Cambria" size="17.0" />
+                                        </font>
+                                    </Label>
 
-                                        </Label>
-                                        <Label fx:id="eventSponsorLabel" alignment="CENTER" prefHeight="29.0" prefWidth="335.0" textAlignment="JUSTIFY" textFill="WHITE">
-                                            <font>
-                                                <Font name="Cambria" size="17.0" />
-                                            </font>
-                                        </Label>
-                                        <Label fx:id="eventDateLabel1" alignment="CENTER" prefHeight="37.0" prefWidth="365.0" textAlignment="JUSTIFY" textFill="WHITE">
-                                            <font>
-                                                <Font name="Cambria" size="20.0" />
-                                            </font>
-                                        </Label>
-                                        <Label fx:id="eventDateLabel2" alignment="CENTER" prefHeight="33.0" prefWidth="360.0" textAlignment="JUSTIFY" textFill="WHITE">
-                                            <font>
-                                                <Font name="Cambria" size="20.0" />
-                                            </font>
-                                        </Label>
-                                        <Label fx:id="eventTypeLabel" alignment="CENTER" prefHeight="31.0" prefWidth="348.0" textAlignment="JUSTIFY" textFill="WHITE">
-                                            <font>
-                                                <Font name="Cambria" size="20.0" />
-                                            </font>
-                                        </Label>
+                                    <Label fx:id="eventDateLabel1" prefHeight="37.0" prefWidth="365.0" textFill="WHITE">
+                                        <font>
+                                            <Font name="Cambria" size="20.0" />
+                                        </font>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                    </Label>
 
-                                        <Label fx:id="eventLocationLabel" alignment="CENTER" prefHeight="28.0" prefWidth="336.0" textAlignment="JUSTIFY" textFill="WHITE">
-                                            <font>
-                                                <Font name="Cambria" size="20.0" />
-                                            </font>
-                                        </Label>
+                                    <Label fx:id="eventDateLabel2" prefHeight="33.0" prefWidth="360.0" textFill="WHITE">
+                                        <font>
+                                            <Font name="Cambria" size="20.0" />
+                                        </font>
+                                    </Label>
 
-                                        <Label fx:id="eventDescriptionLabel" alignment="CENTER" prefHeight="25.0" prefWidth="338.0" textAlignment="JUSTIFY" textFill="WHITE">
-                                            <font>
-                                                <Font name="Cambria" size="17.0" />
-                                            </font>
-                                        </Label>
+                                    <Label fx:id="eventTypeLabel" prefHeight="31.0" prefWidth="348.0" textFill="WHITE">
+                                        <font>
+                                            <Font name="Cambria" size="20.0" />
+                                        </font>
+                                    </Label>
+
+                                    <Label fx:id="nbpartc" prefHeight="31.0" prefWidth="348.0" textFill="WHITE">
+                                        <font>
+                                            <Font name="Cambria" size="20.0" />
+                                        </font>
+                                    </Label>
+
+                                    <Label fx:id="eventLocationLabel" prefHeight="28.0" prefWidth="336.0" textFill="WHITE">
+                                        <font>
+                                            <Font name="Cambria" size="20.0" />
+                                        </font>
+                                    </Label>
+
+                                    <Label fx:id="eventDescriptionLabel" prefHeight="25.0" prefWidth="338.0" textFill="WHITE">
+                                        <font>
+                                            <Font name="Cambria" size="17.0" />
+                                        </font>
+                                    </Label>
+
+                                      <ImageView fx:id="eventImg" fitHeight="172.0" fitWidth="308.0" pickOnBounds="true" preserveRatio="true">
+                                          <VBox.margin>
+                                              <Insets bottom="9.0" right="2.0" top="21.0" />
+                                          </VBox.margin>
+                                      </ImageView>
+                                        <Button fx:id="nparticipate" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#participate" prefHeight="39.0" prefWidth="147.0" styleClass="add-btn" stylesheets="@card1.css" text="participer" textFill="#828282">
+                                 <VBox.margin>
+                                    <Insets left="10.0" />
+                                 </VBox.margin></Button>
                                     </children>
+
                                     <VBox.margin>
                                         <Insets top="30.0" />
                                     </VBox.margin>
-                                </VBox>
-                                <ImageView fx:id="eventImg" fitHeight="172.0" fitWidth="308.0" pickOnBounds="true" preserveRatio="true">
 
-                                    <VBox.margin>
-                                        <Insets top="20.0" />
-                                    </VBox.margin>
-                                </ImageView>
-                                <!-- Add additional UI elements for event details -->
-                                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="270.0" styleClass="add-btn" stylesheets="@card1.css" text="ADD TO CART" textFill="#828282">
-                                    <VBox.margin>
-                                        <Insets bottom="20.0" top="30.0" />
-                                    </VBox.margin>
-                                    <font>
-                                        <Font name="System Bold" size="18.0" />
-                                    </font>
-                                </Button>
+
+                                </VBox>
                             </children>
                             <styleClass>
                                 <String fx:value="chosen-event-card" />
                                 <String fx:value="shadow" />
                             </styleClass>
+
+                                <!-- Existing children -->
+                                <!-- Add the button here -->
+
                         </VBox>
-                        <Pane prefHeight="57.0" prefWidth="435.0" VBox.vgrow="ALWAYS" />
                     </children>
                 </VBox>
+
             </left>
             <center>
+
                 <GridPane fx:id="grid" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-                    <!-- Content for the GridPane will be dynamically added by the controller -->
+
+
+
                 </GridPane>
+
             </center>
+
+
+
         </BorderPane>
     </children>
 </AnchorPane>

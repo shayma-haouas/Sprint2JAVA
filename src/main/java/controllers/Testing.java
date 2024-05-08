@@ -6,15 +6,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
+import services.ServiceEvenement;
+import javafx.fxml.FXMLLoader;
 public class Testing extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/eventfront/Market.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/eventback/SideBar.fxml"));
         primaryStage.setTitle("Event Market");
         primaryStage.setScene(new Scene(root, 800, 600));
         primaryStage.show();
+
+
+
     }
 
     public static void main(String[] args) {

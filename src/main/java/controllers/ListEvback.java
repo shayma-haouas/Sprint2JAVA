@@ -19,6 +19,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import services.ServiceEvenement;
 import utils.MyDatabase;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -31,6 +32,37 @@ import java.sql.Statement;
 import java.util.Comparator;
 
 public class ListEvback {
+
+
+
+    //nalabo welyna
+
+
+    @FXML
+    private void goToRecommendedEvents(ActionEvent event) {
+        try {
+            // Load the FXML file of the recommended events view
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/eventfront/RECCEV.fxml"));
+            Parent root = loader.load();
+
+            // Get the controller instance
+            REC recommendedEventsController = loader.getController();
+
+            // Populate recommended events
+            recommendedEventsController.populateRecommendedEvents();
+
+            // Set up the stage and scene
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+
+            // Show the recommended events view
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     private Pane content_area;
 
@@ -132,7 +164,8 @@ public class ListEvback {
             return new ListCell<Evenement>() {
                 private final Button editButton = new Button();
                 private final Button deleteButton = new Button();
-                private final HBox buttonsContainer = new HBox(editButton, deleteButton);
+                private final Button participateButton = new Button("Participate");
+                private final HBox buttonsContainer = new HBox(editButton, deleteButton, participateButton);
                 private final BorderPane cellPane = new BorderPane();
 
                 {
@@ -162,7 +195,13 @@ public class ListEvback {
                             listEv.getItems().remove(eventt); // Remove the event from the ListView
                         }
                     });
-
+                    // Add action listener for the Participate button
+                    participateButton.setOnAction(event -> {
+                        Evenement eventt = getItem();
+                        if (eventt != null) {
+                            participateEvent(eventt);
+                        }
+                    });
                     buttonsContainer.setSpacing(0);
                     cellPane.setRight(buttonsContainer);
                 }
@@ -255,8 +294,17 @@ public class ListEvback {
                 // Optionally, show an error alert
             }
         }
-
+        private void participateEvent(Evenement event) {
+            // Call the addUserToEvent method from the ServiceEvenement class
+            ServiceEvenement serviceEvenement = new ServiceEvenement();
+            // Assuming getCurrentUserId() returns the ID of the current user
+            int userId =1; // Provide the user ID here
+            serviceEvenement.updateParticipantsCount( event.getId());
+        }
     }
+
+
+
     @FXML
     void openaddev(ActionEvent event) {
 
