@@ -2,10 +2,7 @@ package edu.esprit.flo.utils;
 
 public class Constants {
 
-    public static String compareVar = "" ;
-
     private static final String PACKAGE_NAME = "/edu/esprit/flo" ;
-
 
     // PRODUIT
     public static final String FXML_BACK_DISPLAY_ALL_PRODUIT = PACKAGE_NAME + "/produit_back/ShowAll.fxml" ;

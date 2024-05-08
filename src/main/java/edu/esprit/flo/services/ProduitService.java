@@ -45,7 +45,6 @@ public class ProduitService implements Iservice<Produit> {
                 produit.setPrix(resultSet.getFloat("prix"));
                 produit.setImage(resultSet.getString("image"));
 
-
                 listProduit.add(produit);
             }
         } catch (SQLException exception) {
@@ -56,8 +55,6 @@ public class ProduitService implements Iservice<Produit> {
 
 
     public boolean add(Produit produit) {
-
-
         String request = "INSERT INTO `produit`(`nomp`, `descp`, `catg`, `prix`, `image`) VALUES(?, ?, ?, ?, ?)" ;
 
         try {

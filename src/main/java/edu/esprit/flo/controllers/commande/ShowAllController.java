@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -41,6 +42,7 @@ public class ShowAllController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         listCommande = CommandeService.getInstance().getAll();
+
 
         displayData();
     }
@@ -77,8 +79,6 @@ public class ShowAllController implements Initializable {
             ((Text) innerContainer.lookup("#datecmdText")).setText("Datecmd : " + commande.getDatecmd());
             ((Text) innerContainer.lookup("#lieucmdText")).setText("Lieucmd : " + commande.getLieucmd());
             ((Text) innerContainer.lookup("#quantiteText")).setText("Quantite : " + commande.getQuantite());
-
-            ((Text) innerContainer.lookup("#userText")).setText("User : " + commande.getUser().toString());
             ((Text) innerContainer.lookup("#produitText")).setText("Produit : " + commande.getProduit().toString());
 
 
@@ -124,6 +124,4 @@ public class ShowAllController implements Initializable {
             }
         }
     }
-
-
 }

@@ -13,11 +13,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class ManageController implements Initializable {
@@ -25,14 +25,9 @@ public class ManageController implements Initializable {
     @FXML
     public TextField montantTF;
     @FXML
-    public DatePicker datecmdDP;
-    @FXML
     public TextField lieucmdTF;
     @FXML
     public TextField quantiteTF;
-
-    @FXML
-    public ComboBox<User> userCB;
     @FXML
     public ComboBox<Produit> produitCB;
 
@@ -47,10 +42,6 @@ public class ManageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        for (User user : CommandeService.getInstance().getAllUsers()) {
-            userCB.getItems().add(user);
-        }
-
         for (Produit produit : CommandeService.getInstance().getAllProduits()) {
             produitCB.getItems().add(produit);
         }
@@ -63,11 +54,9 @@ public class ManageController implements Initializable {
 
             try {
                 montantTF.setText(String.valueOf(currentCommande.getMontant()));
-                datecmdDP.setValue(currentCommande.getDatecmd());
                 lieucmdTF.setText(currentCommande.getLieucmd());
                 quantiteTF.setText(String.valueOf(currentCommande.getQuantite()));
 
-                userCB.setValue(currentCommande.getUser());
                 produitCB.setValue(currentCommande.getProduit());
 
             } catch (NullPointerException ignored) {
@@ -86,11 +75,9 @@ public class ManageController implements Initializable {
 
             Commande commande = new Commande();
             commande.setMontant(Float.parseFloat(montantTF.getText()));
-            commande.setDatecmd(datecmdDP.getValue());
+            commande.setDatecmd(LocalDate.now());
             commande.setLieucmd(lieucmdTF.getText());
             commande.setQuantite(Integer.parseInt(quantiteTF.getText()));
-
-            commande.setUser(userCB.getValue());
             commande.setProduit(produitCB.getValue());
 
             if (currentCommande == null) {
@@ -130,11 +117,6 @@ public class ManageController implements Initializable {
             AlertUtils.makeInformation("montant doit etre un réel");
             return false;
         }
-        if (datecmdDP.getValue() == null) {
-            AlertUtils.makeInformation("Choisir une date pour datecmd");
-            return false;
-        }
-
 
         if (lieucmdTF.getText().isEmpty()) {
             AlertUtils.makeInformation("lieucmd ne doit pas etre vide");
@@ -155,10 +137,6 @@ public class ManageController implements Initializable {
             return false;
         }
 
-        if (userCB.getValue() == null) {
-            AlertUtils.makeInformation("Veuillez choisir un user");
-            return false;
-        }
         if (produitCB.getValue() == null) {
             AlertUtils.makeInformation("Veuillez choisir un produit");
             return false;

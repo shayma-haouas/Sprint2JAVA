@@ -1,3 +1,4 @@
+
 package edu.esprit.flo.controllers.commande;
 
 
@@ -13,11 +14,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 public class ManageController implements Initializable {
@@ -25,14 +30,9 @@ public class ManageController implements Initializable {
     @FXML
     public TextField montantTF;
     @FXML
-    public DatePicker datecmdDP;
-    @FXML
     public TextField lieucmdTF;
     @FXML
     public TextField quantiteTF;
-
-    @FXML
-    public ComboBox<User> userCB;
     @FXML
     public ComboBox<Produit> produitCB;
 
@@ -49,10 +49,6 @@ public class ManageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        for (User user : CommandeService.getInstance().getAllUsers()) {
-            userCB.getItems().add(user);
-        }
-
         for (Produit produit : CommandeService.getInstance().getAllProduits()) {
             produitCB.getItems().add(produit);
         }
@@ -65,7 +61,7 @@ public class ManageController implements Initializable {
             montantTF.setText("0");
             quantiteTF.setText("0");
         } else {
-            montantTF.setText(String.valueOf(selectedProduit.getPrix()) );
+            montantTF.setText(String.valueOf(selectedProduit.getPrix()));
             quantiteTF.setText("1");
         }
 
@@ -84,7 +80,7 @@ public class ManageController implements Initializable {
             } catch (NumberFormatException ignored) {
             }
 
-            montantTF.setText( String.valueOf(produit.getPrix() * quantite));
+            montantTF.setText(String.valueOf(produit.getPrix() * quantite));
         });
 
         quantiteTF.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -101,7 +97,7 @@ public class ManageController implements Initializable {
             } catch (NumberFormatException ignored) {
             }
 
-            montantTF.setText( String.valueOf(produit.getPrix() * quantite));
+            montantTF.setText(String.valueOf(produit.getPrix() * quantite));
         });
 
         if (currentCommande != null) {
@@ -110,11 +106,8 @@ public class ManageController implements Initializable {
 
             try {
                 montantTF.setText(String.valueOf(currentCommande.getMontant()));
-                datecmdDP.setValue(currentCommande.getDatecmd());
                 lieucmdTF.setText(currentCommande.getLieucmd());
                 quantiteTF.setText(String.valueOf(currentCommande.getQuantite()));
-
-                userCB.setValue(currentCommande.getUser());
                 produitCB.setValue(currentCommande.getProduit());
             } catch (NullPointerException ignored) {
                 System.out.println("NullPointerException");
@@ -127,21 +120,22 @@ public class ManageController implements Initializable {
 
     @FXML
     private void manage(ActionEvent ignored) {
-
         if (controleDeSaisie()) {
-
             Commande commande = new Commande();
             commande.setMontant(Float.parseFloat(montantTF.getText()));
-            commande.setDatecmd(datecmdDP.getValue());
+            commande.setDatecmd(LocalDate.now());
             commande.setLieucmd(lieucmdTF.getText());
             commande.setQuantite(Integer.parseInt(quantiteTF.getText()));
-
-            commande.setUser(userCB.getValue());
             commande.setProduit(produitCB.getValue());
 
             if (currentCommande == null) {
                 if (CommandeService.getInstance().add(commande)) {
                     AlertUtils.makeSuccessNotification("Commande ajouté avec succés");
+                    try {
+                        sendMail("dhia.bellakoud@esprit.tn");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     MainWindowController.getInstance().loadInterface(Constants.FXML_FRONT_DISPLAY_ALL_PRODUIT);
                 } else {
                     AlertUtils.makeError("Error");
@@ -160,15 +154,11 @@ public class ManageController implements Initializable {
         }
     }
 
-
     private boolean controleDeSaisie() {
-
-
         if (montantTF.getText().isEmpty()) {
             AlertUtils.makeInformation("montant ne doit pas etre vide");
             return false;
         }
-
 
         try {
             Float.parseFloat(montantTF.getText());
@@ -176,23 +166,16 @@ public class ManageController implements Initializable {
             AlertUtils.makeInformation("montant doit etre un réel");
             return false;
         }
-        if (datecmdDP.getValue() == null) {
-            AlertUtils.makeInformation("Choisir une date pour datecmd");
-            return false;
-        }
-
 
         if (lieucmdTF.getText().isEmpty()) {
             AlertUtils.makeInformation("lieucmd ne doit pas etre vide");
             return false;
         }
 
-
         if (quantiteTF.getText().isEmpty()) {
             AlertUtils.makeInformation("quantite ne doit pas etre vide");
             return false;
         }
-
 
         try {
             Integer.parseInt(quantiteTF.getText());
@@ -201,14 +184,50 @@ public class ManageController implements Initializable {
             return false;
         }
 
-        if (userCB.getValue() == null) {
-            AlertUtils.makeInformation("Veuillez choisir un user");
-            return false;
-        }
         if (produitCB.getValue() == null) {
             AlertUtils.makeInformation("Veuillez choisir un produit");
             return false;
         }
         return true;
+    }
+
+    public static void sendMail(String recipient) throws Exception {
+        System.out.println("Preparing to send email");
+        Properties properties = new Properties();
+
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.host", "smtp.gmail.com"); // Gmail SMTP server
+        properties.put("mail.smtp.port", "587"); // Gmail SMTP port
+
+        // Set up authentication
+        String myAccountEmail = "dhiabellakoud22@gmail.com"; // Your Gmail address
+        String password = "vuglgfpgvpoesgqw"; // Your Gmail password
+
+        // Create a session with account credentials
+        Session session = Session.getInstance(properties, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(myAccountEmail, password);
+            }
+        });
+
+        // Prepare email message
+        Message message;
+        try {
+            message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(myAccountEmail));
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
+            message.setSubject("Commande");
+            message.setContent("Votre commande a été bien enregistrée", "text/html");
+        } catch (MessagingException ex) {
+            System.out.println("Error in sending email");
+            ex.printStackTrace();
+            return;
+        }
+
+        // Send mail
+        Transport.send(message);
+        System.out.println("Mail sent successfully");
     }
 }
