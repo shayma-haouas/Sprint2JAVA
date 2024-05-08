@@ -3,11 +3,7 @@ package Controllers.UserController;
 import entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -48,6 +44,8 @@ public class AjouterUser {
 
     @FXML
     private DatePicker datePicker;
+    @FXML
+    private ToggleButton showPasswordToggle;
 
     private UserService userService = new UserService();
     private listUserController listUserController;
@@ -201,7 +199,14 @@ public class AjouterUser {
             this.listUserController = listUserController;
         }
 
-        // Autres méthodes de votre contrôleur
+    @FXML
+    public void toggleShowPassword(ActionEvent actionEvent) {  if (showPasswordToggle.isSelected()) {
+        // Si le bouton est enfoncé, montrer le texte du champ de mot de passe
+        PasswordField.setVisible(true);
+    } else {
+        // Sinon, masquer le texte du champ de mot de passe
+        PasswordField.setVisible(false);
+    }}
     }
 
 

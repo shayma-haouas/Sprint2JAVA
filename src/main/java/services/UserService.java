@@ -233,7 +233,7 @@ public class UserService implements  UserCrud<User> {
                 user.setRoles(resultSet.getString("roles"));
                 // Assuming resultSet is an instance of ResultSet
                 user.setDatenaissance(resultSet.getDate("datenaissance")); // Utilisez getDate pour récupérer une date
-                user.setNumber(resultSet.getInt("number")); // Utilisez getString pour récupérer une chaîne de caractères
+               user.setNumber(resultSet.getInt("number"));
                 user.setEmail(resultSet.getString("email"));
             }
         } catch (SQLException ex) {

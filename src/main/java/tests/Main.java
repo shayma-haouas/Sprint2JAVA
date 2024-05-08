@@ -21,11 +21,12 @@ public class Main {
         Fournisseur admin2 = new Fournisseur(1, "Jane", "Smith", "password", "janess98@example.com", "image.jpg", 654321, true, new Date());
 
         User u3 = new Client("houssem", "khalfaoui", "siwar123", "ROLE_CLIENT", "siwar22@gmail.com", "logo", 26986405, false, new Date(99, 5, 11));
+        User u4 = new User("hii", "khalfaoui", "siwar123",  "siwar656@gmail.com","ROLE_CLIENT", "logo", 26986405, false, new Date(99, 5, 11));
 
         a.add(u2);
         u2.setEmail("khalfaouui");
         a.update(u2);
-        a.add(u3);
+        a.signUp(u4);
         System.out.println(a.show());
 
         List<User> usersSortedByName = a.sortByName();

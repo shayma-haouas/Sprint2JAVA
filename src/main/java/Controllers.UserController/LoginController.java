@@ -14,7 +14,7 @@ import services.UserService;
 import java.io.IOException;
 
 public class LoginController {
-    static  String emailc;
+    static String emailc;
 
     @FXML
     private TextField emailField;
@@ -115,8 +115,29 @@ public class LoginController {
             e.printStackTrace();
         }
     }
+
     public static Session getSession() {
         return session;
     }
 
+    private boolean passwordVisible = false;
+
+    public void toggleShowPassword(ActionEvent actionEvent) {
+        passwordVisible = !passwordVisible;
+
+        // Si le mot de passe doit être affiché
+        if (passwordVisible) {
+            // Affichez le texte du mot de passe dans un champ de texte temporaire
+            Passwordfield.setPromptText(Passwordfield.getText());
+            Passwordfield.setText("");
+        } else {
+            // Masquez le texte du mot de passe et restaurez le texte masqué
+            StringBuilder maskedPassword = new StringBuilder();
+            for (int i = 0; i < Passwordfield.getPromptText().length(); i++) {
+                maskedPassword.append("*");
+            }
+            Passwordfield.setText(Passwordfield.getPromptText());
+            Passwordfield.setPromptText(null);
+        }
+    }
 }

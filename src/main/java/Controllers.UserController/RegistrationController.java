@@ -19,7 +19,6 @@ import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import org.mindrot.jbcrypt.BCrypt;
 import services.UserService;
 
 import javax.imageio.ImageIO;
@@ -263,17 +262,10 @@ public class RegistrationController {
         if (result.isPresent() && result.get() == buttonType) {
         }
     }
-    @FXML
     private void addUserToDatabase(String name, String lastname, String roles , String email, String password, String image, int number, Boolean is_verified, Date datenaissance) {
-        // Récupérer le coût pour l'algorithm BCrypt
-        int cost = 13;
 
-        // Générer le hachage du mot de passe avec BCrypt
-        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(cost));
-
-        // Continuer avec l'ajout de l'utilisateur
         String imageName = new File(image).getPath(); // Récupérer le nom de fichier à partir du chemin complet
-        User user = new User(name, lastname, roles, email, hashedPassword, imageName, number, is_verified, datenaissance);
+        User user = new User(name, lastname, roles, email, password, imageName, number, is_verified, datenaissance);
         UserService userService = new UserService();
         userService.signUp(user);
         boolean ajoutReussi = true;
