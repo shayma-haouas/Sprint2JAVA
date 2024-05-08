@@ -125,7 +125,7 @@ public class DonService {
         return false;
     }
 
-    public boolean delete(int id) {
+    //public boolean delete(int id) {
         try {
             preparedStatement = connection.prepareStatement("DELETE FROM `don` WHERE `id`=?");
             preparedStatement.setInt(1, id);
