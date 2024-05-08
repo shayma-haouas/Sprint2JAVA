@@ -39,11 +39,11 @@ public class LoginController {
         }
 
         UserService userService = new UserService();
-        String role = userService.getRole(email);
         boolean loginSuccessful = userService.login(email, password);
 
         if (loginSuccessful) {
             System.out.println("Login successful!");
+            String role = userService.getRole(email);
             try {
                 FXMLLoader loader;
                 if ("ROLE_CLIENT".equals(role)) {
@@ -72,8 +72,7 @@ public class LoginController {
         } else {
             showAlert(Alert.AlertType.ERROR, "Error", "Login Failed", "Incorrect email or password.");
         }
-
-}
+    }
 
 
     private boolean isValidEmail(String email) {

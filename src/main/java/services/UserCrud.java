@@ -51,4 +51,8 @@ public interface UserCrud<T> {
     String getRole(String email);
 
     void testEamil(String email);
+
+    void ban(User u) throws SQLException;
+
+    void unban(User u) throws SQLException;
 }

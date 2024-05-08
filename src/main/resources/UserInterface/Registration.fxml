@@ -157,7 +157,7 @@
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                       <TextField fx:id="captchaField" promptText="Enter Captcha" />
-                      <WebView fx:id="captchaWebView" prefHeight="100.0" prefWidth="201.0" />
+                      <WebView fx:id="captchaWebView"   prefHeight="100.0" prefWidth="201.0" />
                </children>
             </HBox>
 

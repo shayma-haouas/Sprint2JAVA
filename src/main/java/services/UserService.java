@@ -232,9 +232,8 @@ public class UserService implements  UserCrud<User> {
                 user.setLastname(resultSet.getString("lastname"));
                 user.setRoles(resultSet.getString("roles"));
                 // Assuming resultSet is an instance of ResultSet
-               // user.setDatenaissance(resultSet.getString("date_naissance"));
-                //user.setNumber(resultSet.getString("phone_number"));
-
+                user.setDatenaissance(resultSet.getDate("datenaissance")); // Utilisez getDate pour récupérer une date
+                user.setNumber(resultSet.getInt("number")); // Utilisez getString pour récupérer une chaîne de caractères
                 user.setEmail(resultSet.getString("email"));
             }
         } catch (SQLException ex) {
@@ -649,7 +648,24 @@ public String getRole(String email) {
 
         }
     }
+    @Override
+    public void ban(User u) throws SQLException {
 
+        String req = "UPDATE user SET is_banned = 1 where id = ?";
+        PreparedStatement ps = connection.prepareStatement(req);
+        ps.setInt(1, u.getId());
+        ps.executeUpdate();
+
+    }
+@Override
+    public void unban(User u) throws SQLException {
+
+        String req = "UPDATE user SET is_banned = 0 where id = ?";
+        PreparedStatement ps = connection.prepareStatement(req);
+        ps.setInt(1, u.getId());
+        ps.executeUpdate();
+
+    }
 
 }
 
