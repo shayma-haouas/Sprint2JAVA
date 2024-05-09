@@ -5,10 +5,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
 import services.ServiceSpon;
+import utils.MyDatabase;
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.*;
 
 public class CRUDsponsor {
     private ServiceSpon rcrd = new ServiceSpon();
@@ -27,6 +36,72 @@ public class CRUDsponsor {
     @FXML
     private Button btnenvoyer;
 
+
+
+
+
+
+    //EMAILLLLLL
+    public void sendMail(Sponsor sponsor) {
+        String recipient = sponsor.getEmail(); // Use the sponsor's email
+        if (!isValidEmail(recipient)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText(null);
+            alert.setContentText("L'adresse e-mail saisie n'est pas valide.");
+            alert.showAndWait();
+            return;
+        }
+
+        final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
+        Properties props = System.getProperties();
+        final String username = "ikbelbenmansour4@gmail.com";
+        final String password = "zxkt cbjg klyj cdlo";
+
+        props.setProperty("mail.smtp.host", "smtp.gmail.com");
+        props.setProperty("mail.smtp.socketFactory.class", SSL_FACTORY);
+        props.setProperty("mail.smtp.socketFactory.fallback", "false");
+        props.put("mail.smtp.starttls.enable","true");
+        props.setProperty("mail.smtp.port", "465");
+        props.setProperty("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.debug", "true");
+        props.put("mail.store.protocol", "pop3");
+        props.put("mail.transport.protocol", "smtp");
+
+        Session session = Session.getDefaultInstance(props,
+                new Authenticator() {
+                    @Override
+                    protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
+                        return new javax.mail.PasswordAuthentication(username, password);
+                    }
+                });
+
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(username));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient));
+            message.setSubject("Confirmation de réception de votre événement");
+            message.setText("Cher sponsor,\n"
+
+                    + sponsor.getName() // Use the sponsor's name
+                    + "+ \"Nous vous remercions sincèrement pour votre soutien à notre événement. Votre contribution est essentielle pour nous permettre de poursuivre nos efforts visant à créer un environnement plus propre et durable. Ensemble, nous pouvons faire une différence significative. Nous sommes impatients de voir les résultats de notre collaboration et de continuer à travailler ensemble pour un meilleur avenir. N'hésitez pas à nous contacter si vous avez besoin d'aide ou si vous souhaitez discuter de nos projets futurs. \nCordialement,\nL'équipe du service client.");
+
+            Transport.send(message);
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Succès");
+            alert.setHeaderText(null);
+            alert.setContentText("the email is sent to the sponsor successfully!");
+            alert.showAndWait();
+        } catch (MessagingException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur");
+            alert.setHeaderText(null);
+            alert.setContentText("Une erreur s'est produite lors de l'envoi du message : " + e.getMessage());
+            alert.showAndWait();
+        }
+    }
     @FXML
     void ajoutersponsor(ActionEvent event) {
         // Get the data from the input fields
@@ -96,6 +171,7 @@ public class CRUDsponsor {
             ex.printStackTrace();
             // You might want to show an error message to the user
         }
+        sendMail(sponsor);
     }
 
 
@@ -204,7 +280,35 @@ public class CRUDsponsor {
         });
 
         alert.showAndWait();
-    }}
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    @FXML
+    private Pane chartContainer;
+
+    public void setPieChartData(ObservableList<PieChart.Data> pieChartData) {
+        PieChart chart = new PieChart(pieChartData);
+        chart.setTitle("Sponsors and Events");
+        chartContainer.getChildren().add(chart);
+
+    }
+}
+
+
+
+
+
+
 
 
 

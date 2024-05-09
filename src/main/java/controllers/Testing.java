@@ -12,7 +12,7 @@ public class Testing extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/eventfront/market.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/eventback/SideBar.fxml"));
         primaryStage.setTitle("Event Market");
         primaryStage.setScene(new Scene(root, 800, 600));
         primaryStage.show();

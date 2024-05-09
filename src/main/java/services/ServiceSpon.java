@@ -8,7 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ServiceSpon implements CRUDspon<Sponsor>{
     Connection connection;
@@ -75,6 +77,32 @@ public void modifierSpon(Sponsor s) {
     }
 
 
+
+    //function FOR STATTTTTTTTTTTT
+
+
+
+    public List<Map<String, Object>> getSponsorEvents() {
+        List<Map<String, Object>> sponsorEvents = new ArrayList<>();
+        try {
+            String query = "SELECT s.name AS sponsorName, COUNT(e.id) AS eventCount " +
+                    "FROM sponsor s " +
+                    "JOIN evenement e ON s.id = e.sponsorId " +
+                    "GROUP BY s.name";
+            PreparedStatement pst = connection.prepareStatement(query);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                Map<String, Object> row = new HashMap<>();
+                row.put("sponsorName", rs.getString("sponsorName"));
+                row.put("eventCount", rs.getInt("eventCount"));
+                sponsorEvents.add(row);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return sponsorEvents;
+    }
     }
 
 
