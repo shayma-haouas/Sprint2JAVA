@@ -6,7 +6,10 @@ module com.example.flo {
     requires java.mail;
     requires org.apache.poi.poi;
     requires java.desktop;
+<<<<<<< HEAD
     requires itextpdf;
+=======
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
 
     opens com.example.flo to javafx.fxml;
     opens com.example.flo.entities to javafx.fxml;

@@ -60,17 +60,29 @@
                 <HBox.margin>
                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                 </HBox.margin>
+<<<<<<< HEAD
             <Button style="-fx-background-color: green;" textFill="WHITE" fx:id="repButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="light-button" text="Répondre">
+=======
+            <Button fx:id="repButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="light-button" text="Répondre">
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </Button>
+<<<<<<< HEAD
                 <Button style="-fx-background-color: green;" textFill="WHITE" fx:id="editButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="light-button" text="Modifier">
+=======
+                <Button fx:id="editButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="light-button" text="Modifier">
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
                     <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                     </VBox.margin>
                 </Button>
+<<<<<<< HEAD
                 <Button style="-fx-background-color: green;" textFill="WHITE" fx:id="deleteButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="light-button" text="Supprimer">
+=======
+                <Button fx:id="deleteButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="light-button" text="Supprimer">
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
                     <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                     </VBox.margin>

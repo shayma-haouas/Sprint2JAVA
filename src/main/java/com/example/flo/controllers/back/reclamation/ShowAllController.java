@@ -205,8 +205,11 @@ public class ShowAllController implements Initializable {
             e.printStackTrace();
         }
     }
+<<<<<<< HEAD
 
     public void openStats(ActionEvent actionEvent) {
         MainWindowController.getInstance().loadInterface(Constants.FXML_BACK_STATS_RECLAMATION);
     }
+=======
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
 }

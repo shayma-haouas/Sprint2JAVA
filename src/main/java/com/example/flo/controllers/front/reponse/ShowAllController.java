@@ -5,26 +5,36 @@ import com.example.flo.entities.Reponse;
 import com.example.flo.services.ReponseService;
 import com.example.flo.utils.AlertUtils;
 import com.example.flo.utils.Constants;
+<<<<<<< HEAD
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import javafx.event.ActionEvent;
+=======
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+<<<<<<< HEAD
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+=======
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+<<<<<<< HEAD
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -32,6 +42,10 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+=======
+import java.io.IOException;
+import java.net.URL;
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
 import java.util.*;
 
 public class ShowAllController implements Initializable {
@@ -42,10 +56,14 @@ public class ShowAllController implements Initializable {
     public Text topText;
     @FXML
     public VBox mainVBox;
+<<<<<<< HEAD
     @FXML
     public ComboBox<String> sortCB;
     @FXML
     public TextField searchTF;
+=======
+
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
 
     List<Reponse> listReponse;
 
@@ -53,6 +71,7 @@ public class ShowAllController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         listReponse = ReponseService.getInstance().getAll();
 
+<<<<<<< HEAD
         sortCB.getItems().addAll(
                 "Tri par description",
                 "Tri par date ajout",
@@ -63,10 +82,17 @@ public class ShowAllController implements Initializable {
     }
 
     void displayData(String searchText) {
+=======
+        displayData();
+    }
+
+    void displayData() {
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
         mainVBox.getChildren().clear();
 
         Collections.reverse(listReponse);
 
+<<<<<<< HEAD
         listReponse.stream()
                 .filter(reponse -> searchText.isEmpty()
                         || reponse.getDescription().toLowerCase().contains(searchText.toLowerCase()))
@@ -74,6 +100,15 @@ public class ShowAllController implements Initializable {
                 .forEach(mainVBox.getChildren()::add);
 
         if (listReponse.isEmpty()) {
+=======
+        if (!listReponse.isEmpty()) {
+            for (Reponse reponse : listReponse) {
+
+                mainVBox.getChildren().add(makeReponseModel(reponse));
+
+            }
+        } else {
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
             StackPane stackPane = new StackPane();
             stackPane.setAlignment(Pos.CENTER);
             stackPane.setPrefHeight(200);
@@ -95,7 +130,10 @@ public class ShowAllController implements Initializable {
             ((Text) innerContainer.lookup("#datemodifText")).setText("Datemodif : " + reponse.getDatemodif());
             ((Text) innerContainer.lookup("#reclamationText")).setText("Reclamation : " + reponse.getReclamation().toString());
 
+<<<<<<< HEAD
             ((javafx.scene.control.Button) innerContainer.lookup("#pdfButton")).setOnAction((ignored) -> genererPDF(reponse));
+=======
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
             ((Button) innerContainer.lookup("#deleteButton")).setOnAction((ignored) -> supprimerReponse(reponse));
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
@@ -122,6 +160,7 @@ public class ShowAllController implements Initializable {
             }
         }
     }
+<<<<<<< HEAD
 
     @FXML
     public void sort(ActionEvent actionEvent) {
@@ -164,4 +203,6 @@ public class ShowAllController implements Initializable {
         }
     }
 
+=======
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
 }

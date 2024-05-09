@@ -7,14 +7,22 @@
             xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.example.flo.controllers.LoginController" style="-fx-background-color: white">
 
+<<<<<<< HEAD
     <Button style="-fx-background-color: green;" textFill="WHITE" layoutX="100.0" layoutY="20" mnemonicParsing="false" onAction="#front"
+=======
+    <Button layoutX="100.0" layoutY="20" mnemonicParsing="false" onAction="#front"
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
             text="Front" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0">
         <font>
             <Font name="System Bold" size="16.0"/>
         </font>
     </Button>
 
+<<<<<<< HEAD
     <Button style="-fx-background-color: green;" textFill="WHITE" mnemonicParsing="false" onAction="#back" text="Back"
+=======
+    <Button mnemonicParsing="false" onAction="#back" text="Back"
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
             layoutY="80" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0">
         <font>
             <Font name="System Bold" size="16.0"/>

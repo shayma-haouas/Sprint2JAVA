@@ -5,21 +5,32 @@ import com.example.flo.entities.Reponse;
 import com.example.flo.services.ReponseService;
 import com.example.flo.utils.AlertUtils;
 import com.example.flo.utils.Constants;
+<<<<<<< HEAD
 import javafx.event.ActionEvent;
+=======
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+<<<<<<< HEAD
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.*;
+=======
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextField;
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+<<<<<<< HEAD
 import javafx.stage.FileChooser;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
@@ -34,6 +45,11 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+=======
+
+import java.io.IOException;
+import java.net.URL;
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
 import java.util.*;
 
 public class ShowAllController implements Initializable {
@@ -45,8 +61,11 @@ public class ShowAllController implements Initializable {
     @FXML
     public VBox mainVBox;
     @FXML
+<<<<<<< HEAD
     public ComboBox<String> sortCB;
     @FXML
+=======
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
     public TextField searchTF;
 
 
@@ -56,12 +75,15 @@ public class ShowAllController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         listReponse = ReponseService.getInstance().getAll();
 
+<<<<<<< HEAD
         sortCB.getItems().addAll(
                 "Tri par description",
                 "Tri par date ajout",
                 "Tri par date modif"
         );
 
+=======
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
         displayData("");
     }
 
@@ -135,6 +157,7 @@ public class ShowAllController implements Initializable {
         }
     }
 
+<<<<<<< HEAD
 
     @FXML
     public void sort(ActionEvent actionEvent) {
@@ -143,10 +166,13 @@ public class ShowAllController implements Initializable {
         displayData(searchTF.getText() == null ? "" : searchTF.getText());
     }
 
+=======
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
     @FXML
     public void search(KeyEvent keyEvent) {
         displayData(searchTF.getText());
     }
+<<<<<<< HEAD
 
     public void generateExcel(ActionEvent ignored) {
         String fileName = "reponse.xls";
@@ -192,4 +218,6 @@ public class ShowAllController implements Initializable {
         }
     }
 
+=======
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
 }

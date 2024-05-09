@@ -5,26 +5,36 @@ import com.example.flo.entities.Reclamation;
 import com.example.flo.services.ReclamationService;
 import com.example.flo.utils.AlertUtils;
 import com.example.flo.utils.Constants;
+<<<<<<< HEAD
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
+=======
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+<<<<<<< HEAD
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+=======
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+<<<<<<< HEAD
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -32,6 +42,10 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+=======
+import java.io.IOException;
+import java.net.URL;
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
 import java.util.*;
 
 public class ShowAllController implements Initializable {
@@ -44,10 +58,13 @@ public class ShowAllController implements Initializable {
     public Button addButton;
     @FXML
     public VBox mainVBox;
+<<<<<<< HEAD
     @FXML
     public ComboBox<String> sortCB;
     @FXML
     public TextField searchTF;
+=======
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
 
 
     List<Reclamation> listReclamation;
@@ -56,6 +73,7 @@ public class ShowAllController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         listReclamation = ReclamationService.getInstance().getAll();
 
+<<<<<<< HEAD
         sortCB.getItems().addAll(
                 "Tri par type",
                 "Tri par description",
@@ -69,10 +87,17 @@ public class ShowAllController implements Initializable {
 
 
     void displayData(String searchText) {
+=======
+        displayData();
+    }
+
+    void displayData() {
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
         mainVBox.getChildren().clear();
 
         Collections.reverse(listReclamation);
 
+<<<<<<< HEAD
         listReclamation.stream()
                 .filter(
                         reclamation -> searchText.isEmpty()
@@ -84,6 +109,15 @@ public class ShowAllController implements Initializable {
                 .forEach(mainVBox.getChildren()::add);
 
         if (listReclamation.isEmpty()) {
+=======
+        if (!listReclamation.isEmpty()) {
+            for (Reclamation reclamation : listReclamation) {
+
+                mainVBox.getChildren().add(makeReclamationModel(reclamation));
+
+            }
+        } else {
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
             StackPane stackPane = new StackPane();
             stackPane.setAlignment(Pos.CENTER);
             stackPane.setPrefHeight(200);
@@ -107,7 +141,11 @@ public class ShowAllController implements Initializable {
 
             ((Text) innerContainer.lookup("#userText")).setText("User : " + reclamation.getUser().toString());
 
+<<<<<<< HEAD
             ((javafx.scene.control.Button) innerContainer.lookup("#pdfButton")).setOnAction((ignored) -> genererPDF(reclamation));
+=======
+
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
             ((Button) innerContainer.lookup("#editButton")).setOnAction((ignored) -> modifierReclamation(reclamation));
             ((Button) innerContainer.lookup("#deleteButton")).setOnAction((ignored) -> supprimerReclamation(reclamation));
 
@@ -149,6 +187,7 @@ public class ShowAllController implements Initializable {
         }
     }
 
+<<<<<<< HEAD
     @FXML
     public void sort(ActionEvent actionEvent) {
         Reclamation.compareVar = sortCB.getValue();
@@ -190,5 +229,7 @@ public class ShowAllController implements Initializable {
         }
     }
 
+=======
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
 
 }

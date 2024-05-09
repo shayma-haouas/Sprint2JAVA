@@ -38,8 +38,14 @@
         </HBox>
 
     </VBox>
+<<<<<<< HEAD
     <Button style="-fx-background-color: green;" textFill="WHITE" fx:id="btnAjout" layoutX="265.0" layoutY="434.0" mnemonicParsing="false" onAction="#manage"
             prefHeight="51.0" prefWidth="150.0" styleClass="success-button" text="manipulation" textAlignment="CENTER"
              wrapText="true" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="260.0"
+=======
+    <Button fx:id="btnAjout" layoutX="265.0" layoutY="434.0" mnemonicParsing="false" onAction="#manage"
+            prefHeight="51.0" prefWidth="150.0" styleClass="success-button" text="manipulation" textAlignment="CENTER"
+            textFill="WHITE" wrapText="true" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="260.0"
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
             AnchorPane.rightAnchor="260.0"/>
 </AnchorPane>

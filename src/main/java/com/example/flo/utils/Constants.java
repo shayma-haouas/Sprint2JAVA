@@ -12,7 +12,10 @@ public class Constants {
     public static final String FXML_BACK_DISPLAY_ALL_RECLAMATION = PACKAGE_NAME + "/back/reclamation/ShowAll.fxml";
     public static final String FXML_BACK_MODEL_RECLAMATION = PACKAGE_NAME + "/back/reclamation/Model.fxml";
     public static final String FXML_BACK_MANAGE_RECLAMATION = PACKAGE_NAME + "/back/reclamation/Manage.fxml";
+<<<<<<< HEAD
     public static final String FXML_BACK_STATS_RECLAMATION = PACKAGE_NAME + "/back/reclamation/Statistics.fxml";
+=======
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
     public static final String FXML_FRONT_DISPLAY_ALL_RECLAMATION = PACKAGE_NAME + "/front/reclamation/ShowAll.fxml";
     public static final String FXML_FRONT_MODEL_RECLAMATION = PACKAGE_NAME + "/front/reclamation/Model.fxml";
     public static final String FXML_FRONT_MANAGE_RECLAMATION = PACKAGE_NAME + "/front/reclamation/Manage.fxml";

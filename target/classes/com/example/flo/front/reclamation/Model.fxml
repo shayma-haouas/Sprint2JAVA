@@ -60,6 +60,7 @@
                 <HBox.margin>
                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                 </HBox.margin>
+<<<<<<< HEAD
                 <Button fx:id="pdfButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
                         mnemonicParsing="false" style="-fx-background-color: green;" styleClass="light-button"
                         text="PDF" textFill="WHITE">
@@ -70,13 +71,21 @@
                 <Button fx:id="editButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
                         mnemonicParsing="false" style="-fx-background-color: green;" styleClass="light-button"
                         text="Modifier" textFill="WHITE">
+=======
+                <Button fx:id="editButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                        mnemonicParsing="false" text="Modifier" styleClass="light-button">
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
                     <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                     </VBox.margin>
                 </Button>
                 <Button fx:id="deleteButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+<<<<<<< HEAD
                         mnemonicParsing="false" style="-fx-background-color: green;" styleClass="light-button"
                         text="Supprimer" textFill="WHITE">
+=======
+                        mnemonicParsing="false" text="Supprimer" styleClass="light-button">
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
                     <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                     </VBox.margin>

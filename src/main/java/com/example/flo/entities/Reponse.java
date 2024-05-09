@@ -3,7 +3,11 @@ package com.example.flo.entities;
 
 import java.time.LocalDate;
 
+<<<<<<< HEAD
 public class Reponse implements Comparable<Reponse> {
+=======
+public class Reponse {
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
 
     private int id;
     private String description;
@@ -60,6 +64,7 @@ public class Reponse implements Comparable<Reponse> {
     public String toString() {
         return description;
     }
+<<<<<<< HEAD
     public static String compareVar;
 
     public int compareTo(Reponse reponse) {
@@ -72,3 +77,6 @@ public class Reponse implements Comparable<Reponse> {
     }
 }
 
+=======
+}
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c

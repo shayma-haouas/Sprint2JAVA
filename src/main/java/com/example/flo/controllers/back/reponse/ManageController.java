@@ -71,7 +71,11 @@ public class ManageController implements Initializable {
 
                 if (ReponseService.getInstance().add(reponse)) {
                     try {
+<<<<<<< HEAD
                         sendMail("grimhype97@gmail.com");
+=======
+                        sendMail("oussama.bahrouni@esprit.tn");
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

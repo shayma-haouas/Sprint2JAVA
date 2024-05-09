@@ -52,6 +52,7 @@
             <version>1.6.2</version>
         </dependency>
 
+<<<<<<< HEAD
         <!-- PDF -->
         <dependency>
             <groupId>com.itextpdf</groupId>
@@ -59,6 +60,8 @@
             <version>5.5.13.3</version>
         </dependency>
 
+=======
+>>>>>>> 06e48e4029121d080aecfbb04575f148468b618c
 
     </dependencies>
 
