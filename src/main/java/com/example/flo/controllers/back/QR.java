@@ -40,5 +40,5 @@ public class QR {
         public static void main(String[] args) {
             launch(args);
         }
-    
+
 }
