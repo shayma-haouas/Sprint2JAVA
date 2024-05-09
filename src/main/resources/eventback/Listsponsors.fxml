@@ -41,7 +41,7 @@
             <font>
                 <Font name="System Bold Italic" size="15.0" />
             </font></Button>
-        <TextField fx:id="searchInput" layoutX="422.0" layoutY="157.0" onAction="#searchSponsors" prefHeight="37.0" prefWidth="226.0" />
+        <TextField fx:id="searchInput" layoutX="422.0" layoutY="157.0"  prefHeight="37.0" prefWidth="226.0" />
         <ScrollPane hbarPolicy="NEVER" layoutX="77.0" layoutY="199.0" prefHeight="368.0" prefWidth="929.0" styleClass="user_listScrollPane">
             <content>
                 <!-- <VBox fx:id="SPListContainer" spacing="13.0" layoutX="93.0" layoutY="245.0" prefHeight="367.0" prefWidth="915.0" styleClass="vbox-style">-->

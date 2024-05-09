@@ -1,23 +1,35 @@
 package controllers;
 
 import entities.Evenement;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import services.ServiceEvenement;
+import javafx.scene.layout.VBox;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class REC {
 
@@ -91,4 +103,74 @@ public class REC {
             // Log any exceptions
             e.printStackTrace();
         }
-    }}
+    }
+
+@FXML
+private HBox eventDetailsContainer;
+    @FXML
+    private HBox allEventDetailsVBox;
+    private VBox createEventDetailsVBox(Map<String, String> event) {
+        VBox eventVBox = new VBox(15); // Spacing between children
+        //eventVBox.setAlignment(Pos.CENTER);
+
+        AnchorPane.setTopAnchor(allEventDetailsVBox, 0.0);
+        AnchorPane.setRightAnchor(allEventDetailsVBox, 0.0);
+        AnchorPane.setBottomAnchor(allEventDetailsVBox, 0.0);
+        AnchorPane.setLeftAnchor(allEventDetailsVBox, 0.0);
+        eventVBox.getStyleClass().add("event-cardd"); // Apply the.event-card style
+        // Populate the VBox with labels
+        Label idLabel = new Label("ID: ");
+        Label nameEventLabel = new Label("Name Event: ");
+        Label dateDebutLabel = new Label("Date Debut: ");
+        Label imageLabel = new Label("Image: ");
+        Label daysUntilEventLabel = new Label("Days Until Event: ");
+
+        // Assuming you have methods to update these labels
+        idLabel.setText(event.get("id"));
+        nameEventLabel.setText(event.get("nameevent"));
+        dateDebutLabel.setText(event.get("datedebut"));
+        imageLabel.setText(event.get("image")); // Or load and display the image
+     // Replace with actual logic
+        // Set the text for daysUntilEventLabel based on the event data
+        String daysUntilEvent = event.get("days_until_event");
+        if (daysUntilEvent!= null &&!daysUntilEvent.isEmpty()) {
+            daysUntilEventLabel.setText(daysUntilEvent);
+        } else {
+            daysUntilEventLabel.setText("N/A"); // Default text if no days_until_event is available
+        }
+
+        daysUntilEventLabel.setText(event.get("days_until_event"));  // Replace with actual logic
+
+
+        // Check if the image path is not null before attempting to read the image
+        if (event.get("image")!= null) {
+            try {
+                BufferedImage bufferedImage = ImageIO.read(new File(event.get("image")));
+                Image fxImage = SwingFXUtils.toFXImage(bufferedImage, null);
+                ImageView imageView = new ImageView(fxImage);
+
+                // Set the ImageView size to a fixed value
+                imageView.setFitWidth(100); // Width
+                imageView.setFitHeight(100); // Height
+
+                // Add the ImageView to the VBox
+                eventVBox.getChildren().addAll(nameEventLabel, dateDebutLabel, imageView, daysUntilEventLabel);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            // Handle the case where the image path is null
+            System.out.println("No image found for event ID: " + event.get("id"));
+        }
+
+
+        return eventVBox;}
+    public void setEvents(List<Map<String, String>> eventsList) {
+        HBox allEventDetailsVBox = (HBox) eventDetailsContainer.getChildren().get(0);// Get the container for all event details
+
+        for (Map<String, String> event : eventsList) {
+            VBox eventVBox = createEventDetailsVBox(event);
+            allEventDetailsVBox.getChildren().add(eventVBox);
+        }
+    }
+}

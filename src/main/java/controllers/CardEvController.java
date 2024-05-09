@@ -27,7 +27,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 public class CardEvController implements Initializable {
-
+//dossier zeyed
     String path="";
 
     @FXML

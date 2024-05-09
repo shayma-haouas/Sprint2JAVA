@@ -37,7 +37,7 @@ public class ListEvback {
 
     //nalabo welyna
 
-
+/*
     @FXML
     private void goToRecommendedEvents(ActionEvent event) {
         try {
@@ -62,7 +62,7 @@ public class ListEvback {
             e.printStackTrace();
         }
     }
-
+*/
     @FXML
     private Pane content_area;
 

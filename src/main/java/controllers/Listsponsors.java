@@ -52,49 +52,55 @@ public class Listsponsors {
     @FXML
     private TextField searchInput;
 
-
+    private ObservableList<Sponsor> originalSponsorList;
 
     @FXML
     private void triNomD(ActionEvent event) {
-        // Sort the list in descending order by Sponsor name
-        listrec.getItems().sort(Comparator.comparing(Sponsor::getName).reversed());
+        // Sort the list in descending order by Sponsor name using streams
+        listrec.getItems().setAll(listrec.getItems().stream()
+                .sorted(Comparator.comparing(Sponsor::getName).reversed())
+                .toList());
     }
 
     // Method to perform sorting in ascending order
     @FXML
     private void triNomA(ActionEvent event) {
-        // Sort the list in ascending order by Sponsor name
-        listrec.getItems().sort(Comparator.comparing(Sponsor::getName));
+        // Sort the list in ascending order by Sponsor name using streams
+        listrec.getItems().setAll(listrec.getItems().stream()
+                .sorted(Comparator.comparing(Sponsor::getName))
+                .toList());
     }
 
-    // Method to perform searching
-    private ObservableList<Sponsor> originalSponsorList;
+
+
 
     @FXML
-    private void searchSponsors(ActionEvent event) {
-        // Get the search term from the input field
-        String searchTerm = searchInput.getText().toLowerCase();
+    private void initialize() {
+        // Set listener for search input field to perform search automatically
+        searchInput.textProperty().addListener((observable, oldValue, newValue) -> {
+            // Get the search term from the input field
+            String searchTerm = newValue.toLowerCase();
 
-        // If the original list is null, store it for the first time
-        if (originalSponsorList == null) {
-            originalSponsorList = FXCollections.observableArrayList(listrec.getItems());
-        }
+            // If the original list is null, store it for the first time
+            if (originalSponsorList == null) {
+                originalSponsorList = FXCollections.observableArrayList(listrec.getItems());
+            }
 
-        // Filter the original list based on the search term
-        FilteredList<Sponsor> filteredList = new FilteredList<>(originalSponsorList);
-        filteredList.setPredicate(sponsor -> sponsor.getName().toLowerCase().contains(searchTerm));
+            // Filter the original list based on the search term
+            FilteredList<Sponsor> filteredList = new FilteredList<>(originalSponsorList);
+            filteredList.setPredicate(sponsor -> sponsor.getName().toLowerCase().contains(searchTerm));
 
-        // Update the ListView with the filtered list
-        listrec.setItems(filteredList);
-    }
+            // Update the ListView with the filtered list
+            listrec.setItems(filteredList);
+        });
 
-
-
-
+        // Set the SponsorListCell as the cell factory for the ListView
+        listrec.setCellFactory(new SponsorCellFactory());
+        listrec.setCellFactory(param -> new SponsorListCell(listrec));}
     @FXML
     private VBox SPListContainer;
 
-    @FXML
+   /* @FXML
 
     public void initialize() {
         // Set the SponsorListCell as the cell factory for the ListView
@@ -108,7 +114,7 @@ public class Listsponsors {
         //  SPListContainer.setVisible(true);
         //}
         //});
-    }
+    }*/
 
     @FXML
     public void showw() {
@@ -176,14 +182,14 @@ public class Listsponsors {
             // Add action listeners for edit and delete buttons
             editButton.setOnAction(event -> {
                 Sponsor sponsor = getItem();
-                if (sponsor!= null) {
+                if (sponsor != null) {
                     openEditSponsorInterface(sponsor);
                 }
             });
 
             deleteButton.setOnAction(event -> {
                 Sponsor sponsor = getItem();
-                if (sponsor!= null) {
+                if (sponsor != null) {
                     // Remove the sponsor from the ListView
                     listView.getItems().remove(sponsor);
                     // Call your deletion method here passing the sponsor's ID
@@ -194,9 +200,33 @@ public class Listsponsors {
             // Optionally, you can set spacing between buttons or customize the layout
             buttonsContainer.setSpacing(10);
 
+            // Place the buttons container on the right side of the BorderPane
+            cellPane.setRight(buttonsContainer);
+
             // Set the container as the graphic of the cell
             setGraphic(cellPane);
         }
+
+
+    @Override
+    protected void updateItem(Sponsor sponsor, boolean empty) {
+        super.updateItem(sponsor, empty);
+
+        if (empty || sponsor == null) {
+            setText(null);
+            setGraphic(null);
+        } else {
+            Label sponsorDetailsLabel = new Label(String.format("Name: %s\nNumber: %d\nEmail: %s",
+                    sponsor.getName(), sponsor.getNumber(), sponsor.getEmail()));
+
+            // Set the sponsor details label to the left of the BorderPane
+            cellPane.setLeft(sponsorDetailsLabel);
+
+            // Set the BorderPane as the graphic of the cell
+            setGraphic(cellPane);
+        }
+    }}
+
 
         private void openEditSponsorInterface(Sponsor sponsor) {
             try {
@@ -288,25 +318,6 @@ public class Listsponsors {
             alert.showAndWait();
         }
 
-        @Override
-        protected void updateItem(Sponsor sponsor, boolean empty) {
-            super.updateItem(sponsor, empty);
-
-            if (empty || sponsor == null) {
-                setText(null);
-                setGraphic(null);
-            } else {
-                Label sponsorDetailsLabel = new Label(String.format("Name: %s\nNumber: %d\nEmail: %s",
-                        sponsor.getName(), sponsor.getNumber(), sponsor.getEmail()));
-
-                // Set the sponsor details label to the left of the BorderPane
-                cellPane.setLeft(sponsorDetailsLabel);
-
-                // Set the BorderPane as the graphic of the cell
-                setGraphic(cellPane);
-            }
-        }
-    }
 
 
     //By extending ListCell<Sponsor>, you're creating a
