@@ -12,10 +12,6 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Properties;
 
-/**
- *
- * @author maham
- */
 public class Sendmail extends imResetPassword {
     final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
     Properties props = System.getProperties();

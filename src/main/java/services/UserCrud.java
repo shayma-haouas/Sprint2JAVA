@@ -1,7 +1,6 @@
 package services;
 
 import entities.User;
-import javafx.scene.Node;
 
 import java.sql.Date;
 import java.sql.SQLException;
@@ -43,7 +42,11 @@ public interface UserCrud<T> {
 
     boolean isEmailUsed(String email);
 
+    boolean signup(User user);
+
     boolean login(String email, String password);
+
+    String loginQr(User user);
 
     User getUserByEmail(String email);
 
@@ -53,7 +56,9 @@ public interface UserCrud<T> {
     void testEamil(String email);
 
 
-    void banUser(User user) throws SQLException;
+    boolean banUser(User user) throws SQLException;
 
     void unbanUser(User user) throws SQLException;
+
+
 }

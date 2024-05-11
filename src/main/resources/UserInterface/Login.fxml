@@ -15,23 +15,23 @@
 
 <AnchorPane prefHeight="700.0" prefWidth="1000.0" stylesheets="@../css/Login.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.UserController.LoginController">
     <children>
-        <ImageView fitHeight="601.0" fitWidth="1000.0" layoutY="99.0">
+        <ImageView fitHeight="613.0" fitWidth="1000.0" layoutY="99.0">
             <image>
                 <Image url="@../img/back.jpg" />
             </image>
         </ImageView>
-        <VBox layoutX="500.0" layoutY="129.0" prefHeight="425.0" prefWidth="395.0" spacing="20.0" styleClass="vbox-style" AnchorPane.rightAnchor="105.0">
+        <VBox layoutX="500.0" layoutY="158.0" prefHeight="508.0" prefWidth="395.0" spacing="20.0" styleClass="vbox-style" AnchorPane.rightAnchor="105.0">
             <children>
                 <Text fill="#111111" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-field" text="Let's Connect">
                     <VBox.margin>
-                        <Insets left="70.0" top="10.0" />
+                        <Insets left="50.0" />
                     </VBox.margin>
                     <font>
                         <Font size="34.0" />
                     </font></Text>
                 <Text fill="#fcf9f9" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-field" text="To Your Acount">
                     <VBox.margin>
-                        <Insets left="70.0" />
+                        <Insets left="50.0" top="-20.0" />
                     </VBox.margin>
                     <font>
                         <Font size="37.0" />
@@ -60,13 +60,11 @@
                   <Insets left="30.0" />
                </VBox.margin>
             </HBox>
-
-
                 <HBox prefHeight="100.0" prefWidth="200.0">
                     <children>
                         <Text fill="#f8f6f6" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-field" text="You don't Have An Acount ?">
                             <font>
-                                <Font name="Arial Rounded MT Bold" size="12.0" />
+                                <Font name="Arial Rounded MT Bold" size="13.0" />
                             </font>
                             <HBox.margin>
                                 <Insets top="1.0" />
@@ -98,10 +96,34 @@
                     <font>
                         <Font size="22.0" />
                     </font></Button>
+
+                <Button layoutX="256.0" layoutY="594.0" mnemonicParsing="false" onAction="#logQr" prefHeight="38.0" prefWidth="204.0" style="-fx-background-color: transparent;" text="Scan QRcode">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="28.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../img/icons8-qr-code-60.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+               <VBox.margin>
+                  <Insets left="70.0" right="50.0" />
+               </VBox.margin>
+                </Button>
+                <ImageView fx:id="imageView" fitHeight="42.0" fitWidth="97.0" layoutX="507.0" layoutY="529.0" pickOnBounds="true" preserveRatio="true">
+               <VBox.margin>
+                  <Insets left="130.0" />
+               </VBox.margin></ImageView>
+
             </children>
             <VBox.margin>
                 <Insets left="20.0" />
             </VBox.margin>
+         <padding>
+            <Insets right="-5.0" />
+         </padding>
 
         </VBox>
         <HBox prefHeight="100.0" prefWidth="1000.0" styleClass="hbox-style" />

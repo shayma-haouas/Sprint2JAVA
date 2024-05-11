@@ -2,13 +2,17 @@ package Controllers.UserController;
 
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 import entities.User;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,8 +21,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -26,7 +28,6 @@ import javafx.util.Duration;
 import services.UserService;
 import nl.captcha.Captcha;
 import nl.captcha.backgrounds.GradiatedBackgroundProducer;
-import nl.captcha.noise.CurvedLineNoiseProducer;
 import tray.animations.AnimationType;
 import tray.notification.NotificationType;
 import tray.notification.TrayNotification;
@@ -34,16 +35,12 @@ import tray.notification.TrayNotification;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.Date;
-import java.util.Optional;
-import java.util.Random;
-import java.util.ResourceBundle;
+import java.nio.file.*;
+import java.util.*;
 
 public class RegistrationController  implements Initializable {
 
@@ -86,6 +83,8 @@ public class RegistrationController  implements Initializable {
 
     @FXML
     private Button submit;
+    private String qrPath;
+    private RegistrationController QRCodeGenerator;
 
     public Captcha setCaptcha() {
         Captcha captchaV = new Captcha.Builder(250, 200)
@@ -107,33 +106,21 @@ public class RegistrationController  implements Initializable {
     Captcha captcha;
 
 
-
-    @FXML
+    @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         // Chargez le captcha dans le WebView
-        captcha =  setCaptcha();
-
+        captcha = setCaptcha();
     }
 
-
-
     @FXML
-    void Registratinclicked(ActionEvent event) {
+    void Registratinclicked(ActionEvent event) throws WriterException {
         String name = Firstnamefield.getText();
         String lastname = Lastnamefield.getText();
         String email = Emailfield.getText();
         String numberText = Numberfield.getText();
         String password = Passwordfield.getText();
-        String image = imagePath;
         DatePicker datenaissance = Datefield;
         String roles = "ROLE_CLIENT";
-
-
-        String enteredCaptcha = code.getText();
-        boolean isValidCaptcha = validateCaptcha(enteredCaptcha);
-
-
 
         if (email.isEmpty() || !email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
             showAlert(Alert.AlertType.ERROR, "Alert", "Erreur Saisie", "Veuillez saisir une adresse email valide.", StageStyle.DECORATED);
@@ -155,13 +142,12 @@ public class RegistrationController  implements Initializable {
             return;
         }
 
-        int number;
         if (!numberText.matches("[2479]\\d{7}")) {
             showAlert(Alert.AlertType.ERROR, "Alert", "Erreur Saisie", "Le numéro de téléphone doit contenir 8 chiffres et commencer par 2, 4, 7 ou 9.", StageStyle.DECORATED);
             return;
         }
 
-
+        int number;
         try {
             number = Integer.parseInt(numberText);
         } catch (NumberFormatException e) {
@@ -180,20 +166,27 @@ public class RegistrationController  implements Initializable {
             return;
         }
 
-
-
-        if (isValidCaptcha==false) {
+        boolean isValidCaptcha = validateCaptcha(code.getText());
+        if (!isValidCaptcha) {
             showAlert(Alert.AlertType.ERROR, "Alert", "Erreur Saisie", "Captcha incorrect.", StageStyle.DECORATED);
-
-
-        } else {
-
-            addUserToDatabase(name, lastname, password, email, roles, image, number, false, java.sql.Date.valueOf(datenaissance.getValue()));
+            return;
         }
 
+        // Générer et enregistrer le code QR
+        String qrPath = generateQRCodeAndSave(email,Passwordfield.getText());
 
+        User user = new User(name, lastname, roles, email, password, imagePath, number, false, java.sql.Date.valueOf(datenaissance.getValue()), qrPath);
+        user.setIs_banned(false);
+
+        userService.signUp(user);
+
+        // Afficher une notification de succès
+        showAlert(Alert.AlertType.INFORMATION, "Succès", "Utilisateur ajouté", "L'utilisateur a été ajouté avec succès à la base de données.", StageStyle.DECORATED);
 
         clearInputFields();
+    }
+    private void saveQRCodePathToDatabase(String email, String qrPath) {
+
     }
 
 
@@ -308,20 +301,20 @@ public class RegistrationController  implements Initializable {
         if (result.isPresent() && result.get() == buttonType) {
         }
     }
-    private void addUserToDatabase(String name, String lastname, String roles , String email, String password, String image, int number, Boolean is_verified, Date datenaissance) {
-
+    private  void addUserToDatabase(String name, String lastname, String roles, String email, String password, String image, int number, Boolean is_verified, Date datenaissance) {
         String imageName = new File(image).getPath(); // Récupérer le nom de fichier à partir du chemin complet
         User user = new User(name, lastname, roles, email, password, imageName, number, is_verified, datenaissance);
+
+        // Assurez-vous que is_banned est initialisé à 0
+        user.setIs_banned(false);
+
         UserService userService = new UserService();
         userService.signUp(user);
-        boolean ajoutReussi = true;
 
-        if (ajoutReussi) {
-            showAlert(Alert.AlertType.INFORMATION, "Succès", "Utilisateur ajouté", "L'utilisateur a été ajouté avec succès à la base de données.", StageStyle.DECORATED);
-        } else {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur d'ajout", "Une erreur s'est produite lors de l'ajout de l'utilisateur à la base de données.", StageStyle.DECORATED);
-        }
     }
+
+
+
 
 
 
@@ -400,6 +393,50 @@ public class RegistrationController  implements Initializable {
 
     }
 
+
+    public String generateQRCodeAndSave(String email, String password) throws WriterException {
+        // Concatenate the password and image path
+        String data = password + "|||" + email;
+        generateAndSaveQRCode(data);
+        // Generate the QR code for the concatenated data
+        String qrCodeFilePath = generateAndSaveQRCode(data);
+
+        // Return the file path of the generated QR code
+        return qrCodeFilePath;
+    }
+
+    private String generateAndSaveQRCode(String data) throws WriterException {
+         String  fileNamePrefix="fefefefefe";
+        // Generate the QR code
+        QRCodeWriter qrCodeWriter = new QRCodeWriter();
+        BitMatrix bitMatrix = qrCodeWriter.encode(data, BarcodeFormat.QR_CODE, 250, 250);
+        BufferedImage bufferedImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
+
+        // Convert the BufferedImage to a JavaFX Image
+        Image fxImage = SwingFXUtils.toFXImage(bufferedImage, null);
+
+        // Save the image to the specified directory
+        String directoryPath = "C:\\Users\\siwar\\OneDrive\\Bureau\\JAVASPRINT\\Sprint2JAVA\\src\\main\\resources\\img\\uploads\\";
+        Path directory = Paths.get(directoryPath);
+        if (!Files.exists(directory)) {
+            try {
+                Files.createDirectories(directory);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        String filePath = directoryPath + fileNamePrefix + "_" + data.hashCode() + ".png";
+        File file = new File(filePath);
+        try {
+            ImageIO.write(SwingFXUtils.fromFXImage(fxImage, null), "png", file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return filePath;
+    }
+
     private boolean validateCaptcha(String enteredCaptcha) {
         System.out.println(enteredCaptcha.equalsIgnoreCase(code.getText()));
         // Comparer le captcha entré par l'utilisateur avec le texte du captcha généré
@@ -407,4 +444,5 @@ public class RegistrationController  implements Initializable {
 
     }
 
-}
+
+  }

@@ -29,7 +29,7 @@
                 <Font size="22.0" />
             </font>
         </Text>
-        <Text fill="#594b4b" layoutX="285.0" layoutY="309.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Email" wrappingWidth="128.13671875">
+        <Text fill="#594b4b" layoutX="212.0" layoutY="285.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your New Password" wrappingWidth="201.13671875">
             <font>
                 <Font size="22.0" />
             </font>

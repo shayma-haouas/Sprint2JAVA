@@ -15,6 +15,20 @@ public class User {
     private int number;
     private Date datenaissance;
 
+    public String getQr_code() {
+        return qr_code;
+    }
+
+    public boolean isIs_verified() {
+        return is_verified;
+    }
+
+    public void setQr_code(String qr_code) {
+        this.qr_code = qr_code;
+    }
+
+    private String qr_code;
+
     public void setIs_banned(boolean is_banned) {
         this.is_banned = is_banned;
     }
@@ -61,6 +75,19 @@ public class User {
         this.number = number;
         this.is_verified = is_verified;
         this.datenaissance=datenaissance;
+    }
+    public User(String name, String lastname, String password, String email, String roles, String image, int number, boolean is_verified, Date datenaissance,String qr_code) {
+
+        this.name = name;
+        this.lastname = lastname;
+        this.password = password;
+        this.email = email;
+        this.roles = roles;
+        this.image = image;
+        this.number = number;
+        this.is_verified = is_verified;
+        this.datenaissance=datenaissance;
+        this.qr_code=qr_code;
     }
 
     public User(String email, String password) {

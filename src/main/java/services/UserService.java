@@ -1,6 +1,8 @@
 package services;
 
+import Controllers.UserController.RegistrationController;
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import com.google.zxing.WriterException;
 import entities.Reset;
 import entities.User;
 import javafx.fxml.FXMLLoader;
@@ -23,10 +25,12 @@ import java.util.logging.Logger;
 
 public class UserService implements  UserCrud<User> {
     Connection connection;
-
+    public static int id;
     public static String email;
     public static String password;
     public static String name;
+    public  static  String image;
+    public static   String roles;
     public UserService() {
         connection = MyDatabase.getInstance().getConnection();
 
@@ -42,8 +46,8 @@ public class UserService implements  UserCrud<User> {
             return; // Exit the method without adding the user
         }
 
-        String query = "INSERT INTO user (name, lastname, roles, email,password, image, number, is_verified, datenaissance) " +
-            "VALUES (?, ?, ?, ?, ?,?, ?, ?,?)";
+        String query = "INSERT INTO user (name, lastname, roles, email, password, image, number, is_verified, datenaissance, is_banned,qr_code) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 
         int cost = 13; // Exemple de coût utilisé par Symfony
 
@@ -62,12 +66,20 @@ public class UserService implements  UserCrud<User> {
             preparedStatement.setBoolean(8, user.getIs_verified());
             preparedStatement.setDate(9, new java.sql.Date(user.getDatenaissance().getTime()));
 
+            RegistrationController registrationController = new RegistrationController();
+            // Set is_banned to 0
+            preparedStatement.setBoolean(10, false);
+            preparedStatement.setString(11,registrationController.generateQRCodeAndSave( email,password ));
+
             preparedStatement.executeUpdate();
             System.out.println("User added successfully.");
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
+        } catch (WriterException e) {
+            throw new RuntimeException(e);
         }
     }
+
 
 
     @Override
@@ -155,6 +167,24 @@ public class UserService implements  UserCrud<User> {
             showAlert(Alert.AlertType.ERROR, "Error", "Email Already Used", "This email is already registered.", StageStyle.DECORATED);
         }
     }
+    @Override
+    public boolean signup(User user) {
+        if (!isEmailUsed(user.getEmail())) {
+            user.setRoles("ROLE_CLIENT");
+
+            try {
+                add(user);
+                return true; // L'inscription a été effectuée avec succès
+            } catch (SQLException e) {
+                System.out.println("Error: " + e.getMessage());
+                return false; // Une erreur s'est produite lors de l'inscription
+            }
+        } else {
+            showAlert(Alert.AlertType.ERROR, "Error", "Email Already Used", "This email is already registered.", StageStyle.DECORATED);
+            return false; // L'email est déjà utilisé, l'inscription n'a pas été effectuée
+        }
+    }
+
 
     private void showAlert(Alert.AlertType alertType, String title, String header, String message, StageStyle stageStyle) {
         Alert alert = new Alert(alertType);
@@ -167,25 +197,27 @@ public class UserService implements  UserCrud<User> {
     @Override
     public boolean login(String email, String password) {
         String query = "SELECT * FROM user WHERE email = ?";
+        boolean isBanned = false; // Pour vérifier si le compte est bloqué
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                String hashedPasswordFromDB = resultSet.getString("password");
-                if (BCrypt.verifyer().verify(password.toCharArray(), hashedPasswordFromDB).verified) {
-                    String role = resultSet.getString("roles");
-                    if (role.contains("ROLE_CLIENT") ) {
-                        loadProfileFXML();
-                        return true;
-                    }
-                    else if( role.contains("ROLE_FOURNISSEUR")){
-                        loadFourFXML();
-                        return true;
-
-                    }else if (role.contains("ROLE_ADMIN")) {
-                        loadSidebarFXML();
-                        return true;
+                isBanned = resultSet.getBoolean("is_banned"); // Récupérer l'état de l'interdiction
+                if (!isBanned) { // Vérifier si le compte n'est pas bloqué
+                    String hashedPasswordFromDB = resultSet.getString("password");
+                    if (BCrypt.verifyer().verify(password.toCharArray(), hashedPasswordFromDB).verified) {
+                        String role = resultSet.getString("roles");
+                        if (role.contains("ROLE_CLIENT")) {
+                            loadProfileFXML();
+                            return true;
+                        } else if (role.contains("ROLE_FOURNISSEUR")) {
+                            loadFourFXML();
+                            return true;
+                        } else if (role.contains("ROLE_ADMIN")) {
+                            loadSidebarFXML();
+                            return true;
+                        }
                     }
                 }
             }
@@ -193,8 +225,38 @@ public class UserService implements  UserCrud<User> {
             ex.printStackTrace();
         }
 
+        // Si le compte est bloqué ou si les identifiants sont incorrects, retourner false
         return false;
     }
+    public String loginQr(User user) {
+        String role = "";
+        try {
+            if (!user.getEmail().isEmpty() && !user.getPassword().isEmpty()) {
+                System.out.println("user found");
+                String req = "SELECT * FROM user WHERE email = ?";
+                PreparedStatement pst = connection.prepareStatement(req); // Utilisation de l'objet de connexion conx
+                pst.setString(1, user.getEmail());
+                ResultSet rs = pst.executeQuery();
+                if (rs.next()) {
+                    System.out.println("resuest  executes and ha ve  value");
+                    id = rs.getInt("id");
+                    name = rs.getString("name");
+                    role = rs.getString("roles");
+                    image = rs.getString("image");
+                    System.out.println("Bonjour :" + name);
+                } else {
+                    System.err.println("Veuillez vérifier vos données !");
+                }
+            } else {
+                System.out.println("Champs vides");
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        System.out.println("le  role de service est" +role);
+        return role;
+    }
+
 
 
     private void loadProfileFXML() {
@@ -669,17 +731,26 @@ public String getRole(String email) {
         }
     }
     @Override
-    public void banUser(User user) throws SQLException {
-        String query = "UPDATE user SET is_banned = ? WHERE id = ?";
+    public boolean banUser(User user) throws SQLException {
+        String query = "UPDATE user SET is_banned = ? WHERE email = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setBoolean(1, true);
-            preparedStatement.setInt(2, user.getId());
-            preparedStatement.executeUpdate();
-            System.out.println("User is_banned status updated successfully.");
+            preparedStatement.setBoolean(1, true); // Mettre à jour is_banned à true (1)
+            preparedStatement.setString(2, user.getEmail());
+            int rowsAffected = preparedStatement.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("User is_banned status updated successfully.");
+                return true; // Succès de la mise à jour
+            } else {
+                System.out.println("User with ID " + user.getId() + " not found.");
+                return false; // Aucune ligne mise à jour
+            }
         } catch (SQLException ex) {
             System.out.println("Error: " + ex.getMessage());
+            return false; // Erreur lors de l'exécution de la requête SQL
         }
     }
+
+
 
     @Override
     public void unbanUser(User user) throws SQLException {
@@ -693,6 +764,8 @@ public String getRole(String email) {
             System.out.println("Error: " + ex.getMessage());
         }
     }
+
+
 
 
 }

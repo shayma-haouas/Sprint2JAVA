@@ -167,59 +167,6 @@
                             <Insets top="10.0" />
                         </VBox.margin>
                     </HBox>
-
-                    <HBox fx:id="InvestBtn" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" onMouseClicked="#capturer" prefHeight="50.0" prefWidth="200.0" styleClass="nav-links">
-                        <children>
-                            <ImageView fx:id="investissementsIcon" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="image" translateX="-5.0">
-                                <HBox.margin>
-                                    <Insets right="15.0" />
-                                </HBox.margin>
-                                <image>
-                                    <Image url="@../img/logo.png" />
-                                </image>
-                            </ImageView>
-                            <Label fx:id="investissementsText" styleClass="text" text="Capture" textFill="WHITE">
-                                <font>
-                                    <Font name="Montserrat Regular" size="14.0" />
-                                </font>
-                                <HBox.margin>
-                                    <Insets bottom="-15.0" />
-                                </HBox.margin>
-                            </Label>
-                        </children>
-                        <padding>
-                            <Insets left="20.0" />
-                        </padding>
-                        <VBox.margin>
-                            <Insets top="10.0" />
-                        </VBox.margin>
-                    </HBox>
-                    <HBox fx:id="evenementsBtn" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="200.0" styleClass="nav-links">
-                        <children>
-                            <ImageView fx:id="evenementsIcon" fitHeight="30.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true" styleClass="image" translateX="-3.0">
-                                <HBox.margin>
-                                    <Insets right="15.0" />
-                                </HBox.margin>
-                                <image>
-                                    <Image url="@../img/logo.png" />
-                                </image>
-                            </ImageView>
-                            <Label fx:id="evenementsText" styleClass="text" text="Evènements" textFill="WHITE" translateX="3.0">
-                                <font>
-                                    <Font name="Montserrat Regular" size="14.0" />
-                                </font>
-                                <HBox.margin>
-                                    <Insets bottom="-15.0" />
-                                </HBox.margin>
-                            </Label>
-                        </children>
-                        <padding>
-                            <Insets left="20.0" />
-                        </padding>
-                        <VBox.margin>
-                            <Insets top="10.0" />
-                        </VBox.margin>
-                    </HBox>
                     <HBox fx:id="recBtn" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" onMouseClicked="#UpdateUser" prefHeight="50.0" prefWidth="200.0" styleClass="nav-links">
                         <children>
                             <ImageView fx:id="reclamationsIcon" fitHeight="40.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" styleClass="image" translateX="-4.0">

@@ -27,19 +27,19 @@ public class Main {
         u2.setEmail("khalfaouui");
         a.update(u2);
         a.signUp(u4);
-        System.out.println(a.show());
+        //System.out.println(a.show());
+        u4.isIs_banned();
+        //List<User> usersSortedByName = a.sortByName();
+       // System.out.println("Users sorted by name:");
+       // for (User user : usersSortedByName) {
+        //    System.out.println(user);
+       // }
 
-        List<User> usersSortedByName = a.sortByName();
-        System.out.println("Users sorted by name:");
-        for (User user : usersSortedByName) {
-            System.out.println(user);
-        }
-
-        List<User> usersSortedByEmail = a.sortByEmail();
+       /* List<User> usersSortedByEmail = a.sortByEmail();
         System.out.println("Users sorted by Email :");
         for (User user : usersSortedByEmail) {
             System.out.println(user);
-        }
+        }*/
 
         int userIdToSearch = 173; // Remplacez 3 par l'ID que vous souhaitez rechercher
         User foundUser = a.searchById(userIdToSearch);

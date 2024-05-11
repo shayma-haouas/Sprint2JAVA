@@ -26,6 +26,7 @@ import services.UserService;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Comparator;
@@ -116,8 +117,9 @@ public class listUserController {
 
 
 
-                            Button editButton = new Button("Editer");
-                            Button deleteButton = new Button("Supprimer");
+                            Button editButton = new Button("  Edit   ");
+                            Button deleteButton = new Button("Delete");
+                            Button unbanUser = new Button("Unban");
 
 
                             editButton.setOnAction(event -> {
@@ -129,13 +131,31 @@ public class listUserController {
                                 userListListView.getItems().remove(user);
                                 refreshUserList();
                             });
+                            unbanUser.setOnAction(event -> {
+                                try {
+                                    userService.unbanUser(user);
+                                    showAlert(Alert.AlertType.INFORMATION, "User Unbanned", "User has been successfully unbanned.", "");
+                                } catch (SQLException ex) {
+                                    showAlert(Alert.AlertType.ERROR, "Error", "Failed to unban user.", ex.getMessage());
+                                }
+                            });
+
 
                             // Créer un HBox pour aligner les boutons à droite
-                            HBox hbox = new HBox(editButton, deleteButton);
+                            HBox hbox = new HBox(editButton, deleteButton,unbanUser);
                             hbox.setSpacing(50); // Espace entre les boutons
-                            Insets buttonMargin = new Insets(100, 0, 0, 0); // Marge de 50 pixels en haut, 0 à droite, 0 en bas, 0 à gauche
+                            Insets buttonMargin = new Insets(50, 0, 0, 25);
+                            Insets buttonMargin2 = new Insets(190, 0, 0, -135);
+                            Insets buttonMargin3 = new Insets(120, 0, 0, -130);// Marge de 50 pixels en haut, 0 à droite, 0 en bas, 0 à gauche
+                            // Marge de 50 pixels en haut, 0 à droite, 0 en bas, 0 à gauche
+                            unbanUser.setStyle("-fx-background-color: red; -fx-text-fill: white; -fx-font-size: 20px;"); // Modifier la couleur, la couleur du texte et la taille du texte
+                            editButton.setStyle("-fx-background-color: #3CB371; -fx-text-fill: white; -fx-font-size: 20px;"); // Modifier la couleur, la couleur du texte et la taille du texte
+
+// Ajouter du style au bouton deleteButton
+                            deleteButton.setStyle("-fx-background-color: #FF5733; -fx-text-fill: white; -fx-font-size: 20px;"); // Modifier la couleur, la couleur du texte et la taille du texte
                             HBox.setMargin(editButton, buttonMargin);
-                            HBox.setMargin(deleteButton, buttonMargin);
+                            HBox.setMargin(deleteButton, buttonMargin3);
+                            HBox.setMargin(unbanUser, buttonMargin2);
                             // Créer un HBox global pour aligner les éléments
                             HBox globalHBox = new HBox(hBox, hbox);
                             globalHBox.setSpacing(20); // Espace entre le texte et les boutons
@@ -145,6 +165,15 @@ public class listUserController {
                             setGraphic(globalHBox);
                         }
                     }
+
+                    private void showAlert(Alert.AlertType alertType, String title, String header, String message) {
+                        Alert alert = new Alert(alertType);
+                        alert.setTitle(title);
+                        alert.setHeaderText(header);
+                        alert.setContentText(message);
+                        alert.showAndWait();
+                    }
+
                 };
             }
         });

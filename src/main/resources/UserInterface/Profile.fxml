@@ -54,7 +54,7 @@
                                         </Text>
                                         <Text fx:id="nameField" strokeType="OUTSIDE" strokeWidth="0.0">
                                             <font>
-                                                <Font name="Franklin Gothic Medium" size="23.0" />
+                                                <Font name="Franklin Gothic Medium" size="17.0" />
                                             </font>
                                             <HBox.margin>
                                                 <Insets top="15.0" />
@@ -64,17 +64,17 @@
                                 </HBox>
                                 <HBox layoutX="10.0" layoutY="54.0" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
                                     <children>
-                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="LastName :">
+                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name :">
                                             <font>
                                                 <Font name="Georgia Pro Cond Light Italic" size="30.0" />
                                             </font>
                                         </Text>
                                         <Text fx:id="lastnamefield" fill="#f5f4f4" strokeType="OUTSIDE" strokeWidth="0.0">
                                             <font>
-                                                <Font name="Franklin Gothic Medium Cond" size="23.0" />
+                                                <Font name="Franklin Gothic Medium Cond" size="21.0" />
                                             </font>
                                             <HBox.margin>
-                                                <Insets top="10.0" />
+                                                <Insets top="15.0" />
                                             </HBox.margin>
                                         </Text>
                                     </children>
@@ -88,10 +88,10 @@
                                         </Text>
                                         <Text fx:id="roleField" strokeType="OUTSIDE" strokeWidth="0.0">
                                             <font>
-                                                <Font name="Franklin Gothic Medium" size="23.0" />
+                                                <Font name="Franklin Gothic Medium Cond" size="21.0" />
                                             </font>
                                             <HBox.margin>
-                                                <Insets top="10.0" />
+                                                <Insets top="15.0" />
                                             </HBox.margin>
                                         </Text>
                                     </children>
@@ -105,10 +105,10 @@
                                         </Text>
                                         <Text fx:id="datenaissancefield" fill="#fcfcfc" strokeType="OUTSIDE" strokeWidth="0.0">
                                             <font>
-                                                <Font name="Franklin Gothic Medium" size="23.0" />
+                                                <Font name="Franklin Gothic Medium Cond" size="21.0" />
                                             </font>
                                             <HBox.margin>
-                                                <Insets top="10.0" />
+                                                <Insets top="15.0" />
                                             </HBox.margin>
                                         </Text>
                                     </children>
@@ -122,10 +122,10 @@
                                         </Text>
                                         <Text fx:id="numberfield" strokeType="OUTSIDE" strokeWidth="0.0">
                                             <font>
-                                                <Font name="Franklin Gothic Medium" size="23.0" />
+                                                <Font name="Franklin Gothic Medium Cond" size="21.0" />
                                             </font>
                                             <HBox.margin>
-                                                <Insets top="10.0" />
+                                                <Insets top="15.0" />
                                             </HBox.margin>
                                         </Text>
                                     </children>
@@ -139,10 +139,10 @@
                                         </Text>
                                         <Text fx:id="emailfield" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
                                             <font>
-                                                <Font name="Franklin Gothic Medium" size="23.0" />
+                                                <Font name="Franklin Gothic Medium Cond" size="21.0" />
                                             </font>
                                             <HBox.margin>
-                                                <Insets top="10.0" />
+                                                <Insets top="15.0" />
                                             </HBox.margin>
                                         </Text>
                                     </children>
@@ -151,16 +151,6 @@
                         </VBox>
                     </children>
                 </HBox>
-                <ImageView fitHeight="50.0" fitWidth="50.0" styleClass="circular-image" translateX="620.0" translateY="200.0">
-                    <image>
-                        <Image url="@../img/modifier.png" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="50.0" fitWidth="50.0" onMouseClicked="#retourC" styleClass="circular-image" translateX="700.0" translateY="200.0">
-                    <image>
-                        <Image url="@../img/refractor.png" />
-                    </image>
-                </ImageView>
                 <ImageView fitHeight="358.0" fitWidth="463.0" layoutX="700.0" layoutY="291.0" BorderPane.alignment="CENTER">
                     <image>
                         <Image url="@../img/haze-caring-for-the-environment-1.png" />
